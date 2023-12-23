@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using CoduTeam.Domain.Constants;
+﻿using CoduTeam.Domain.Constants;
 using CoduTeam.Domain.Entities;
 using CoduTeam.Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
@@ -83,7 +82,7 @@ public class ApplicationDbContextInitialiser
             await _userManager.CreateAsync(administrator, "Administrator1!");
             if (!string.IsNullOrWhiteSpace(administratorRole.Name))
             {
-                await _userManager.AddToRolesAsync(administrator, new [] { administratorRole.Name });
+                await _userManager.AddToRolesAsync(administrator, new[] { administratorRole.Name });
             }
         }
 
