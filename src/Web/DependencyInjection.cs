@@ -3,7 +3,6 @@ using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Infrastructure.Data;
 using CoduTeam.Web.Services;
 using Microsoft.AspNetCore.Mvc;
-
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using ZymLabs.NSwag.FluentValidation;
@@ -47,7 +46,7 @@ public static class DependencyInjection
 
 
             // Add the fluent validations schema processor
-            var fluentValidationSchemaProcessor = 
+            FluentValidationSchemaProcessor fluentValidationSchemaProcessor =
                 sp.CreateScope().ServiceProvider.GetRequiredService<FluentValidationSchemaProcessor>();
 
             configure.SchemaSettings.SchemaProcessors.Add(fluentValidationSchemaProcessor);
