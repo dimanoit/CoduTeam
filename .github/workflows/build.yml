@@ -48,7 +48,7 @@ jobs:
       run: dotnet test --no-build --configuration Release --filter "FullyQualifiedName!~AcceptanceTests"
 
     - name: Linting (dotnet format)
-      run: dotnet format --check
+      run: dotnet format --verify-no-changes
 
     - name: Publish website
       if: ${{ inputs.build-artifacts == true }}
