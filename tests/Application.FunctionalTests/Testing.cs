@@ -71,11 +71,11 @@ public partial class Testing
 
         if (roles.Any())
         {
-            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            RoleManager<UserRole> roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<UserRole>>();
 
             foreach (var role in roles)
             {
-                await roleManager.CreateAsync(new IdentityRole(role));
+                await roleManager.CreateAsync(new UserRole(role));
             }
 
             await userManager.AddToRolesAsync(user, roles);
