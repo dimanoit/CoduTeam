@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Domain.Entities;
+using CoduTeam.Infrastructure.Data.Configurations;
 using CoduTeam.Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +19,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser, UserRole,
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        builder.ApplyEnumToStringConversion();
 
         base.OnModelCreating(builder);
     }
