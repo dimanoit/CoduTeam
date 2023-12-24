@@ -1,4 +1,5 @@
-﻿using Azure.Identity;
+﻿using System.Text.Json.Serialization;
+using Azure.Identity;
 using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Infrastructure.Data;
 using CoduTeam.Web.Services;
@@ -24,19 +25,27 @@ public static class DependencyInjection
 
         services.AddExceptionHandler<CustomExceptionHandler>();
 
-        services.AddRazorPages();
-
         services.AddScoped(provider =>
         {
-            var validationRules = provider.GetService<IEnumerable<FluentValidationRule>>();
-            var loggerFactory = provider.GetService<ILoggerFactory>();
+            IEnumerable<FluentValidationRule>? validationRules =
+                provider.GetService<IEnumerable<FluentValidationRule>>();
+            ILoggerFactory? loggerFactory = provider.GetService<ILoggerFactory>();
 
             return new FluentValidationSchemaProcessor(provider, validationRules, loggerFactory);
         });
 
         // Customise default API behaviour
-        services.Configure<ApiBehaviorOptions>(options =>
-            options.SuppressModelStateInvalidFilter = true);
+        services
+            .Configure<ApiBehaviorOptions>(options =>
+                options.SuppressModelStateInvalidFilter = true
+            )
+            .ConfigureHttpJsonOptions(options =>
+            {
+                options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            }).Configure<JsonOptions>(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
         services.AddEndpointsApiExplorer();
 
@@ -52,13 +61,14 @@ public static class DependencyInjection
             configure.SchemaSettings.SchemaProcessors.Add(fluentValidationSchemaProcessor);
 
             // Add JWT
-            configure.AddSecurity("JWT", Enumerable.Empty<string>(), new OpenApiSecurityScheme
-            {
-                Type = OpenApiSecuritySchemeType.ApiKey,
-                Name = "Authorization",
-                In = OpenApiSecurityApiKeyLocation.Header,
-                Description = "Type into the textbox: Bearer {your JWT token}."
-            });
+            configure.AddSecurity("JWT", Enumerable.Empty<string>(),
+                new OpenApiSecurityScheme
+                {
+                    Type = OpenApiSecuritySchemeType.ApiKey,
+                    Name = "Authorization",
+                    In = OpenApiSecurityApiKeyLocation.Header,
+                    Description = "Type into the textbox: Bearer {your JWT token}."
+                });
 
             configure.OperationProcessors.Add(new AspNetCoreOperationSecurityScopeProcessor("JWT"));
         });
@@ -66,9 +76,10 @@ public static class DependencyInjection
         return services;
     }
 
-    public static IServiceCollection AddKeyVaultIfConfigured(this IServiceCollection services, ConfigurationManager configuration)
+    public static IServiceCollection AddKeyVaultIfConfigured(this IServiceCollection services,
+        ConfigurationManager configuration)
     {
-        var keyVaultUri = configuration["KeyVaultUri"];
+        string? keyVaultUri = configuration["KeyVaultUri"];
         if (!string.IsNullOrWhiteSpace(keyVaultUri))
         {
             configuration.AddAzureKeyVault(
