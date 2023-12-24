@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-
 using CoduTeam.Application.Common.Interfaces;
 
 namespace CoduTeam.Web.Services;
@@ -13,5 +12,20 @@ public class CurrentUser : IUser
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public string? Id => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
+    public int? Id
+    {
+        get
+        {
+            ClaimsPrincipal? user = _httpContextAccessor.HttpContext?.User;
+
+            Claim? nameIdentifierClaim = user?.FindFirst(ClaimTypes.NameIdentifier);
+
+            if (nameIdentifierClaim != null && int.TryParse(nameIdentifierClaim.Value, out int id))
+            {
+                return id;
+            }
+
+            return null;
+        }
+    }
 }
