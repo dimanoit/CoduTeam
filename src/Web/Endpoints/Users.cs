@@ -15,16 +15,16 @@ public class Users : EndpointGroupBase
             .MapPost(ActivateUser, "activation");
     }
 
-    public async Task<UserDto> GetCurrentUser(ISender sender, IUser user)
+    public async Task<UserDto> GetCurrentUser(ISender sender)
     {
-        Guard.Against.Null(user.Id);
-        return await sender.Send(new GetCurrentUserQuery(user.Id.Value));
+        return await sender.Send(new GetCurrentUserQuery());
     }
 
-    public async Task ActivateUser(ISender sender, IUser user, ActivationUserCommand command)
+    public async Task ActivateUser(
+        ISender sender,
+        IUser user,
+        ActivationUserCommand command)
     {
-        Guard.Against.Null(user.Id);
-        command.UserId = user.Id.Value;
         await sender.Send(command);
     }
 }

@@ -9,94 +9,87 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoduTeam.Infrastructure.Identity;
 
-public class IdentityService : IIdentityService
+public class IdentityService(
+    UserManager<ApplicationUser> userManager,
+    IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
+    IAuthorizationService authorizationService,
+    IUser user)
+    : IIdentityService
 {
-    private readonly IAuthorizationService _authorizationService;
-    private readonly IUserClaimsPrincipalFactory<ApplicationUser> _userClaimsPrincipalFactory;
-    private readonly UserManager<ApplicationUser> _userManager;
-
-    public IdentityService(
-        UserManager<ApplicationUser> userManager,
-        IUserClaimsPrincipalFactory<ApplicationUser> userClaimsPrincipalFactory,
-        IAuthorizationService authorizationService)
-    {
-        _userManager = userManager;
-        _userClaimsPrincipalFactory = userClaimsPrincipalFactory;
-        _authorizationService = authorizationService;
-    }
-
     public async Task<string?> GetUserNameAsync(int userId)
     {
-        ApplicationUser user = await _userManager.Users.FirstAsync(u => u.Id == userId);
+        ApplicationUser dbUser = await userManager.Users.FirstAsync(u => u.Id == userId);
 
-        return user.UserName;
+        return dbUser.UserName;
     }
 
     public async Task<UserDto> GetUserDtoAsync(int userId)
     {
-        ApplicationUser user = await _userManager.Users
+        ApplicationUser dbUser = await userManager.Users
             .FirstAsync(u => u.Id == userId);
 
-        return user.ToUserDto();
+        return dbUser.ToUserDto();
     }
 
     public async Task<(Result Result, int UserId)> CreateUserAsync(string userName, string password)
     {
-        ApplicationUser user = new() { UserName = userName, Email = userName };
+        ApplicationUser dbUser = new() { UserName = userName, Email = userName };
 
-        IdentityResult result = await _userManager.CreateAsync(user, password);
+        IdentityResult result = await userManager.CreateAsync(dbUser, password);
 
-        return (result.ToApplicationResult(), user.Id);
+        return (result.ToApplicationResult(), dbUser.Id);
     }
 
     public async Task ActivateUserAsync(ActivationUserCommand userDto)
     {
-        ApplicationUser user = await _userManager.Users
-            .FirstAsync(u => u.Id == userDto.UserId);
+        Guard.Against.Null(user.Id);
 
-        user.FirstName = userDto.FirstName;
-        user.LastName = userDto.LastName;
-        user.DateOfBirth = userDto.DateOfBirth;
-        user.Gender = userDto.Gender;
-        user.Title = userDto.Title;
-        user.UserStatus = UserStatus.Active;
+        ApplicationUser userToActivate = await userManager.Users
+            .FirstAsync(u => u.Id == user.Id);
 
-        await _userManager.UpdateAsync(user);
+        userToActivate.FirstName = userDto.FirstName;
+        userToActivate.LastName = userDto.LastName;
+        userToActivate.DateOfBirth = userDto.DateOfBirth;
+        userToActivate.Gender = userDto.Gender;
+        userToActivate.Title = userDto.Title;
+        userToActivate.UserStatus = UserStatus.Active;
+
+        await userManager.UpdateAsync(userToActivate);
     }
 
     public async Task<bool> IsInRoleAsync(int userId, string role)
     {
-        ApplicationUser? user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+        ApplicationUser? dbUser = userManager.Users.SingleOrDefault(u => u.Id == userId);
 
-        return user != null && await _userManager.IsInRoleAsync(user, role);
+        return dbUser != null && await userManager.IsInRoleAsync(dbUser, role);
     }
 
     public async Task<bool> AuthorizeAsync(int userId, string policyName)
     {
-        ApplicationUser? user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+        ApplicationUser? dbUser = userManager.Users.SingleOrDefault(u => u.Id == userId);
 
-        if (user == null)
+        if (dbUser == null)
         {
             return false;
         }
 
-        ClaimsPrincipal principal = await _userClaimsPrincipalFactory.CreateAsync(user);
+        ClaimsPrincipal principal = await userClaimsPrincipalFactory.CreateAsync(dbUser);
 
-        AuthorizationResult result = await _authorizationService.AuthorizeAsync(principal, policyName);
+        AuthorizationResult result = await authorizationService.AuthorizeAsync(principal, policyName);
 
         return result.Succeeded;
     }
 
     public async Task<Result> DeleteUserAsync(int userId)
     {
-        ApplicationUser? user = _userManager.Users.SingleOrDefault(u => u.Id == userId);
+        ApplicationUser? dbUser = userManager.Users.SingleOrDefault(u => u.Id == userId);
 
-        return user != null ? await DeleteUserAsync(user) : Result.Success();
+        return dbUser != null ? await DeleteUserAsync(dbUser) : Result.Success();
     }
 
-    public async Task<Result> DeleteUserAsync(ApplicationUser user)
+    public async Task<Result> DeleteUserAsync(ApplicationUser dbUser)
     {
-        IdentityResult result = await _userManager.DeleteAsync(user);
+        IdentityResult result = await userManager.DeleteAsync(dbUser);
 
         return result.ToApplicationResult();
     }

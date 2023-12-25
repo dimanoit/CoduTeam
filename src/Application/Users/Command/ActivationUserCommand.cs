@@ -11,7 +11,6 @@ public record ActivationUserCommand(
     string Title)
     : IRequest
 {
-    public int UserId { get; set; }
 }
 
 public class ActivationUserCommandHandler(IIdentityService identityService)
