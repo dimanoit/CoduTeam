@@ -823,7 +823,7 @@
               "nullable": true
             },
             "properties": {
-              "errors": {
+              "Errors": {
                 "type": "object",
                 "additionalProperties": {
                   "type": "array",
@@ -842,24 +842,24 @@
           "nullable": true
         },
         "properties": {
-          "type": {
+          "Type": {
             "type": "string",
             "nullable": true
           },
-          "title": {
+          "Title": {
             "type": "string",
             "nullable": true
           },
-          "status": {
+          "Status": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "detail": {
+          "Detail": {
             "type": "string",
             "nullable": true
           },
-          "instance": {
+          "Instance": {
             "type": "string",
             "nullable": true
           }
@@ -869,10 +869,10 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "email": {
+          "Email": {
             "type": "string"
           },
-          "password": {
+          "Password": {
             "type": "string"
           }
         }
@@ -881,17 +881,17 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "tokenType": {
+          "TokenType": {
             "type": "string"
           },
-          "accessToken": {
+          "AccessToken": {
             "type": "string"
           },
-          "expiresIn": {
+          "ExpiresIn": {
             "type": "integer",
             "format": "int64"
           },
-          "refreshToken": {
+          "RefreshToken": {
             "type": "string"
           }
         }
@@ -900,17 +900,17 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "email": {
+          "Email": {
             "type": "string"
           },
-          "password": {
+          "Password": {
             "type": "string"
           },
-          "twoFactorCode": {
+          "TwoFactorCode": {
             "type": "string",
             "nullable": true
           },
-          "twoFactorRecoveryCode": {
+          "TwoFactorRecoveryCode": {
             "type": "string",
             "nullable": true
           }
@@ -920,7 +920,7 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "refreshToken": {
+          "RefreshToken": {
             "type": "string"
           }
         }
@@ -929,7 +929,7 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "email": {
+          "Email": {
             "type": "string"
           }
         }
@@ -938,7 +938,7 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "email": {
+          "Email": {
             "type": "string"
           }
         }
@@ -947,13 +947,13 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "email": {
+          "Email": {
             "type": "string"
           },
-          "resetCode": {
+          "ResetCode": {
             "type": "string"
           },
-          "newPassword": {
+          "NewPassword": {
             "type": "string"
           }
         }
@@ -962,24 +962,24 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "sharedKey": {
+          "SharedKey": {
             "type": "string"
           },
-          "recoveryCodesLeft": {
+          "RecoveryCodesLeft": {
             "type": "integer",
             "format": "int32"
           },
-          "recoveryCodes": {
+          "RecoveryCodes": {
             "type": "array",
             "nullable": true,
             "items": {
               "type": "string"
             }
           },
-          "isTwoFactorEnabled": {
+          "IsTwoFactorEnabled": {
             "type": "boolean"
           },
-          "isMachineRemembered": {
+          "IsMachineRemembered": {
             "type": "boolean"
           }
         }
@@ -988,21 +988,21 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "enable": {
+          "Enable": {
             "type": "boolean",
             "nullable": true
           },
-          "twoFactorCode": {
+          "TwoFactorCode": {
             "type": "string",
             "nullable": true
           },
-          "resetSharedKey": {
+          "ResetSharedKey": {
             "type": "boolean"
           },
-          "resetRecoveryCodes": {
+          "ResetRecoveryCodes": {
             "type": "boolean"
           },
-          "forgetMachine": {
+          "ForgetMachine": {
             "type": "boolean"
           }
         }
@@ -1011,10 +1011,10 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "email": {
+          "Email": {
             "type": "string"
           },
-          "isEmailConfirmed": {
+          "IsEmailConfirmed": {
             "type": "boolean"
           }
         }
@@ -1023,15 +1023,15 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "newEmail": {
+          "NewEmail": {
             "type": "string",
             "nullable": true
           },
-          "newPassword": {
+          "NewPassword": {
             "type": "string",
             "nullable": true
           },
-          "oldPassword": {
+          "OldPassword": {
             "type": "string",
             "nullable": true
           }
@@ -1041,28 +1041,28 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "items": {
+          "Items": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TodoItemBriefDto"
             }
           },
-          "pageNumber": {
+          "PageNumber": {
             "type": "integer",
             "format": "int32"
           },
-          "totalPages": {
+          "TotalPages": {
             "type": "integer",
             "format": "int32"
           },
-          "totalCount": {
+          "TotalCount": {
             "type": "integer",
             "format": "int32"
           },
-          "hasPreviousPage": {
+          "HasPreviousPage": {
             "type": "boolean"
           },
-          "hasNextPage": {
+          "HasNextPage": {
             "type": "boolean"
           }
         }
@@ -1071,19 +1071,19 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "id": {
+          "Id": {
             "type": "integer",
             "format": "int32"
           },
-          "listId": {
+          "ListId": {
             "type": "integer",
             "format": "int32"
           },
-          "title": {
+          "Title": {
             "type": "string",
             "nullable": true
           },
-          "done": {
+          "Done": {
             "type": "boolean"
           }
         }
@@ -1092,14 +1092,14 @@
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "title"
+          "Title"
         ],
         "properties": {
-          "listId": {
+          "ListId": {
             "type": "integer",
             "format": "int32"
           },
-          "title": {
+          "Title": {
             "type": "string",
             "maxLength": 200,
             "minLength": 0,
@@ -1111,20 +1111,20 @@
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "title"
+          "Title"
         ],
         "properties": {
-          "id": {
+          "Id": {
             "type": "integer",
             "format": "int32"
           },
-          "title": {
+          "Title": {
             "type": "string",
             "maxLength": 200,
             "minLength": 0,
             "nullable": true
           },
-          "done": {
+          "Done": {
             "type": "boolean"
           }
         }
@@ -1133,18 +1133,18 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "id": {
+          "Id": {
             "type": "integer",
             "format": "int32"
           },
-          "listId": {
+          "ListId": {
             "type": "integer",
             "format": "int32"
           },
-          "priority": {
+          "Priority": {
             "$ref": "#/components/schemas/PriorityLevel"
           },
-          "note": {
+          "Note": {
             "type": "string",
             "nullable": true
           }
@@ -1170,13 +1170,13 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "priorityLevels": {
+          "PriorityLevels": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/LookupDto"
             }
           },
-          "lists": {
+          "Lists": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TodoListDto"
@@ -1188,11 +1188,11 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "id": {
+          "Id": {
             "type": "integer",
             "format": "int32"
           },
-          "title": {
+          "Title": {
             "type": "string",
             "nullable": true
           }
@@ -1202,19 +1202,19 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "id": {
+          "Id": {
             "type": "integer",
             "format": "int32"
           },
-          "title": {
+          "Title": {
             "type": "string",
             "nullable": true
           },
-          "colour": {
+          "Colour": {
             "type": "string",
             "nullable": true
           },
-          "items": {
+          "Items": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/TodoItemDto"
@@ -1226,26 +1226,26 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "id": {
+          "Id": {
             "type": "integer",
             "format": "int32"
           },
-          "listId": {
+          "ListId": {
             "type": "integer",
             "format": "int32"
           },
-          "title": {
+          "Title": {
             "type": "string",
             "nullable": true
           },
-          "done": {
+          "Done": {
             "type": "boolean"
           },
-          "priority": {
+          "Priority": {
             "type": "integer",
             "format": "int32"
           },
-          "note": {
+          "Note": {
             "type": "string",
             "nullable": true
           }
@@ -1255,10 +1255,10 @@
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "title"
+          "Title"
         ],
         "properties": {
-          "title": {
+          "Title": {
             "type": "string",
             "maxLength": 200,
             "minLength": 0,
@@ -1270,14 +1270,14 @@
         "type": "object",
         "additionalProperties": false,
         "required": [
-          "title"
+          "Title"
         ],
         "properties": {
-          "id": {
+          "Id": {
             "type": "integer",
             "format": "int32"
           },
-          "title": {
+          "Title": {
             "type": "string",
             "maxLength": 200,
             "minLength": 0,
@@ -1289,32 +1289,32 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "id": {
+          "Id": {
             "type": "integer",
             "format": "int32"
           },
-          "email": {
+          "Email": {
             "type": "string",
             "nullable": true
           },
-          "firstName": {
+          "FirstName": {
             "type": "string",
             "nullable": true
           },
-          "lastName": {
+          "LastName": {
             "type": "string",
             "nullable": true
           },
-          "dateOfBirth": {
+          "DateOfBirth": {
             "type": "string",
             "format": "date-time",
             "nullable": true
           },
-          "profileImage": {
+          "ProfileImage": {
             "type": "string",
             "nullable": true
           },
-          "gender": {
+          "Gender": {
             "nullable": true,
             "oneOf": [
               {
@@ -1322,11 +1322,11 @@
               }
             ]
           },
-          "title": {
+          "Title": {
             "type": "string",
             "nullable": true
           },
-          "cv": {
+          "Cv": {
             "type": "string",
             "nullable": true
           }
@@ -1349,26 +1349,27 @@
       "ActivationUserCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "FirstName",
+          "LastName",
+          "Title"
+        ],
         "properties": {
-          "firstName": {
+          "FirstName": {
             "type": "string"
           },
-          "lastName": {
+          "LastName": {
             "type": "string"
           },
-          "dateOfBirth": {
+          "DateOfBirth": {
             "type": "string",
             "format": "date-time"
           },
-          "gender": {
+          "Gender": {
             "$ref": "#/components/schemas/Gender"
           },
-          "title": {
+          "Title": {
             "type": "string"
-          },
-          "userId": {
-            "type": "integer",
-            "format": "int32"
           }
         }
       },
@@ -1376,19 +1377,19 @@
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "date": {
+          "Date": {
             "type": "string",
             "format": "date-time"
           },
-          "temperatureC": {
+          "TemperatureC": {
             "type": "integer",
             "format": "int32"
           },
-          "temperatureF": {
+          "TemperatureF": {
             "type": "integer",
             "format": "int32"
           },
-          "summary": {
+          "Summary": {
             "type": "string",
             "nullable": true
           }
