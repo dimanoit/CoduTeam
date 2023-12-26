@@ -1,3 +1,5 @@
+using CoduTeam.Domain.Enums;
+
 namespace CoduTeam.Application.Users.Models;
 
 public record UserDto

@@ -8,13 +8,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CoduTeam.Infrastructure.Data;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser, UserRole, int>, IApplicationDbContext
+public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+    : IdentityDbContext<ApplicationUser, UserRole, int>(options), IApplicationDbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
-
     public DbSet<TodoList> TodoLists => Set<TodoList>();
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
+    public DbSet<Project> Projects => Set<Project>();
+    public DbSet<UserProject> UserProjects => Set<UserProject>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

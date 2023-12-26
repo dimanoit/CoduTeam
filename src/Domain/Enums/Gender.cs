@@ -1,4 +1,4 @@
-namespace CoduTeam.Application.Users.Models;
+namespace CoduTeam.Domain.Enums;
 
 public enum Gender
 {

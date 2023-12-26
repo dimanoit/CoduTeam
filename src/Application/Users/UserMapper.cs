@@ -1,6 +1,8 @@
+using CoduTeam.Application.Projects.Models;
 using CoduTeam.Application.Users.Models;
+using CoduTeam.Domain.Entities;
 
-namespace CoduTeam.Infrastructure.Identity;
+namespace CoduTeam.Application.Users;
 
 public static class UserMapper
 {
@@ -16,5 +18,11 @@ public static class UserMapper
             Gender = account.Gender,
             Title = account.Title
         };
+    }
+
+    public static ProjectParticipant ToParticipant(this ApplicationUser user)
+    {
+        Guard.Against.Null(user.UserName);
+        return new ProjectParticipant(user.UserName, user.Id) { ImageSrc = user.ImageSrc };
     }
 }

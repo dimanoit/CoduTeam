@@ -1,5 +1,6 @@
 ﻿using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Domain.Constants;
+using CoduTeam.Domain.Entities;
 using CoduTeam.Infrastructure.Data;
 using CoduTeam.Infrastructure.Data.Interceptors;
 using CoduTeam.Infrastructure.Identity;
