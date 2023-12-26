@@ -1,4 +1,4 @@
-﻿using CoduTeam.Infrastructure.Identity;
+﻿using CoduTeam.Domain.Entities;
 
 namespace CoduTeam.Web.Endpoints;
 

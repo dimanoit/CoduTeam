@@ -1,8 +1,11 @@
 ﻿using System.Security.Claims;
 using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Application.Common.Models;
+using CoduTeam.Application.Users;
 using CoduTeam.Application.Users.Command;
 using CoduTeam.Application.Users.Models;
+using CoduTeam.Domain.Entities;
+using CoduTeam.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

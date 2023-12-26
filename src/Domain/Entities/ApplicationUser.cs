@@ -1,7 +1,6 @@
-﻿using CoduTeam.Application.Users.Models;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-namespace CoduTeam.Infrastructure.Identity;
+namespace CoduTeam.Domain.Entities;
 
 public class ApplicationUser : IdentityUser<int>
 {
@@ -11,4 +10,6 @@ public class ApplicationUser : IdentityUser<int>
     public Gender? Gender { get; set; }
     public string? Title { get; set; }
     public UserStatus UserStatus { get; set; }
+    public ICollection<UserProject>? UserProjects { get; set; }
+    public string? ImageSrc { get; set; }
 }

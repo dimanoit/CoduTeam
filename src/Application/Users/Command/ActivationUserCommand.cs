@@ -1,5 +1,5 @@
 using CoduTeam.Application.Common.Interfaces;
-using CoduTeam.Application.Users.Models;
+using CoduTeam.Domain.Enums;
 
 namespace CoduTeam.Application.Users.Command;
 
