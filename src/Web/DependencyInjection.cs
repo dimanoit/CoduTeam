@@ -85,7 +85,7 @@ public static class DependencyInjection
 
         return services;
     }
-    
+
     public static IServiceCollection AddKeyVaultIfConfigured(this IServiceCollection services,
         ConfigurationManager configuration)
     {
@@ -99,6 +99,5 @@ public static class DependencyInjection
 
         return services;
     }
-    
 
 }
