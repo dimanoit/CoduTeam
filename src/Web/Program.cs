@@ -1,4 +1,6 @@
 using CoduTeam.Infrastructure.Data;
+using CoduTeam.Web;
+using DependencyInjection = CoduTeam.Web.DependencyInjection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -32,12 +34,12 @@ app.UseSwaggerUi(settings =>
     settings.DocumentPath = "/api/specification.json";
 });
 
-
 app.UseExceptionHandler(options => { });
 
 app.Map("/", () => Results.Redirect("/api"));
 
 app.MapEndpoints();
+app.UseCors(DependencyInjection.CorsPolicyName);
 
 app.Run();
 
