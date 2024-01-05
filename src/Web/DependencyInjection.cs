@@ -8,10 +8,12 @@ using NSwag;
 using NSwag.Generation.Processors.Security;
 using ZymLabs.NSwag.FluentValidation;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace CoduTeam.Web;
 
 public static class DependencyInjection
 {
+    public static readonly string CorsPolicyName = "CorsPolicy";
+
     public static IServiceCollection AddWebServices(this IServiceCollection services)
     {
         services.AddDatabaseDeveloperPageExceptionFilter();
@@ -33,6 +35,14 @@ public static class DependencyInjection
 
             return new FluentValidationSchemaProcessor(provider, validationRules, loggerFactory);
         });
+
+        services.AddCors(o => o.AddPolicy(CorsPolicyName, builder =>
+        {
+            builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        }));
 
         // Customise default API behaviour
         services
@@ -89,4 +99,5 @@ public static class DependencyInjection
 
         return services;
     }
+
 }
