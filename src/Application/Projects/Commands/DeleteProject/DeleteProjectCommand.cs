@@ -1,8 +1,6 @@
-﻿using System.Data.Common;
-using CoduTeam.Application.Common.Interfaces;
-using CoduTeam.Domain.Entities;
+﻿using CoduTeam.Application.Common.Interfaces;
 
-namespace CoduTeam.Application.Projects.Commands;
+namespace CoduTeam.Application.Projects.Commands.DeleteProject;
 
 public record DeleteProjectCommand(int Id) : IRequest;
 

@@ -1,4 +1,6 @@
 using CoduTeam.Application.Projects.Commands;
+using CoduTeam.Application.Projects.Commands.DeleteProject;
+using CoduTeam.Application.Projects.Commands.UpdateProject;
 using CoduTeam.Application.Projects.Models;
 using CoduTeam.Application.Projects.Queries;
 
@@ -12,7 +14,7 @@ public class Projects : EndpointGroupBase
             .RequireAuthorization()
             .MapPost(CreateProject)
             .MapDelete(DeleteProject,"{Id}")
-            .MapPut(UpdateProject,"{Id}")
+            .MapPut(UpdateProject)
             .MapGet(SearchProjects);
     } 
 
@@ -24,11 +26,10 @@ public class Projects : EndpointGroupBase
     {
         await sender.Send(new DeleteProjectCommand(id));
     }
-    public async Task<IResult> UpdateProject(ISender sender, int id, UpdateProjectCommand command)
+
+    public async Task UpdateProject(ISender sender, UpdateProjectCommand command)
     {
-        if (id != command.Id) return Results.BadRequest();
         await sender.Send(command);
-        return Results.NoContent();
     }
 
     public async Task<ProjectResponse[]?> SearchProjects(ISender sender, [AsParameters] ProjectSearchQuery query)
