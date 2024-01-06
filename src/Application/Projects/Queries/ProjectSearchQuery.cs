@@ -2,6 +2,7 @@ using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Application.Projects.Filters;
 using CoduTeam.Application.Projects.Models;
 using CoduTeam.Application.Users;
+using CoduTeam.Domain.Enums;
 
 namespace CoduTeam.Application.Projects.Queries;
 
@@ -10,6 +11,8 @@ public record ProjectSearchQuery(
     int? ProjectId,
     int? Take,
     int? Skip,
+    Category? Category,
+    string? Term,
     bool OnlyRelatedToCurrentUser = false)
     : IRequest<ProjectResponse[]?>
 {
@@ -28,6 +31,8 @@ internal class SearchProjectsQueryHandler(IApplicationDbContext dbContext, IUser
             .Include(p => p.UserProjects)
             .ThenInclude(ap => ap.ApplicationUser)
             .AddOnlyRelatedToCurrentUserFilter(query.OnlyRelatedToCurrentUser, user.Id.Value)
+            .AddTermFilter(query.Term)
+            .AddCategoryFilter(query.Category)
             .Select(project => new ProjectResponse
             {
                 Id = project.Id,

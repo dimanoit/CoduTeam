@@ -11,7 +11,9 @@ public record GetTodoItemsWithPaginationQuery : IRequest<PaginatedList<TodoItemB
     public int PageSize { get; init; } = 10;
 }
 
-public class GetTodoItemsWithPaginationQueryHandler : IRequestHandler<GetTodoItemsWithPaginationQuery, PaginatedList<TodoItemBriefDto>>
+public class
+    GetTodoItemsWithPaginationQueryHandler : IRequestHandler<GetTodoItemsWithPaginationQuery,
+    PaginatedList<TodoItemBriefDto>>
 {
     private readonly IApplicationDbContext _context;
     private readonly IMapper _mapper;
@@ -22,7 +24,8 @@ public class GetTodoItemsWithPaginationQueryHandler : IRequestHandler<GetTodoIte
         _mapper = mapper;
     }
 
-    public async Task<PaginatedList<TodoItemBriefDto>> Handle(GetTodoItemsWithPaginationQuery request, CancellationToken cancellationToken)
+    public async Task<PaginatedList<TodoItemBriefDto>> Handle(GetTodoItemsWithPaginationQuery request,
+        CancellationToken cancellationToken)
     {
         return await _context.TodoItems
             .Where(x => x.ListId == request.ListId)

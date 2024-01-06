@@ -10,7 +10,7 @@ public class ValidationExceptionTests
     [Test]
     public void DefaultConstructorCreatesAnEmptyErrorDictionary()
     {
-        var actual = new ValidationException().Errors;
+        IDictionary<string, string[]> actual = new ValidationException().Errors;
 
         actual.Keys.Should().BeEquivalentTo(Array.Empty<string>());
     }
@@ -18,46 +18,35 @@ public class ValidationExceptionTests
     [Test]
     public void SingleValidationFailureCreatesASingleElementErrorDictionary()
     {
-        var failures = new List<ValidationFailure>
-            {
-                new ValidationFailure("Age", "must be over 18"),
-            };
+        List<ValidationFailure> failures = new() { new ValidationFailure("Age", "must be over 18") };
 
-        var actual = new ValidationException(failures).Errors;
+        IDictionary<string, string[]> actual = new ValidationException(failures).Errors;
 
-        actual.Keys.Should().BeEquivalentTo(new string[] { "Age" });
-        actual["Age"].Should().BeEquivalentTo(new string[] { "must be over 18" });
+        actual.Keys.Should().BeEquivalentTo("Age");
+        actual["Age"].Should().BeEquivalentTo("must be over 18");
     }
 
     [Test]
-    public void MulitpleValidationFailureForMultiplePropertiesCreatesAMultipleElementErrorDictionaryEachWithMultipleValues()
+    public void
+        MulitpleValidationFailureForMultiplePropertiesCreatesAMultipleElementErrorDictionaryEachWithMultipleValues()
     {
-        var failures = new List<ValidationFailure>
-            {
-                new ValidationFailure("Age", "must be 18 or older"),
-                new ValidationFailure("Age", "must be 25 or younger"),
-                new ValidationFailure("Password", "must contain at least 8 characters"),
-                new ValidationFailure("Password", "must contain a digit"),
-                new ValidationFailure("Password", "must contain upper case letter"),
-                new ValidationFailure("Password", "must contain lower case letter"),
-            };
-
-        var actual = new ValidationException(failures).Errors;
-
-        actual.Keys.Should().BeEquivalentTo(new string[] { "Password", "Age" });
-
-        actual["Age"].Should().BeEquivalentTo(new string[]
+        List<ValidationFailure> failures = new()
         {
-                "must be 25 or younger",
-                "must be 18 or older",
-        });
+            new("Age", "must be 18 or older"),
+            new("Age", "must be 25 or younger"),
+            new("Password", "must contain at least 8 characters"),
+            new("Password", "must contain a digit"),
+            new("Password", "must contain upper case letter"),
+            new("Password", "must contain lower case letter")
+        };
 
-        actual["Password"].Should().BeEquivalentTo(new string[]
-        {
-                "must contain lower case letter",
-                "must contain upper case letter",
-                "must contain at least 8 characters",
-                "must contain a digit",
-        });
+        IDictionary<string, string[]> actual = new ValidationException(failures).Errors;
+
+        actual.Keys.Should().BeEquivalentTo("Password", "Age");
+
+        actual["Age"].Should().BeEquivalentTo("must be 25 or younger", "must be 18 or older");
+
+        actual["Password"].Should().BeEquivalentTo("must contain lower case letter", "must contain upper case letter",
+            "must contain at least 8 characters", "must contain a digit");
     }
 }

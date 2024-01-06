@@ -6,7 +6,7 @@ public static class WebApplicationExtensions
 {
     public static RouteGroupBuilder MapGroup(this WebApplication app, EndpointGroupBase group)
     {
-        var groupName = group.GetType().Name.ToLower();
+        string groupName = group.GetType().Name.ToLower();
 
         return app
             .MapGroup($"/api/{groupName}")
@@ -17,14 +17,14 @@ public static class WebApplicationExtensions
 
     public static WebApplication MapEndpoints(this WebApplication app)
     {
-        var endpointGroupType = typeof(EndpointGroupBase);
+        Type endpointGroupType = typeof(EndpointGroupBase);
 
-        var assembly = Assembly.GetExecutingAssembly();
+        Assembly assembly = Assembly.GetExecutingAssembly();
 
-        var endpointGroupTypes = assembly.GetExportedTypes()
+        IEnumerable<Type> endpointGroupTypes = assembly.GetExportedTypes()
             .Where(t => t.IsSubclassOf(endpointGroupType));
 
-        foreach (var type in endpointGroupTypes)
+        foreach (Type type in endpointGroupTypes)
         {
             if (Activator.CreateInstance(type) is EndpointGroupBase instance)
             {

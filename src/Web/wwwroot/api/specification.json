@@ -466,12 +466,34 @@
             "x-position": 4
           },
           {
+            "name": "Category",
+            "in": "query",
+            "schema": {
+              "nullable": true,
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/Category"
+                }
+              ]
+            },
+            "x-position": 5
+          },
+          {
+            "name": "Term",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 6
+          },
+          {
             "name": "OnlyRelatedToCurrentUser",
             "in": "query",
             "schema": {
               "type": "boolean"
             },
-            "x-position": 5
+            "x-position": 7
           }
         ],
         "responses": {

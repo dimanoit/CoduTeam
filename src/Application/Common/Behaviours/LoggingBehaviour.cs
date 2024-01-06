@@ -6,9 +6,9 @@ namespace CoduTeam.Application.Common.Behaviours;
 
 public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where TRequest : notnull
 {
+    private readonly IIdentityService _identityService;
     private readonly ILogger _logger;
     private readonly IUser _user;
-    private readonly IIdentityService _identityService;
 
     public LoggingBehaviour(ILogger<TRequest> logger, IUser user, IIdentityService identityService)
     {
@@ -19,7 +19,7 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where T
 
     public async Task Process(TRequest request, CancellationToken cancellationToken)
     {
-        var requestName = typeof(TRequest).Name;
+        string requestName = typeof(TRequest).Name;
         string? userName = string.Empty;
 
         if (_user.Id.HasValue)
