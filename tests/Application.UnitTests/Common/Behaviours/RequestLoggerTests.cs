@@ -9,9 +9,9 @@ namespace CoduTeam.Application.UnitTests.Common.Behaviours;
 
 public class RequestLoggerTests
 {
+    private Mock<IIdentityService> _identityService = null!;
     private Mock<ILogger<CreateTodoItemCommand>> _logger = null!;
     private Mock<IUser> _user = null!;
-    private Mock<IIdentityService> _identityService = null!;
 
     [SetUp]
     public void Setup()
@@ -26,7 +26,8 @@ public class RequestLoggerTests
     {
         _user.Setup(x => x.Id).Returns(10);
 
-        var requestLogger = new LoggingBehaviour<CreateTodoItemCommand>(_logger.Object, _user.Object, _identityService.Object);
+        LoggingBehaviour<CreateTodoItemCommand> requestLogger =
+            new(_logger.Object, _user.Object, _identityService.Object);
 
         await requestLogger.Process(new CreateTodoItemCommand { ListId = 1, Title = "title" }, new CancellationToken());
 
@@ -36,7 +37,8 @@ public class RequestLoggerTests
     [Test]
     public async Task ShouldNotCallGetUserNameAsyncOnceIfUnauthenticated()
     {
-        var requestLogger = new LoggingBehaviour<CreateTodoItemCommand>(_logger.Object, _user.Object, _identityService.Object);
+        LoggingBehaviour<CreateTodoItemCommand> requestLogger =
+            new(_logger.Object, _user.Object, _identityService.Object);
 
         await requestLogger.Process(new CreateTodoItemCommand { ListId = 1, Title = "title" }, new CancellationToken());
 

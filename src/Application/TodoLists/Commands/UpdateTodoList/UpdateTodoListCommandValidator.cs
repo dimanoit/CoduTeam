@@ -14,11 +14,12 @@ public class UpdateTodoListCommandValidator : AbstractValidator<UpdateTodoListCo
             .NotEmpty()
             .MaximumLength(200)
             .MustAsync(BeUniqueTitle)
-                .WithMessage("'{PropertyName}' must be unique.")
-                .WithErrorCode("Unique");
+            .WithMessage("'{PropertyName}' must be unique.")
+            .WithErrorCode("Unique");
     }
 
-    public async Task<bool> BeUniqueTitle(UpdateTodoListCommand model, string title, CancellationToken cancellationToken)
+    public async Task<bool> BeUniqueTitle(UpdateTodoListCommand model, string title,
+        CancellationToken cancellationToken)
     {
         return await _context.TodoLists
             .Where(l => l.Id != model.Id)
