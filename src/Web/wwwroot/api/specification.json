@@ -1223,12 +1223,20 @@
       "CreateProjectCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "Title",
+          "Description"
+        ],
         "properties": {
           "Title": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 0
           },
           "Description": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 0
           },
           "Category": {
             "nullable": true,
@@ -1681,16 +1689,24 @@
       "UpdateProjectCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "Title",
+          "Description"
+        ],
         "properties": {
           "Id": {
             "type": "integer",
             "format": "int32"
           },
           "Title": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 0
           },
           "Description": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 0
           },
           "Category": {
             "nullable": true,
