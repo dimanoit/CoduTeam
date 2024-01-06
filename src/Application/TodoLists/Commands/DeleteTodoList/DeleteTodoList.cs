@@ -1,4 +1,5 @@
 ﻿using CoduTeam.Application.Common.Interfaces;
+using CoduTeam.Domain.Entities;
 
 namespace CoduTeam.Application.TodoLists.Commands.DeleteTodoList;
 
@@ -15,7 +16,7 @@ public class DeleteTodoListCommandHandler : IRequestHandler<DeleteTodoListComman
 
     public async Task Handle(DeleteTodoListCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.TodoLists
+        TodoList? entity = await _context.TodoLists
             .Where(l => l.Id == request.Id)
             .SingleOrDefaultAsync(cancellationToken);
 

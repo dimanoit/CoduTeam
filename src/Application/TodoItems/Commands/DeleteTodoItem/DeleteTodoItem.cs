@@ -1,4 +1,5 @@
 ﻿using CoduTeam.Application.Common.Interfaces;
+using CoduTeam.Domain.Entities;
 using CoduTeam.Domain.Events;
 
 namespace CoduTeam.Application.TodoItems.Commands.DeleteTodoItem;
@@ -16,7 +17,7 @@ public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemComman
 
     public async Task Handle(DeleteTodoItemCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.TodoItems
+        TodoItem? entity = await _context.TodoItems
             .FindAsync(new object[] { request.Id }, cancellationToken);
 
         Guard.Against.NotFound(request.Id, entity);
@@ -27,5 +28,4 @@ public class DeleteTodoItemCommandHandler : IRequestHandler<DeleteTodoItemComman
 
         await _context.SaveChangesAsync(cancellationToken);
     }
-
 }
