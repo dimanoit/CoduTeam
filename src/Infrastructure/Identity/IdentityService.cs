@@ -1,9 +1,11 @@
 ﻿using System.Security.Claims;
+using CoduTeam.Application.Common.Exceptions;
 using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Application.Common.Models;
 using CoduTeam.Application.Users;
 using CoduTeam.Application.Users.Command;
 using CoduTeam.Application.Users.Models;
+using CoduTeam.Domain.Common;
 using CoduTeam.Domain.Entities;
 using CoduTeam.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
@@ -58,6 +60,14 @@ public class IdentityService(
         userToActivate.UserStatus = UserStatus.Active;
 
         await userManager.UpdateAsync(userToActivate);
+    }
+
+    public void ThrowIfNoAccessToResource(BaseAuditableEntity resource)
+    {
+        if (user.Id != resource.CreatedBy)
+        {
+            throw new ForbiddenAccessException();
+        }
     }
 
     public async Task<bool> IsInRoleAsync(int userId, string role)

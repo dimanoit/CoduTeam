@@ -1,5 +1,6 @@
 using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Application.Projects.Filters;
+using CoduTeam.Application.Projects.Mappers;
 using CoduTeam.Application.Projects.Models;
 using CoduTeam.Application.Users;
 using CoduTeam.Domain.Enums;
@@ -33,18 +34,9 @@ internal class SearchProjectsQueryHandler(IApplicationDbContext dbContext, IUser
             .AddOnlyRelatedToCurrentUserFilter(query.OnlyRelatedToCurrentUser, user.Id.Value)
             .AddTermFilter(query.Term)
             .AddCategoryFilter(query.Category)
-            .Select(project => new ProjectResponse
-            {
-                Id = project.Id,
-                Title = project.Title,
-                Category = project.Category,
-                Description = project.Description,
-                Country = project.Country,
-                ProjectImgUrl = project.ProjectImageUrl,
-                Participants = project.UserProjects
-                    .Select(ap => ap.ApplicationUser!.ToParticipant())
-                    .ToArray()
-            })
+            .Skip(query.Skip ?? 0)
+            .Take(query.Take ?? 5)
+            .Select(project => project.ToProjectResponse())
             .ToArrayAsync(cancellationToken);
 
         return projectResponse;

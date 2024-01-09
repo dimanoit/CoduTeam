@@ -419,6 +419,34 @@
           }
         ]
       },
+      "put": {
+        "tags": [
+          "projects"
+        ],
+        "operationId": "UpdateProject",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProjectCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
       "get": {
         "tags": [
           "projects"
@@ -514,6 +542,37 @@
                 }
               }
             }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/projects/{Id}": {
+      "delete": {
+        "tags": [
+          "projects"
+        ],
+        "operationId": "DeleteProject",
+        "parameters": [
+          {
+            "name": "Id",
+            "x-originalName": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
           }
         },
         "security": [
@@ -1173,12 +1232,20 @@
       "CreateProjectCommand": {
         "type": "object",
         "additionalProperties": false,
+        "required": [
+          "Title",
+          "Description"
+        ],
         "properties": {
           "Title": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 0
           },
           "Description": {
-            "type": "string"
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 0
           },
           "Category": {
             "nullable": true,
@@ -1627,6 +1694,50 @@
           187,
           188
         ]
+      },
+      "UpdateProjectCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "Title",
+          "Description"
+        ],
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Title": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 0
+          },
+          "Description": {
+            "type": "string",
+            "maxLength": 500,
+            "minLength": 0
+          },
+          "Category": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Category"
+              }
+            ]
+          },
+          "Country": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Country"
+              }
+            ]
+          },
+          "ProjectImgUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        }
       },
       "ProjectResponse": {
         "type": "object",

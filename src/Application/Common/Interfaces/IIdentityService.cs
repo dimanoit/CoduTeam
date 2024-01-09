@@ -1,6 +1,7 @@
 ﻿using CoduTeam.Application.Common.Models;
 using CoduTeam.Application.Users.Command;
 using CoduTeam.Application.Users.Models;
+using CoduTeam.Domain.Common;
 
 namespace CoduTeam.Application.Common.Interfaces;
 
@@ -18,4 +19,5 @@ public interface IIdentityService
 
     Task<Result> DeleteUserAsync(int userId);
     Task ActivateUserAsync(ActivationUserCommand userDto);
+    void ThrowIfNoAccessToResource(BaseAuditableEntity resource);
 }
