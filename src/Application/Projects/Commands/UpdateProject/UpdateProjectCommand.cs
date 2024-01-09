@@ -1,4 +1,6 @@
 ﻿using CoduTeam.Application.Common.Interfaces;
+using CoduTeam.Application.Projects.Commands.Common;
+using CoduTeam.Application.Projects.Mappers;
 using CoduTeam.Domain.Entities;
 using CoduTeam.Domain.Enums;
 
@@ -10,25 +12,19 @@ public record UpdateProjectCommand(
     string Description,
     Category? Category,
     Country? Country,
-    string? ProjectImgUrl) : IRequest;
+    string? ProjectImgUrl) : BaseModifyCommand(Title, Description, Category, Country, ProjectImgUrl), IRequest;
 
-public class UpdateProjectCommandHandler(IApplicationDbContext dbContext)
+public class UpdateProjectCommandHandler(IIdentityService identityService, IApplicationDbContext dbContext)
     : IRequestHandler<UpdateProjectCommand>
 {
     public async Task Handle(UpdateProjectCommand command, CancellationToken cancellationToken)
     {
-        /* var entity = await dbContext.Projects
-             .Include(p => p.UserProjects)
-             .FirstOrDefaultAsync(p => p.Id == command.Id, cancellationToken);*/
         Project? entity = await dbContext.Projects.FindAsync(command.Id, cancellationToken);
 
         Guard.Against.NotFound(command.Id, entity);
+        identityService.ThrowIfNoAccessToResource(entity);
 
-        entity.Title = command.Title;
-        entity.Description = command.Description;
-        entity.Category = command.Category;
-        entity.Country = command.Country;
-        entity.ProjectImageUrl = command.ProjectImgUrl;
+        entity.MapUpdateProject(command);
 
         await dbContext.SaveChangesAsync(cancellationToken);
     }

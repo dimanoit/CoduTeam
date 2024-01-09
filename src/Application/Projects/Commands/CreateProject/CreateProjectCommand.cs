@@ -1,16 +1,16 @@
 using CoduTeam.Application.Common.Interfaces;
+using CoduTeam.Application.Projects.Commands.Common;
 using CoduTeam.Domain.Entities;
 using CoduTeam.Domain.Enums;
 
-namespace CoduTeam.Application.Projects.Commands;
+namespace CoduTeam.Application.Projects.Commands.CreateProject;
 
 public record CreateProjectCommand(
     string Title,
     string Description,
     Category? Category,
     Country? Country,
-    string? ProjectImgUrl)
-    : IRequest
+    string? ProjectImgUrl) : BaseModifyCommand(Title, Description, Category, Country, ProjectImgUrl), IRequest
 {
 }
 
