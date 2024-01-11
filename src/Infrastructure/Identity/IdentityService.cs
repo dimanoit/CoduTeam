@@ -51,14 +51,7 @@ public class IdentityService(
 
         ApplicationUser userToActivate = await userManager.Users
             .FirstAsync(u => u.Id == user.Id);
-
-        userToActivate.FirstName = userDto.FirstName;
-        userToActivate.LastName = userDto.LastName;
-        userToActivate.DateOfBirth = userDto.DateOfBirth;
-        userToActivate.Gender = userDto.Gender;
-        userToActivate.Title = userDto.Title;
-        userToActivate.UserStatus = UserStatus.Active;
-
+        userToActivate.MapUser(userDto);
         await userManager.UpdateAsync(userToActivate);
     }
 

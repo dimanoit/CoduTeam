@@ -7,8 +7,10 @@ public record ActivationUserCommand(
     string FirstName,
     string LastName,
     DateTime DateOfBirth,
+    string ProfileImg,
     Gender Gender,
-    string Title)
+    string Title,
+    string[] Technologies)
     : IRequest
 {
 }

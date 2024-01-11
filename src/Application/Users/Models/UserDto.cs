@@ -5,7 +5,6 @@ namespace CoduTeam.Application.Users.Models;
 public record UserDto
 {
     public int Id { get; set; }
-
     public string? Email { get; set; }
     public string? FirstName { get; set; }
     public string? LastName { get; set; }
@@ -14,4 +13,5 @@ public record UserDto
     public Gender? Gender { get; set; }
     public string? Title { get; set; }
     public string? Cv { get; set; }
+    public string[] Technologies { get; set; } = Array.Empty<string>();
 }

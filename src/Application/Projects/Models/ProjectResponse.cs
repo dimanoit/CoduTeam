@@ -13,9 +13,3 @@ public class ProjectResponse
     public ICollection<ProjectParticipant> Participants { get; set; } = Array.Empty<ProjectParticipant>();
 }
 
-public class ProjectParticipant(string userName, int userId)
-{
-    public string UserName { get; } = userName;
-    public int UserId { get; } = userId;
-    public string? ImageSrc { get; set; }
-}

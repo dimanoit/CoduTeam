@@ -1230,22 +1230,26 @@
         }
       },
       "CreateProjectCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseModifyCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "BaseModifyCommand": {
         "type": "object",
+        "x-abstract": true,
         "additionalProperties": false,
-        "required": [
-          "Title",
-          "Description"
-        ],
         "properties": {
           "Title": {
-            "type": "string",
-            "maxLength": 100,
-            "minLength": 0
+            "type": "string"
           },
           "Description": {
-            "type": "string",
-            "maxLength": 500,
-            "minLength": 0
+            "type": "string"
           },
           "Category": {
             "nullable": true,
@@ -1696,48 +1700,21 @@
         ]
       },
       "UpdateProjectCommand": {
-        "type": "object",
-        "additionalProperties": false,
-        "required": [
-          "Title",
-          "Description"
-        ],
-        "properties": {
-          "Id": {
-            "type": "integer",
-            "format": "int32"
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseModifyCommand"
           },
-          "Title": {
-            "type": "string",
-            "maxLength": 100,
-            "minLength": 0
-          },
-          "Description": {
-            "type": "string",
-            "maxLength": 500,
-            "minLength": 0
-          },
-          "Category": {
-            "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Category"
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "Id": {
+                "type": "integer",
+                "format": "int32"
               }
-            ]
-          },
-          "Country": {
-            "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Country"
-              }
-            ]
-          },
-          "ProjectImgUrl": {
-            "type": "string",
-            "nullable": true
+            }
           }
-        }
+        ]
       },
       "ProjectResponse": {
         "type": "object",
@@ -1792,9 +1769,24 @@
             "type": "integer",
             "format": "int32"
           },
+          "FirstName": {
+            "type": "string"
+          },
+          "LastName": {
+            "type": "string"
+          },
+          "ProjectTitle": {
+            "type": "string"
+          },
           "ImageSrc": {
             "type": "string",
             "nullable": true
+          },
+          "Technologies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -2090,6 +2082,12 @@
           "Cv": {
             "type": "string",
             "nullable": true
+          },
+          "Technologies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -2126,11 +2124,20 @@
             "type": "string",
             "format": "date-time"
           },
+          "ProfileImg": {
+            "type": "string"
+          },
           "Gender": {
             "$ref": "#/components/schemas/Gender"
           },
           "Title": {
             "type": "string"
+          },
+          "Technologies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
