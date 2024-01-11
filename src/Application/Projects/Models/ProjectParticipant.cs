@@ -1,3 +1,5 @@
+using CoduTeam.Domain.Enums;
+
 namespace CoduTeam.Application.Projects.Models;
 
 public class ProjectParticipant(
@@ -13,5 +15,6 @@ public class ProjectParticipant(
     public string LastName { get; set; } = lastName;
     public string ProjectTitle { get; set; } = projectTitle;
     public string? ImageSrc { get; set; }
+    public Gender? Gender { get; set; }
     public string[] Technologies { get; set; } = Array.Empty<string>();
 }

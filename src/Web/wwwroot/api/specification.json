@@ -1782,6 +1782,14 @@
             "type": "string",
             "nullable": true
           },
+          "Gender": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Gender"
+              }
+            ]
+          },
           "Technologies": {
             "type": "array",
             "items": {
@@ -1789,6 +1797,20 @@
             }
           }
         }
+      },
+      "Gender": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Male",
+          "Female",
+          "NonBinary"
+        ],
+        "enum": [
+          0,
+          1,
+          2
+        ]
       },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",
@@ -2090,20 +2112,6 @@
             }
           }
         }
-      },
-      "Gender": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "Male",
-          "Female",
-          "NonBinary"
-        ],
-        "enum": [
-          0,
-          1,
-          2
-        ]
       },
       "ActivationUserCommand": {
         "type": "object",
