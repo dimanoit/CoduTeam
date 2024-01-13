@@ -10,4 +10,5 @@ public class Project : BaseAuditableEntity
     public string? ProjectImageUrl { get; set; }
 
     public ICollection<UserProject> UserProjects { get; set; } = null!;
+    public ICollection<Position> Positions { get; set; } = null!;
 }

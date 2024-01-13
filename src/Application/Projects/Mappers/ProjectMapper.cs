@@ -9,6 +9,15 @@ public static class ProjectMapper
 {
     public static ProjectResponse ToProjectResponse(this Project project)
     {
+        var mapped = project.ToProjectDto();
+        mapped.Participants = project.UserProjects
+            .Select(ap => ap.ApplicationUser!.ToParticipant())
+            .ToArray();
+        
+        return mapped;
+    }
+    public static ProjectResponse ToProjectDto(this Project project)
+    {
         var response = new ProjectResponse
         {
             Id = project.Id,
@@ -17,9 +26,6 @@ public static class ProjectMapper
             Description = project.Description,
             Country = project.Country,
             ProjectImgUrl = project.ProjectImageUrl,
-            Participants = project.UserProjects
-                .Select(ap => ap.ApplicationUser!.ToParticipant())
-                .ToArray()
         };
 
         return response;

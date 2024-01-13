@@ -13,9 +13,10 @@ public class Projects : EndpointGroupBase
         app.MapGroup(this)
             .RequireAuthorization()
             .MapPost(CreateProject)
-            .MapDelete(DeleteProject, "{Id}")
+            .MapDelete(DeleteProject, "{id}")
             .MapPut(UpdateProject)
-            .MapGet(SearchProjects);
+            .MapGet(SearchProjects)
+            .MapGet(GetProject, "{id}");
     }
 
     public async Task CreateProject(ISender sender, CreateProjectCommand command)
@@ -31,6 +32,14 @@ public class Projects : EndpointGroupBase
     public async Task UpdateProject(ISender sender, UpdateProjectCommand command)
     {
         await sender.Send(command);
+    }
+    
+    public async Task<ProjectResponse?> GetProject(ISender sender, int id)
+    {
+        var query = new ProjectSearchQuery() { ProjectId = id };
+        var projects =  await sender.Send(query);
+
+        return projects?.FirstOrDefault();
     }
 
     public async Task<ProjectResponse[]?> SearchProjects(ISender sender, [AsParameters] ProjectSearchQuery query)

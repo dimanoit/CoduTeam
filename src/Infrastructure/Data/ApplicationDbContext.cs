@@ -15,6 +15,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     public DbSet<TodoItem> TodoItems => Set<TodoItem>();
     public DbSet<Project> Projects => Set<Project>();
+    public DbSet<Position> Positions => Set<Position>();
     public DbSet<UserProject> UserProjects => Set<UserProject>();
 
     protected override void OnModelCreating(ModelBuilder builder)

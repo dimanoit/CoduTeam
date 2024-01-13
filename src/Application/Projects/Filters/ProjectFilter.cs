@@ -15,6 +15,15 @@ public static class ProjectFilter
             : dbQuery;
     }
 
+    public static IQueryable<Project> AddProjectIdFilter(
+        this IQueryable<Project> dbQuery,
+        int? projectId)
+    {
+        return projectId.HasValue
+            ? dbQuery.Where(p => p.Id == projectId.Value)
+            : dbQuery;
+    }
+
     public static IQueryable<Project> AddTermFilter(
         this IQueryable<Project> dbQuery,
         string? term)
