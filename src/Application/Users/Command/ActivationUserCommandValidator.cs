@@ -15,9 +15,6 @@ public class ActivationUserCommandValidator : AbstractValidator<ActivationUserCo
 
         RuleFor(v => v.LastName)
             .MustBeOnlyLetters("LastName");
-
-        RuleFor(v => v.Title)
-            .NotNull().NotEmpty();
     }
 
     private static bool ValidateAge(DateTime dateOfBirth)

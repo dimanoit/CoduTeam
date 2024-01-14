@@ -2417,13 +2417,15 @@
             "format": "date-time"
           },
           "ProfileImg": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "Gender": {
             "$ref": "#/components/schemas/Gender"
           },
           "Title": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           },
           "Technologies": {
             "type": "array",
