@@ -3,17 +3,17 @@ using CoduTeam.Domain.Enums;
 
 namespace CoduTeam.Application.Users.Command;
 
-public record ActivationUserCommand(
-    string FirstName,
-    string LastName,
-    DateTime DateOfBirth,
-    string ProfileImg,
-    Gender Gender,
-    string Title,
-    string[] Technologies)
-    : IRequest
+public record ActivationUserCommand : IRequest
 {
+    public string FirstName { get; set; } = null!;
+    public string LastName { get; set; } = null!;
+    public DateTime DateOfBirth { get; set; }
+    public string? ProfileImg { get; set; }
+    public Gender Gender { get; set; }
+    public string? Title { get; set; }
+    public string[] Technologies { get; set; } = Array.Empty<string>();
 }
+
 
 public class ActivationUserCommandHandler(IIdentityService identityService)
     : IRequestHandler<ActivationUserCommand>
