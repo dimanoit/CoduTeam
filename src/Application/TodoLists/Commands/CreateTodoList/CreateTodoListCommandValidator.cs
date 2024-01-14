@@ -14,8 +14,8 @@ public class CreateTodoListCommandValidator : AbstractValidator<CreateTodoListCo
             .NotEmpty()
             .MaximumLength(200)
             .MustAsync(BeUniqueTitle)
-                .WithMessage("'{PropertyName}' must be unique.")
-                .WithErrorCode("Unique");
+            .WithMessage("'{PropertyName}' must be unique.")
+            .WithErrorCode("Unique");
     }
 
     public async Task<bool> BeUniqueTitle(string title, CancellationToken cancellationToken)

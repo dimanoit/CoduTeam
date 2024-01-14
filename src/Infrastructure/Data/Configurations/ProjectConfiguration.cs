@@ -14,11 +14,11 @@ public class ProjectConfiguration : IEntityTypeConfiguration<Project>
 
         builder.Property(t => t.Title)
             .IsRequired()
-            .HasMaxLength(50);
+            .HasMaxLength(100);
 
         builder.Property(d => d.Description)
             .IsRequired()
-            .HasMaxLength(255);
+            .HasMaxLength(500);
 
         builder.HasMany(a => a.UserProjects)
             .WithOne(a => a.Project)

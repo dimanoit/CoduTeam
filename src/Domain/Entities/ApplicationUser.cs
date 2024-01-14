@@ -12,4 +12,5 @@ public class ApplicationUser : IdentityUser<int>
     public UserStatus UserStatus { get; set; }
     public ICollection<UserProject>? UserProjects { get; set; }
     public string? ImageSrc { get; set; }
+    public string[] Technologies { get; set; } = Array.Empty<string>();
 }

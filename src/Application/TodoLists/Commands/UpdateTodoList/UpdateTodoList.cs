@@ -1,4 +1,5 @@
 ﻿using CoduTeam.Application.Common.Interfaces;
+using CoduTeam.Domain.Entities;
 
 namespace CoduTeam.Application.TodoLists.Commands.UpdateTodoList;
 
@@ -20,7 +21,7 @@ public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListComman
 
     public async Task Handle(UpdateTodoListCommand request, CancellationToken cancellationToken)
     {
-        var entity = await _context.TodoLists
+        TodoList? entity = await _context.TodoLists
             .FindAsync(new object[] { request.Id }, cancellationToken);
 
         Guard.Against.NotFound(request.Id, entity);
@@ -28,6 +29,5 @@ public class UpdateTodoListCommandHandler : IRequestHandler<UpdateTodoListComman
         entity.Title = request.Title;
 
         await _context.SaveChangesAsync(cancellationToken);
-
     }
 }

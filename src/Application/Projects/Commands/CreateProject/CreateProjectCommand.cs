@@ -1,16 +1,16 @@
 using CoduTeam.Application.Common.Interfaces;
+using CoduTeam.Application.Projects.Commands.Common;
 using CoduTeam.Domain.Entities;
 using CoduTeam.Domain.Enums;
 
-namespace CoduTeam.Application.Projects.Commands;
+namespace CoduTeam.Application.Projects.Commands.CreateProject;
 
 public record CreateProjectCommand(
     string Title,
     string Description,
     Category? Category,
     Country? Country,
-    string? ProjectImgUrl)
-    : IRequest
+    string? ProjectImgUrl) : BaseModifyCommand(Title, Description, Category, Country, ProjectImgUrl), IRequest
 {
 }
 
@@ -23,7 +23,7 @@ public class CreateProjectCommandHandler(
     {
         Guard.Against.Null(user.Id);
 
-        Project project = new Project
+        Project project = new()
         {
             Title = command.Title,
             Description = command.Description,
@@ -34,7 +34,7 @@ public class CreateProjectCommandHandler(
 
         dbContext.Projects.Add(project);
 
-        UserProject accountProject = new UserProject { UserId = user.Id.Value, Project = project };
+        UserProject accountProject = new() { UserId = user.Id.Value, Project = project };
 
         dbContext.UserProjects.Add(accountProject);
 

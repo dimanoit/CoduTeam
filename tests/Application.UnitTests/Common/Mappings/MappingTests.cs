@@ -37,7 +37,7 @@ public class MappingTests
     [TestCase(typeof(TodoItem), typeof(TodoItemBriefDto))]
     public void ShouldSupportMappingFromSourceToDestination(Type source, Type destination)
     {
-        var instance = GetInstanceOf(source);
+        object instance = GetInstanceOf(source);
 
         _mapper.Map(instance, source, destination);
     }
@@ -45,7 +45,9 @@ public class MappingTests
     private object GetInstanceOf(Type type)
     {
         if (type.GetConstructor(Type.EmptyTypes) != null)
+        {
             return Activator.CreateInstance(type)!;
+        }
 
         // Type without parameterless constructor
         // TODO: Figure out an alternative approach to the now obsolete `FormatterServices.GetUninitializedObject` method.

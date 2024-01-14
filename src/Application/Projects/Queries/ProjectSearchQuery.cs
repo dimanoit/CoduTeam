@@ -1,19 +1,23 @@
 using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Application.Projects.Filters;
+using CoduTeam.Application.Projects.Mappers;
 using CoduTeam.Application.Projects.Models;
-using CoduTeam.Application.Users;
+using CoduTeam.Domain.Enums;
 
 namespace CoduTeam.Application.Projects.Queries;
 
-public record ProjectSearchQuery(
-    int? OwnerId,
-    int? ProjectId,
-    int? Take,
-    int? Skip,
-    bool OnlyRelatedToCurrentUser = false)
-    : IRequest<ProjectResponse[]?>
+
+public record ProjectSearchQuery : IRequest<ProjectResponse[]?>
 {
+    public int? OwnerId { get; init; }
+    public int? ProjectId { get; init; }
+    public int? Take { get; init; }
+    public int? Skip { get; init; }
+    public Category? Category { get; init; }
+    public string? Term { get; init; }
+    public bool? OnlyRelatedToCurrentUser { get; init; }
 }
+
 
 internal class SearchProjectsQueryHandler(IApplicationDbContext dbContext, IUser user)
     : IRequestHandler<ProjectSearchQuery, ProjectResponse[]?>
@@ -27,19 +31,13 @@ internal class SearchProjectsQueryHandler(IApplicationDbContext dbContext, IUser
             .Projects
             .Include(p => p.UserProjects)
             .ThenInclude(ap => ap.ApplicationUser)
-            .AddOnlyRelatedToCurrentUserFilter(query.OnlyRelatedToCurrentUser, user.Id.Value)
-            .Select(project => new ProjectResponse
-            {
-                Id = project.Id,
-                Title = project.Title,
-                Category = project.Category,
-                Description = project.Description,
-                Country = project.Country,
-                ProjectImgUrl = project.ProjectImageUrl,
-                Participants = project.UserProjects
-                    .Select(ap => ap.ApplicationUser!.ToParticipant())
-                    .ToArray()
-            })
+            .AddProjectIdFilter(query.ProjectId)
+            .AddOnlyRelatedToCurrentUserFilter(query.OnlyRelatedToCurrentUser ?? false, user.Id.Value)
+            .AddTermFilter(query.Term)
+            .AddCategoryFilter(query.Category)
+            .Skip(query.Skip ?? 0)
+            .Take(query.Take ?? 5)
+            .Select(project => project.ToProjectResponse())
             .ToArrayAsync(cancellationToken);
 
         return projectResponse;

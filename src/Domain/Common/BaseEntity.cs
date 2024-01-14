@@ -4,14 +4,13 @@ namespace CoduTeam.Domain.Common;
 
 public abstract class BaseEntity
 {
+    private readonly List<BaseEvent> _domainEvents = new();
+
     // This can easily be modified to be BaseEntity<T> and public T Id to support different key types.
     // Using non-generic integer types for simplicity
     public int Id { get; set; }
 
-    private readonly List<BaseEvent> _domainEvents = new();
-
-    [NotMapped]
-    public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();
+    [NotMapped] public IReadOnlyCollection<BaseEvent> DomainEvents => _domainEvents.AsReadOnly();
 
     public void AddDomainEvent(BaseEvent domainEvent)
     {

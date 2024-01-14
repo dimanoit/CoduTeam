@@ -1,4 +1,6 @@
-using CoduTeam.Application.Projects.Commands;
+using CoduTeam.Application.Projects.Commands.CreateProject;
+using CoduTeam.Application.Projects.Commands.DeleteProject;
+using CoduTeam.Application.Projects.Commands.UpdateProject;
 using CoduTeam.Application.Projects.Models;
 using CoduTeam.Application.Projects.Queries;
 
@@ -11,24 +13,33 @@ public class Projects : EndpointGroupBase
         app.MapGroup(this)
             .RequireAuthorization()
             .MapPost(CreateProject)
-            .MapDelete(DeleteProject,"{Id}")
-            .MapPut(UpdateProject,"{Id}")
-            .MapGet(SearchProjects);
-    } 
+            .MapDelete(DeleteProject, "{id}")
+            .MapPut(UpdateProject)
+            .MapGet(SearchProjects)
+            .MapGet(GetProject, "{id}");
+    }
 
     public async Task CreateProject(ISender sender, CreateProjectCommand command)
     {
         await sender.Send(command);
     }
+
     public async Task DeleteProject(ISender sender, int id)
     {
         await sender.Send(new DeleteProjectCommand(id));
     }
-    public async Task<IResult> UpdateProject(ISender sender, int id, UpdateProjectCommand command)
+
+    public async Task UpdateProject(ISender sender, UpdateProjectCommand command)
     {
-        if (id != command.Id) return Results.BadRequest();
         await sender.Send(command);
-        return Results.NoContent();
+    }
+    
+    public async Task<ProjectResponse?> GetProject(ISender sender, int id)
+    {
+        var query = new ProjectSearchQuery() { ProjectId = id };
+        var projects =  await sender.Send(query);
+
+        return projects?.FirstOrDefault();
     }
 
     public async Task<ProjectResponse[]?> SearchProjects(ISender sender, [AsParameters] ProjectSearchQuery query)

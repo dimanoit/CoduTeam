@@ -390,6 +390,166 @@
         ]
       }
     },
+    "/api/positions": {
+      "post": {
+        "tags": [
+          "positions"
+        ],
+        "operationId": "CreatePosition",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePositionCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "positions"
+        ],
+        "operationId": "UpdatePosition",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdatePositionCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "positions"
+        ],
+        "operationId": "SearchPositions",
+        "parameters": [
+          {
+            "name": "PositionId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 1
+          },
+          {
+            "name": "Take",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 2
+          },
+          {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 3
+          },
+          {
+            "name": "Term",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 4
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "nullable": true,
+                    "oneOf": [
+                      {
+                        "$ref": "#/components/schemas/PositionResponse"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/positions/{id}": {
+      "delete": {
+        "tags": [
+          "positions"
+        ],
+        "operationId": "DeletePosition",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/projects": {
       "post": {
         "tags": [
@@ -402,6 +562,34 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateProjectCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "projects"
+        ],
+        "operationId": "UpdateProject",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProjectCommand"
               }
             }
           },
@@ -466,12 +654,35 @@
             "x-position": 4
           },
           {
+            "name": "Category",
+            "in": "query",
+            "schema": {
+              "nullable": true,
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/Category"
+                }
+              ]
+            },
+            "x-position": 5
+          },
+          {
+            "name": "Term",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "nullable": true
+            },
+            "x-position": 6
+          },
+          {
             "name": "OnlyRelatedToCurrentUser",
             "in": "query",
             "schema": {
-              "type": "boolean"
+              "type": "boolean",
+              "nullable": true
             },
-            "x-position": 5
+            "x-position": 7
           }
         ],
         "responses": {
@@ -501,7 +712,7 @@
         ]
       }
     },
-    "/api/projects/{Id}": {
+    "/api/projects/{id}": {
       "delete": {
         "tags": [
           "projects"
@@ -509,8 +720,7 @@
         "operationId": "DeleteProject",
         "parameters": [
           {
-            "name": "Id",
-            "x-originalName": "id",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -531,15 +741,14 @@
           }
         ]
       },
-      "put": {
+      "get": {
         "tags": [
           "projects"
         ],
-        "operationId": "UpdateProject",
+        "operationId": "GetProject",
         "parameters": [
           {
-            "name": "Id",
-            "x-originalName": "id",
+            "name": "id",
             "in": "path",
             "required": true,
             "schema": {
@@ -549,21 +758,16 @@
             "x-position": 1
           }
         ],
-        "requestBody": {
-          "x-name": "command",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateProjectCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 2
-        },
         "responses": {
           "200": {
-            "description": ""
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectResponse"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -1220,10 +1424,90 @@
           }
         }
       },
-      "CreateProjectCommand": {
+      "CreatePositionCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseModifyPositionCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ProjectId": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ]
+      },
+      "BaseModifyPositionCommand": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "Title": {
+            "type": "string"
+          },
+          "Description": {
+            "type": "string"
+          },
+          "ShortDescription": {
+            "type": "string"
+          },
+          "IsRemote": {
+            "type": "boolean",
+            "nullable": true
+          }
+        }
+      },
+      "UpdatePositionCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseModifyPositionCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "Id": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ]
+      },
+      "PositionResponse": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Title": {
+            "type": "string"
+          },
+          "Description": {
+            "type": "string"
+          },
+          "ShortDescription": {
+            "type": "string"
+          },
+          "Project": {
+            "$ref": "#/components/schemas/ProjectDto"
+          }
+        }
+      },
+      "ProjectDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
           "Title": {
             "type": "string"
           },
@@ -1678,14 +1962,22 @@
           188
         ]
       },
-      "UpdateProjectCommand": {
+      "CreateProjectCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseModifyCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "BaseModifyCommand": {
         "type": "object",
+        "x-abstract": true,
         "additionalProperties": false,
         "properties": {
-          "Id": {
-            "type": "integer",
-            "format": "int32"
-          },
           "Title": {
             "type": "string"
           },
@@ -1714,47 +2006,41 @@
           }
         }
       },
-      "ProjectResponse": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "Id": {
-            "type": "integer",
-            "format": "int32"
+      "UpdateProjectCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseModifyCommand"
           },
-          "Title": {
-            "type": "string"
-          },
-          "Description": {
-            "type": "string"
-          },
-          "Category": {
-            "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Category"
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "Id": {
+                "type": "integer",
+                "format": "int32"
               }
-            ]
-          },
-          "Country": {
-            "nullable": true,
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Country"
-              }
-            ]
-          },
-          "ProjectImgUrl": {
-            "type": "string",
-            "nullable": true
-          },
-          "Participants": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ProjectParticipant"
             }
           }
-        }
+        ]
+      },
+      "ProjectResponse": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/ProjectDto"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "Participants": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/ProjectParticipant"
+                }
+              }
+            }
+          }
+        ]
       },
       "ProjectParticipant": {
         "type": "object",
@@ -1767,11 +2053,48 @@
             "type": "integer",
             "format": "int32"
           },
+          "FirstName": {
+            "type": "string"
+          },
+          "LastName": {
+            "type": "string"
+          },
+          "ProjectTitle": {
+            "type": "string"
+          },
           "ImageSrc": {
             "type": "string",
             "nullable": true
+          },
+          "Gender": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Gender"
+              }
+            ]
+          },
+          "Technologies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
+      },
+      "Gender": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Male",
+          "Female",
+          "NonBinary"
+        ],
+        "enum": [
+          0,
+          1,
+          2
+        ]
       },
       "PaginatedListOfTodoItemBriefDto": {
         "type": "object",
@@ -2065,22 +2388,14 @@
           "Cv": {
             "type": "string",
             "nullable": true
+          },
+          "Technologies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
-      },
-      "Gender": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "Male",
-          "Female",
-          "NonBinary"
-        ],
-        "enum": [
-          0,
-          1,
-          2
-        ]
       },
       "ActivationUserCommand": {
         "type": "object",
@@ -2101,11 +2416,20 @@
             "type": "string",
             "format": "date-time"
           },
+          "ProfileImg": {
+            "type": "string"
+          },
           "Gender": {
             "$ref": "#/components/schemas/Gender"
           },
           "Title": {
             "type": "string"
+          },
+          "Technologies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
