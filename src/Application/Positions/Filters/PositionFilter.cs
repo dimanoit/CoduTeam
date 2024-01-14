@@ -12,6 +12,15 @@ public static class PositionFilter
             ? dbQuery.Where(p => p.Id == positionId.Value)
             : dbQuery;
     }
+    
+    public static IQueryable<Position> AddProjectIdFilter(
+        this IQueryable<Position> dbQuery,
+        int? projectId)
+    {
+        return projectId.HasValue
+            ? dbQuery.Where(position => position.ProjectId == projectId.Value)
+            : dbQuery;
+    }
 
     public static IQueryable<Position> AddTermFilter(
         this IQueryable<Position> dbQuery,

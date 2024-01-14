@@ -8,6 +8,7 @@ namespace CoduTeam.Application.Positions.Queries;
 public record PositionSearchQuery : IRequest<PositionResponse[]?>
 {
     public int? PositionId { get; init; }
+    public int? ProjectId { get; init; }
     public int? Take { get; init; }
     public int? Skip { get; init; }
     public string? Term { get; init; }
@@ -24,6 +25,7 @@ internal class SearchPositionsQueryHandler(IApplicationDbContext dbContext, IUse
         var response = await dbContext
             .Positions
             .Include(p => p.Project)
+            .AddProjectIdFilter(query.ProjectId)
             .AddPositionIdFilter(query.PositionId)
             .AddTermFilter(query.Term)
             .Select(position => position.ToPositionResponse())
