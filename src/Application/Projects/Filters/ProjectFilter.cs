@@ -30,7 +30,7 @@ public static class ProjectFilter
     {
         return string.IsNullOrEmpty(term)
             ? dbQuery
-            : dbQuery.Where(x => x.Description.Contains(term));
+            : dbQuery.Where(x => x.Description.Contains(term) || x.Title.Contains(term));
     }
 
     public static IQueryable<Project> AddCategoryFilter(

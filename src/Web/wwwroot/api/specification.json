@@ -2402,8 +2402,7 @@
         "additionalProperties": false,
         "required": [
           "FirstName",
-          "LastName",
-          "Title"
+          "LastName"
         ],
         "properties": {
           "FirstName": {
