@@ -464,7 +464,7 @@
             "x-position": 1
           },
           {
-            "name": "Take",
+            "name": "ProjectId",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -474,7 +474,7 @@
             "x-position": 2
           },
           {
-            "name": "Skip",
+            "name": "Take",
             "in": "query",
             "schema": {
               "type": "integer",
@@ -484,13 +484,23 @@
             "x-position": 3
           },
           {
+            "name": "Skip",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "nullable": true
+            },
+            "x-position": 4
+          },
+          {
             "name": "Term",
             "in": "query",
             "schema": {
               "type": "string",
               "nullable": true
             },
-            "x-position": 4
+            "x-position": 5
           }
         ],
         "responses": {
