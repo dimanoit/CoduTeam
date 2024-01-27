@@ -24,21 +24,14 @@ public static class ProjectFilter
             : dbQuery;
     }
 
-    public static IQueryable<Project> AddTermFilter(
-        this IQueryable<Project> dbQuery,
-        string? term)
-    {
-        return string.IsNullOrEmpty(term)
-            ? dbQuery
-            : dbQuery.Where(x => x.Description.Contains(term));
-    }
+   
 
     public static IQueryable<Project> AddCategoryFilter(
         this IQueryable<Project> dbQuery,
         Category? category)
     {
         return category.HasValue && category.Value != Category.None
-            ? dbQuery.Where(p => p.Category == category.Value)
+            ? dbQuery.Where(p => p.Category == category.Value.ToString())
             : dbQuery;
     }
 }
