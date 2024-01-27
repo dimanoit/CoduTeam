@@ -12,7 +12,7 @@ public static class PositionFilter
             ? dbQuery.Where(p => p.Id == positionId.Value)
             : dbQuery;
     }
-    
+
     public static IQueryable<Position> AddProjectIdFilter(
         this IQueryable<Position> dbQuery,
         int? projectId)
@@ -28,6 +28,9 @@ public static class PositionFilter
     {
         return string.IsNullOrEmpty(term)
             ? dbQuery
-            : dbQuery.Where(x => x.Description.Contains(term));
+            : dbQuery.Where(x =>
+                x.Description.Contains(term) ||
+                x.Title.Contains(term) ||
+                x.ShortDescription.Contains(term));
     }
 }
