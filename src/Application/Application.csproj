@@ -9,11 +9,16 @@
     <PackageReference Include="Ardalis.GuardClauses"/>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection"/>
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions"/>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
     <PackageReference Include="Microsoft.EntityFrameworkCore"/>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Chat\" />
   </ItemGroup>
 
 </Project>

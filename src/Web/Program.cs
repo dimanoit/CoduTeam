@@ -1,5 +1,8 @@
+using CoduTeam.Application;
+using CoduTeam.Infrastructure;
 using CoduTeam.Infrastructure.Data;
 using CoduTeam.Web;
+using CoduTeam.Infrastructure.Hubs;
 using DependencyInjection = CoduTeam.Web.DependencyInjection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -10,6 +13,7 @@ builder.Services.AddKeyVaultIfConfigured(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices();
+
 
 WebApplication app = builder.Build();
 
@@ -24,6 +28,7 @@ else
     app.UseHsts();
 }
 
+app.MapHub<ChatHub>("chat-hub");
 app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -40,8 +45,6 @@ app.Map("/", () => Results.Redirect("/api"));
 
 app.MapEndpoints();
 app.UseCors(DependencyInjection.CorsPolicyName);
-
-app.Run();
 
 public partial class Program
 {

@@ -8,8 +8,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace CoduTeam.Infrastructure;
 
 public static class DependencyInjection
 {
@@ -30,6 +31,7 @@ public static class DependencyInjection
             options.UseSqlServer(connectionString);
         });
 
+        services.AddSignalR();
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<ApplicationDbContextInitialiser>();
