@@ -19,7 +19,7 @@ public class PositionConfiguration : IEntityTypeConfiguration<Position>
         builder.Property(d => d.ShortDescription)
             .IsRequired()
             .HasMaxLength(500);
-        
+
         builder.Property(d => d.Description)
             .IsRequired()
             .HasMaxLength(3000);
