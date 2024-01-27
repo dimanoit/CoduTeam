@@ -9,7 +9,7 @@ public static class PositionMapper
 {
     public static PositionResponse ToPositionResponse(this Position position)
     {
-        var response = new PositionResponse()
+        PositionResponse response = new()
         {
             Id = position.Id,
             Title = position.Title,
@@ -27,5 +27,7 @@ public static class PositionMapper
         entity.Description = command.Description;
         entity.IsRemote = command.IsRemote ?? true;
         entity.ShortDescription = command.ShortDescription;
+        entity.Deadline = command.Deadline;
+        entity.PositionStatus = command.PositionStatus;
     }
 }

@@ -1,6 +1,7 @@
 using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Application.Positions.Commands.Common;
 using CoduTeam.Domain.Entities;
+using CoduTeam.Domain.Enums;
 
 namespace CoduTeam.Application.Positions.Commands.CreatePosition;
 
@@ -9,6 +10,7 @@ public record CreatePositionCommand(
     string Title,
     string Description,
     string ShortDescription,
+    DateTime DeadLine,
     bool? IsRemote
 ) : BaseModifyPositionCommand(Title, Description, ShortDescription, IsRemote), IRequest
 {
@@ -30,6 +32,8 @@ public class CreatePositionCommandHandler(
             IsRemote = command.IsRemote ?? true,
             ProjectId = command.ProjectId,
             ShortDescription = command.ShortDescription,
+            PositionStatus = PositionStatus.Opened,
+            Deadline = command.DeadLine
         };
 
         dbContext.Positions.Add(position);

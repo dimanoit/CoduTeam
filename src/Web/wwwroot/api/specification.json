@@ -1446,6 +1446,10 @@
               "ProjectId": {
                 "type": "integer",
                 "format": "int32"
+              },
+              "DeadLine": {
+                "type": "string",
+                "format": "date-time"
               }
             }
           }
@@ -1483,9 +1487,28 @@
               "Id": {
                 "type": "integer",
                 "format": "int32"
+              },
+              "Deadline": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "PositionStatus": {
+                "$ref": "#/components/schemas/PositionStatus"
               }
             }
           }
+        ]
+      },
+      "PositionStatus": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Opened",
+          "Closed"
+        ],
+        "enum": [
+          0,
+          1
         ]
       },
       "PositionResponse": {

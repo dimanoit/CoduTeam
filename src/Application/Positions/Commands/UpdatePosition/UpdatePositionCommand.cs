@@ -1,9 +1,6 @@
 ﻿using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Application.Positions.Commands.Common;
 using CoduTeam.Application.Positions.Mappers;
-using CoduTeam.Application.Projects.Commands.Common;
-using CoduTeam.Application.Projects.Commands.UpdateProject;
-using CoduTeam.Application.Projects.Mappers;
 using CoduTeam.Domain.Entities;
 using CoduTeam.Domain.Enums;
 
@@ -14,6 +11,8 @@ public record UpdatePositionCommand(
     string Title,
     string Description,
     string ShortDescription,
+    DateTime Deadline,
+    PositionStatus PositionStatus,
     bool? IsRemote) : BaseModifyPositionCommand(Title, Description, ShortDescription, IsRemote), IRequest
 {
 }
@@ -23,7 +22,7 @@ public class UpdatePositionCommandHandler(IIdentityService identityService, IApp
 {
     public async Task Handle(UpdatePositionCommand command, CancellationToken cancellationToken)
     {
-        var entity = await dbContext.Positions.FindAsync(command.Id, cancellationToken);
+        Position? entity = await dbContext.Positions.FindAsync(command.Id, cancellationToken);
 
         Guard.Against.NotFound(command.Id, entity);
         identityService.ThrowIfNoAccessToResource(entity);

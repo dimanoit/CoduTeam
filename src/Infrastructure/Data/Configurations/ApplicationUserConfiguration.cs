@@ -10,7 +10,7 @@ public class ApplicationUserConfiguration : IEntityTypeConfiguration<Application
     {
         builder.Property(u => u.Technologies)
             .HasConversion(
-                v => string.Join(',', v),  
-                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries)); 
+                v => string.Join(',', v),
+                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries));
     }
 }
