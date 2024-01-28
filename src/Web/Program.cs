@@ -28,7 +28,6 @@ else
     app.UseHsts();
 }
 
-app.MapHub<ChatHub>("chat-hub");
 app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -44,6 +43,7 @@ app.UseExceptionHandler(options => { });
 app.Map("/", () => Results.Redirect("/api"));
 
 app.MapEndpoints();
+app.MapHub<ChatHub>("chat-hub");
 app.UseCors(DependencyInjection.CorsPolicyName);
 try
 {
