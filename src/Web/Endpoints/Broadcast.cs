@@ -13,8 +13,13 @@ public class Broadcast : EndpointGroupBase
             .MapPost(BroadcastEndpoint);
     }
 
-    public async Task BroadcastEndpoint(string message, IHubContext<ChatHub, IChatClient> context)
+    public async Task BroadcastEndpoint(Test message, IHubContext<ChatHub, IChatClient> context)
     {
-        await context.Clients.All.ReceiveMessage(message);
+        await context.Clients.All.ReceiveMessage(message.Message);
     }
+}
+
+public class Test
+{
+    public required string Message { get; set; }
 }

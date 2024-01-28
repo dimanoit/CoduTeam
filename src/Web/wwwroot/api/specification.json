@@ -396,17 +396,18 @@
           "broadcast"
         ],
         "operationId": "BroadcastEndpoint",
-        "parameters": [
-          {
-            "name": "message",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            },
-            "x-position": 1
-          }
-        ],
+        "requestBody": {
+          "x-name": "message",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Test"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
         "responses": {
           "200": {
             "description": ""
@@ -1460,6 +1461,15 @@
           "OldPassword": {
             "type": "string",
             "nullable": true
+          }
+        }
+      },
+      "Test": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Message": {
+            "type": "string"
           }
         }
       },
