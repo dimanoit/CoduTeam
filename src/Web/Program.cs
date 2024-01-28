@@ -45,6 +45,14 @@ app.Map("/", () => Results.Redirect("/api"));
 
 app.MapEndpoints();
 app.UseCors(DependencyInjection.CorsPolicyName);
+try
+{
+    app.Run();
+}
+catch (Exception e)
+{
+    Console.WriteLine(e.Message);
+}
 
 public partial class Program
 {
