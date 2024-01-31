@@ -530,6 +530,36 @@
         ]
       }
     },
+    "/api/positions/apply": {
+      "post": {
+        "tags": [
+          "positions"
+        ],
+        "operationId": "ApplyOnPosition",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyOnPositionCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/positions/{id}": {
       "delete": {
         "tags": [
@@ -1472,6 +1502,16 @@
           "IsRemote": {
             "type": "boolean",
             "nullable": true
+          }
+        }
+      },
+      "ApplyOnPositionCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "PositionId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },

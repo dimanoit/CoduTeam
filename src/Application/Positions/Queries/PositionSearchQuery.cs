@@ -35,7 +35,7 @@ internal class SearchPositionsQueryHandler(IApplicationDbContext dbContext, IUse
             .Skip(query.Skip ?? 0)
             .Take(query.Take ?? 5)
             .ToArrayAsync(cancellationToken);
-        
+
         return response;
     }
 }

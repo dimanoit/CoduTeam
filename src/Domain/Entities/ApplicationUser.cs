@@ -13,4 +13,5 @@ public class ApplicationUser : IdentityUser<int>
     public ICollection<UserProject>? UserProjects { get; set; }
     public string? ImageSrc { get; set; }
     public string[] Technologies { get; set; } = Array.Empty<string>();
+    public ICollection<PositionApply>? PositionApplies { get; set; }
 }

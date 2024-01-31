@@ -11,4 +11,5 @@ public class Position : BaseAuditableEntity
     public bool IsRemote { get; set; } = true;
     public required int ProjectId { get; init; }
     public Project Project { get; init; } = null!;
+    public ICollection<PositionApply>? PositionApplies { get; set; }
 }
