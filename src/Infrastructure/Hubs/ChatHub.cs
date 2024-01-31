@@ -15,4 +15,9 @@ public sealed class ChatHub : Hub<IChatClient>
     {
         await Clients.All.ReceiveMessage($"{Context.ConnectionId}:{message}");
     }
+
+    public async Task SendMessageToSpecificUser(string userId, string message)
+    {
+        await Clients.User(userId).ReceiveMessage($"{Context.ConnectionId}:{message}");
+    }
 }
