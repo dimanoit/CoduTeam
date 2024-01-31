@@ -33,11 +33,11 @@ public class Projects : EndpointGroupBase
     {
         await sender.Send(command);
     }
-    
+
     public async Task<ProjectResponse?> GetProject(ISender sender, int id)
     {
         var query = new ProjectSearchQuery() { ProjectId = id };
-        var projects =  await sender.Send(query);
+        var projects = await sender.Send(query);
 
         return projects?.FirstOrDefault();
     }

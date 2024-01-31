@@ -10,7 +10,7 @@ public static class TermFilter
         string? term)
     {
         var sanitizedTerm = GetSanitizedTerm(term ?? "");
-        
+
         return string.IsNullOrEmpty(term)
             ? dbQuery
             : dbQuery.Where(x =>
