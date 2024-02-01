@@ -1,4 +1,3 @@
-using CoduTeam.Application.Positions.Commands;
 using CoduTeam.Application.Positions.Commands.CreatePosition;
 using CoduTeam.Application.Positions.Commands.DeletePosition;
 using CoduTeam.Application.Positions.Commands.UpdatePosition;
@@ -14,7 +13,6 @@ public class Positions : EndpointGroupBase
         app.MapGroup(this)
             .RequireAuthorization()
             .MapPost(CreatePosition)
-            .MapPost(ApplyOnPosition, "apply")
             .MapDelete(DeletePosition, "{id}")
             .MapPut(UpdatePosition)
             .MapGet(SearchPositions);
@@ -38,10 +36,5 @@ public class Positions : EndpointGroupBase
     public async Task<PositionResponse[]?> SearchPositions(ISender sender, [AsParameters] PositionSearchQuery query)
     {
         return await sender.Send(query);
-    }
-
-    public async Task ApplyOnPosition(ISender sender, ApplyOnPositionCommand command)
-    {
-        await sender.Send(command);
     }
 }

@@ -390,6 +390,66 @@
         ]
       }
     },
+    "/api/position-applies": {
+      "post": {
+        "tags": [
+          "position-applies"
+        ],
+        "operationId": "ApplyOnPosition",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyOnPositionCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/position-applies/rejection": {
+      "patch": {
+        "tags": [
+          "position-applies"
+        ],
+        "operationId": "RejectApplicant",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RejectApplicantCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/positions": {
       "post": {
         "tags": [
@@ -521,36 +581,6 @@
                 }
               }
             }
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/positions/apply": {
-      "post": {
-        "tags": [
-          "positions"
-        ],
-        "operationId": "ApplyOnPosition",
-        "requestBody": {
-          "x-name": "command",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ApplyOnPositionCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": ""
           }
         },
         "security": [
@@ -1464,6 +1494,26 @@
           }
         }
       },
+      "ApplyOnPositionCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "PositionId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "RejectApplicantCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "PositionApplyId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
       "CreatePositionCommand": {
         "allOf": [
           {
@@ -1502,16 +1552,6 @@
           "IsRemote": {
             "type": "boolean",
             "nullable": true
-          }
-        }
-      },
-      "ApplyOnPositionCommand": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "PositionId": {
-            "type": "integer",
-            "format": "int32"
           }
         }
       },
