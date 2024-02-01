@@ -2,7 +2,7 @@ using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Domain.Entities;
 using CoduTeam.Domain.Enums;
 
-namespace CoduTeam.Application.Positions.Commands;
+namespace CoduTeam.Application.PositionApplies;
 
 public record ApplyOnPositionCommand(int PositionId) : IRequest;
 

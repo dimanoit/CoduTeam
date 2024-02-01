@@ -1,4 +1,4 @@
-using CoduTeam.Application.Positions.Commands;
+using CoduTeam.Application.PositionApplies;
 
 namespace CoduTeam.Web.Endpoints;
 
@@ -18,6 +18,11 @@ public class PositionApplies : EndpointGroupBase
     }
 
     public async Task RejectApplicant(ISender sender, RejectApplicantCommand command)
+    {
+        await sender.Send(command);
+    }
+
+    public async Task AcceptApplicant(ISender sender, AcceptApplicantCommand command)
     {
         await sender.Send(command);
     }
