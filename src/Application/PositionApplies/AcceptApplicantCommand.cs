@@ -26,7 +26,7 @@ public record AcceptApplicantCommandHandler(IUser user, IApplicationDbContext db
 
         ValidatePositionApply(request, positionApply);
 
-        UserProject accountProject = new() { UserId = user.Id!.Value, Project = positionApply!.Position!.Project };
+        UserProject accountProject = new() { UserId = positionApply!.UserId, Project = positionApply!.Position!.Project };
         dbContext.UserProjects.Add(accountProject);
 
         positionApply.Position.PositionStatus = PositionStatus.Closed;

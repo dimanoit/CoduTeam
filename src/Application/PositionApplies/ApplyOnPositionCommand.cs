@@ -1,6 +1,8 @@
 using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Domain.Entities;
 using CoduTeam.Domain.Enums;
+using FluentValidation.Results;
+using ValidationException = CoduTeam.Application.Common.Exceptions.ValidationException;
 
 namespace CoduTeam.Application.PositionApplies;
 
@@ -18,9 +20,7 @@ public class ApplyOnPositionCommandHandler(IUser user, IApplicationDbContext dbC
 
         PositionApply positionApply = new()
         {
-            PositionId = request.PositionId,
-            UserId = user.Id!.Value,
-            Status = PositionApplyStatus.Sent
+            PositionId = request.PositionId, UserId = user.Id!.Value, Status = PositionApplyStatus.Sent
         };
 
         dbContext.PositionApplies.Add(positionApply);
@@ -31,18 +31,24 @@ public class ApplyOnPositionCommandHandler(IUser user, IApplicationDbContext dbC
     {
         Guard.Against.Null(position);
         Guard.Against.Null(user.Id);
+        var validationErrors = new List<ValidationFailure>();
 
         if (position.PositionStatus == PositionStatus.Closed)
         {
-            throw new ValidationException("Position already closed");
+            validationErrors.Add(new ValidationFailure(nameof(Position.PositionStatus), "Position already closed"));
         }
 
         bool isAlreadyApplied = await dbContext.PositionApplies
-            .AnyAsync(pa => pa.UserId == user.Id, cancellationToken);
+            .AnyAsync(pa => pa.PositionId == position.Id && pa.UserId == user.Id, cancellationToken);
 
         if (isAlreadyApplied)
         {
-            throw new ValidationException("User already applied on this position");
+            validationErrors.Add(new ValidationFailure(nameof(ApplicationUser.Id), "User already applied on position"));
+        }
+
+        if (validationErrors.Count != 0)
+        {
+            throw new ValidationException(validationErrors);
         }
     }
 }
