@@ -24,7 +24,7 @@ public static class ProjectFilter
             : dbQuery;
     }
 
-   
+
 
     public static IQueryable<Project> AddCategoryFilter(
         this IQueryable<Project> dbQuery,

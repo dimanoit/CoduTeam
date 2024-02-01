@@ -37,7 +37,7 @@ public class Positions : EndpointGroupBase
     {
         await sender.Send(command);
     }
-    
+
     public async Task<PositionResponse[]?> SearchPositions(ISender sender, [AsParameters] PositionSearchQuery query)
     {
         return await sender.Send(query);

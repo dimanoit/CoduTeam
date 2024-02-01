@@ -37,13 +37,15 @@ public static class UserMapper
         userToActivate.Technologies = userDto.Technologies ?? [];
         userToActivate.UserStatus = UserStatus.Active;
     }
-    
+
     public static ProjectParticipant ToParticipant(this ApplicationUser user)
     {
         return new ProjectParticipant(userName: user.UserName!, userId: user.Id, firstName: user.FirstName!,
             lastName: user.LastName!, projectTitle: user.Title!)
         {
-            ImageSrc = user.ImageSrc, Technologies = user.Technologies, Gender = user.Gender
+            ImageSrc = user.ImageSrc,
+            Technologies = user.Technologies,
+            Gender = user.Gender
         };
     }
 }

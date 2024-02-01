@@ -11,8 +11,8 @@ public class Chat : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapPost(BroadcastEndpoint,"broadcast")
-            .MapPost(SendMessageToSpecificUser,"user");
+            .MapPost(BroadcastEndpoint, "broadcast")
+            .MapPost(SendMessageToSpecificUser, "user");
     }
 
     public async Task BroadcastEndpoint(Test message, IHubContext<ChatHub, IChatClient> context)
@@ -28,7 +28,7 @@ public class Chat : EndpointGroupBase
         // 3. Implement MessageService 
         // 2. Method Send Message -> Create Message object -> Save to DB -> Send via SignalR
         // 3. Method Get Chat Messages (1-1 Chat) -> Get all messages via db -> REST endpoint 
-        
+
         await context.Clients.User(user?.Id.ToString() ?? "").ReceiveMessage("KEK");
     }
 }
@@ -40,5 +40,5 @@ public class Test
 public class Test2
 {
     public required string Message { get; set; }
-    public required string userId { get; set; } 
+    public required string userId { get; set; }
 }
