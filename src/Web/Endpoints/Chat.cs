@@ -1,4 +1,5 @@
-﻿using CoduTeam.Infrastructure.Hubs;
+﻿using CoduTeam.Application.Common.Interfaces;
+using CoduTeam.Infrastructure.Hubs;
 using CoduTeam.Infrastructure.Hubs.ChatInterfaces;
 using Microsoft.AspNetCore.SignalR;
 
@@ -19,9 +20,16 @@ public class Chat : EndpointGroupBase
         await context.Clients.All.ReceiveMessage(message.Message);
     }
 
-    public async Task SendMessageToSpecificUser(Test2 message, IHubContext<ChatHub, IChatClient> context)
+    public async Task SendMessageToSpecificUser(Test2 message, IHubContext<ChatHub, IChatClient> context, IUser user)
     {
-        await context.Clients.User(message.userId).ReceiveMessage(message.Message);
+        // TODO
+        // 0.1 Create Message Entity (Sender, Recipient, Id, Content(string))    
+        // 1. Create interface of service IMessageService 
+        // 3. Implement MessageService 
+        // 2. Method Send Message -> Create Message object -> Save to DB -> Send via SignalR
+        // 3. Method Get Chat Messages (1-1 Chat) -> Get all messages via db -> REST endpoint 
+        
+        await context.Clients.User(user?.Id.ToString() ?? "").ReceiveMessage("KEK");
     }
 }
 
