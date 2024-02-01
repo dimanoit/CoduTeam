@@ -15,11 +15,11 @@ public class UserProjectConfiguration : IEntityTypeConfiguration<UserProject>
         builder
             .HasIndex(p => new { p.UserId, p.ProjectId })
             .IsUnique();
-        
+
         builder.HasOne(a => a.ApplicationUser)
             .WithMany(a => a.UserProjects)
             .HasForeignKey(up => up.UserId);
-          
+
         builder.HasOne(a => a.Project)
             .WithMany(a => a.UserProjects)
             .HasForeignKey(up => up.ProjectId);

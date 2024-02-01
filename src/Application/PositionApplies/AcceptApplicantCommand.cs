@@ -39,7 +39,7 @@ public record AcceptApplicantCommandHandler(IUser user, IApplicationDbContext db
     {
         Guard.Against.NotFound(request.PositionApplyId, positionApply);
         var validationFailures = new List<ValidationFailure>();
-        
+
         if (positionApply.Status == PositionApplyStatus.Rejected)
         {
             validationFailures.Add(new ValidationFailure(
