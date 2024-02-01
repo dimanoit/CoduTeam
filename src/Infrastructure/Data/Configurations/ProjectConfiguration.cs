@@ -19,9 +19,5 @@ public class ProjectConfiguration : IEntityTypeConfiguration<Project>
         builder.Property(d => d.Description)
             .IsRequired()
             .HasMaxLength(500);
-
-        builder.HasMany(a => a.UserProjects)
-            .WithOne(a => a.Project)
-            .HasForeignKey(a => a.ProjectId);
     }
 }

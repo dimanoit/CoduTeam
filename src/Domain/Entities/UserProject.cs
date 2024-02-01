@@ -1,6 +1,6 @@
 namespace CoduTeam.Domain.Entities;
 
-public class UserProject
+public class UserProject: BaseAuditableEntity
 {
     public int UserId { get; set; }
     public int ProjectId { get; set; }
