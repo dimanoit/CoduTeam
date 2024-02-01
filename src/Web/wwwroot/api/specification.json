@@ -420,6 +420,36 @@
         ]
       }
     },
+    "/api/position-applies/acceptance": {
+      "patch": {
+        "tags": [
+          "position-applies"
+        ],
+        "operationId": "AcceptApplicant",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AcceptApplicantCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/position-applies/rejection": {
       "patch": {
         "tags": [
@@ -1504,8 +1534,20 @@
           }
         }
       },
-      "RejectApplicantCommand": {
+      "AcceptApplicantCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePositionApplyManagementCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "BasePositionApplyManagementCommand": {
         "type": "object",
+        "x-abstract": true,
         "additionalProperties": false,
         "properties": {
           "PositionApplyId": {
@@ -1513,6 +1555,17 @@
             "format": "int32"
           }
         }
+      },
+      "RejectApplicantCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BasePositionApplyManagementCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false
+          }
+        ]
       },
       "CreatePositionCommand": {
         "allOf": [

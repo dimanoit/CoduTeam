@@ -35,16 +35,28 @@ public record AcceptApplicantCommandHandler(IUser user, IApplicationDbContext db
         await dbContext.SaveChangesAsync(cancellationToken);
     }
 
-    private static void ValidatePositionApply(AcceptApplicantCommand request, PositionApply? positionApply)
+    private void ValidatePositionApply(AcceptApplicantCommand request, PositionApply? positionApply)
     {
         Guard.Against.NotFound(request.PositionApplyId, positionApply);
+        var validationFailures = new List<ValidationFailure>();
+        
+        if (positionApply.Status == PositionApplyStatus.Rejected)
+        {
+            validationFailures.Add(new ValidationFailure(
+                positionApply.Status.ToString(),
+                "Applicant already rejected"));
+        }
 
         if (positionApply.Position?.PositionStatus == PositionStatus.Closed)
         {
-            throw new ValidationException(new[]
-            {
-                new ValidationFailure(positionApply.Position?.PositionStatus.ToString(), "Position already closed")
-            });
+            validationFailures.Add(new ValidationFailure(
+                positionApply.Position?.PositionStatus.ToString(),
+                "Position already closed"));
+        }
+
+        if (validationFailures.Count != 0)
+        {
+            throw new ValidationException(validationFailures);
         }
     }
 }

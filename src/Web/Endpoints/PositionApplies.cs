@@ -9,6 +9,7 @@ public class PositionApplies : EndpointGroupBase
         app.MapGroup(this, "position-applies")
             .RequireAuthorization()
             .MapPost(ApplyOnPosition)
+            .MapPatch(AcceptApplicant, "acceptance")
             .MapPatch(RejectApplicant, "rejection");
     }
 
