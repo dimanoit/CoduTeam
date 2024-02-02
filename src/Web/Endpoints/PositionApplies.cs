@@ -9,22 +9,22 @@ public class PositionApplies : EndpointGroupBase
         app.MapGroup(this, "position-applies")
             .RequireAuthorization()
             .MapPost(ApplyOnPosition)
-            .MapPatch(AcceptApplicant, "acceptance")
-            .MapPatch(RejectApplicant, "rejection");
+            .MapPatch(ChangePositionApplyStatus, "status");
     }
 
-    public async Task ApplyOnPosition(ISender sender, ApplyOnPositionCommand command)
+    public async Task ApplyOnPosition(
+        ISender sender,
+        ApplyOnPositionCommand command,
+        CancellationToken cancellationToken)
     {
         await sender.Send(command);
     }
 
-    public async Task RejectApplicant(ISender sender, RejectApplicantCommand command)
+    public async Task ChangePositionApplyStatus(
+        ISender sender,
+        ChangePositionApplyStatusCommand command,
+        CancellationToken cancellationToken)
     {
-        await sender.Send(command);
-    }
-
-    public async Task AcceptApplicant(ISender sender, AcceptApplicantCommand command)
-    {
-        await sender.Send(command);
+        await sender.Send(command, cancellationToken);
     }
 }
