@@ -4,9 +4,9 @@ namespace CoduTeam.Web.Infrastructure;
 
 public static class WebApplicationExtensions
 {
-    public static RouteGroupBuilder MapGroup(this WebApplication app, EndpointGroupBase group)
+    public static RouteGroupBuilder MapGroup(this WebApplication app, EndpointGroupBase group, string groupName = "")
     {
-        string groupName = group.GetType().Name.ToLower();
+        groupName = string.IsNullOrEmpty(groupName) ? group.GetType().Name.ToLower() : groupName;
 
         return app
             .MapGroup($"/api/{groupName}")

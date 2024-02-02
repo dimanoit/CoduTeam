@@ -390,6 +390,66 @@
         ]
       }
     },
+    "/api/position-applies": {
+      "post": {
+        "tags": [
+          "position-applies"
+        ],
+        "operationId": "ApplyOnPosition",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ApplyOnPositionCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/position-applies/status": {
+      "patch": {
+        "tags": [
+          "position-applies"
+        ],
+        "operationId": "ChangePositionApplyStatus",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePositionApplyStatusCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/positions": {
       "post": {
         "tags": [
@@ -521,36 +581,6 @@
                 }
               }
             }
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/positions/apply": {
-      "post": {
-        "tags": [
-          "positions"
-        ],
-        "operationId": "ApplyOnPosition",
-        "requestBody": {
-          "x-name": "command",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ApplyOnPositionCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": ""
           }
         },
         "security": [
@@ -1464,6 +1494,45 @@
           }
         }
       },
+      "ApplyOnPositionCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "PositionId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ChangePositionApplyStatusCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Status": {
+            "$ref": "#/components/schemas/PositionApplyStatus"
+          }
+        }
+      },
+      "PositionApplyStatus": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Sent",
+          "OnReview",
+          "Rejected",
+          "Confirmed"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ]
+      },
       "CreatePositionCommand": {
         "allOf": [
           {
@@ -1502,16 +1571,6 @@
           "IsRemote": {
             "type": "boolean",
             "nullable": true
-          }
-        }
-      },
-      "ApplyOnPositionCommand": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "PositionId": {
-            "type": "integer",
-            "format": "int32"
           }
         }
       },
