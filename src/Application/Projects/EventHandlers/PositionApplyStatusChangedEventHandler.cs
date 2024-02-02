@@ -19,7 +19,7 @@ public class PositionApplyStatusChangedEventHandler(IApplicationDbContext dbCont
                 UserId = notification.PositionApply!.UserId,
                 Project = notification.PositionApply.Position!.Project
             };
-            
+
             dbContext.UserProjects.Add(accountProject);
 
             await dbContext.SaveChangesAsync(cancellationToken);

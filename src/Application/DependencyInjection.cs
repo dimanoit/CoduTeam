@@ -11,7 +11,7 @@ public static class DependencyInjection
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
         services.AddScoped<IPositionAppliesResourceValidator, PositionAppliesResourceValidator>();
-        
+
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         services.AddMediatR(cfg =>
