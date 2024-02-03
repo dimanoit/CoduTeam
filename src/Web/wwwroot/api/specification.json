@@ -450,6 +450,94 @@
         ]
       }
     },
+    "/api/chat": {
+      "post": {
+        "tags": [
+          "chat"
+        ],
+        "operationId": "CreateChatEndpoint",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateChatCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "chat"
+        ],
+        "operationId": "UpdateChatEndpoint",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateChatCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/chat/{id}": {
+      "delete": {
+        "tags": [
+          "chat"
+        ],
+        "operationId": "DeleteChatEndpoint",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/positions": {
       "post": {
         "tags": [
@@ -1514,6 +1602,56 @@
             "type": "string"
           }
         }
+      },
+      "CreateChatCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseChatModifyCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "BaseChatModifyCommand": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "ChatType": {
+            "$ref": "#/components/schemas/ChatType"
+          }
+        }
+      },
+      "ChatType": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Dialog",
+          "Group"
+        ],
+        "enum": [
+          0,
+          1
+        ]
+      },
+      "UpdateChatCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseChatModifyCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "Id": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ]
       },
       "CreatePositionCommand": {
         "allOf": [

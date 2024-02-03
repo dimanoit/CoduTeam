@@ -1,4 +1,7 @@
-﻿using CoduTeam.Application.Common.Interfaces;
+﻿using CoduTeam.Application.Chat.Commands.CreateChatCommand;
+using CoduTeam.Application.ChatFeature.Commands.DeleteChatCommand;
+using CoduTeam.Application.ChatFeature.Commands.UpdateChatCommand;
+using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Infrastructure.Hubs;
 using CoduTeam.Infrastructure.Hubs.ChatInterfaces;
 using Microsoft.AspNetCore.SignalR;
@@ -12,7 +15,11 @@ public class Chat : EndpointGroupBase
         app.MapGroup(this)
             .RequireAuthorization()
             .MapPost(BroadcastEndpoint, "broadcast")
-            .MapPost(SendMessageToSpecificUser, "user");
+            .MapPost(SendMessageToSpecificUser, "user")
+            .MapPost(CreateChatEndpoint)
+            .MapDelete(DeleteChatEndpoint, "{id}")
+            .MapPut(UpdateChatEndpoint);
+
     }
 
     public async Task BroadcastEndpoint(Test message, IHubContext<ChatHub, IChatClient> context)
@@ -31,8 +38,21 @@ public class Chat : EndpointGroupBase
 
         await context.Clients.User(user?.Id.ToString() ?? "").ReceiveMessage("KEK");
     }
-}
 
+    public async Task CreateChatEndpoint(ISender sender, CreateChatCommand command)
+    {
+        await sender.Send(command);
+    }
+    public async Task DeleteChatEndpoint(ISender sender, int id)
+    {
+        await sender.Send( new DeleteChatCommand(id));
+    }
+    public async Task UpdateChatEndpoint(ISender sender, UpdateChatCommand command)
+    {
+        await sender.Send(command);
+    }
+}
+    
 public class Test
 {
     public required string Message { get; set; }
