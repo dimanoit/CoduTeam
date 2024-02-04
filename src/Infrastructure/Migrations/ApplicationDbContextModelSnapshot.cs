@@ -168,7 +168,7 @@ namespace CoduTeam.Infrastructure.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("Positions");
+                    b.ToTable("Positions", (string)null);
                 });
 
             modelBuilder.Entity("CoduTeam.Domain.Entities.PositionApply", b =>
@@ -208,7 +208,7 @@ namespace CoduTeam.Infrastructure.Migrations
                     b.HasIndex("UserId", "PositionId")
                         .IsUnique();
 
-                    b.ToTable("PositionApplies");
+                    b.ToTable("PositionApplies", (string)null);
                 });
 
             modelBuilder.Entity("CoduTeam.Domain.Entities.Project", b =>
@@ -255,7 +255,7 @@ namespace CoduTeam.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Projects");
+                    b.ToTable("Projects", (string)null);
                 });
 
             modelBuilder.Entity("CoduTeam.Domain.Entities.TodoItem", b =>
@@ -303,7 +303,7 @@ namespace CoduTeam.Infrastructure.Migrations
 
                     b.HasIndex("ListId");
 
-                    b.ToTable("TodoItems");
+                    b.ToTable("TodoItems", (string)null);
                 });
 
             modelBuilder.Entity("CoduTeam.Domain.Entities.TodoList", b =>
@@ -333,7 +333,7 @@ namespace CoduTeam.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TodoLists");
+                    b.ToTable("TodoLists", (string)null);
                 });
 
             modelBuilder.Entity("CoduTeam.Domain.Entities.UserProject", b =>
@@ -369,7 +369,7 @@ namespace CoduTeam.Infrastructure.Migrations
                     b.HasIndex("UserId", "ProjectId")
                         .IsUnique();
 
-                    b.ToTable("UserProjects");
+                    b.ToTable("UserProjects", (string)null);
                 });
 
             modelBuilder.Entity("CoduTeam.Infrastructure.Identity.UserRole", b =>
@@ -548,7 +548,7 @@ namespace CoduTeam.Infrastructure.Migrations
 
             modelBuilder.Entity("CoduTeam.Domain.Entities.TodoList", b =>
                 {
-                    b.OwnsOne("CoduTeam.Domain.ValueObjects.Colour", "Colour", b1 =>
+                    b.OwnsOne("CoduTeam.Domain.Entities.TodoList.Colour#CoduTeam.Domain.ValueObjects.Colour", "Colour", b1 =>
                         {
                             b1.Property<int>("TodoListId")
                                 .HasColumnType("int");
@@ -559,7 +559,7 @@ namespace CoduTeam.Infrastructure.Migrations
 
                             b1.HasKey("TodoListId");
 
-                            b1.ToTable("TodoLists");
+                            b1.ToTable("TodoLists", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("TodoListId");

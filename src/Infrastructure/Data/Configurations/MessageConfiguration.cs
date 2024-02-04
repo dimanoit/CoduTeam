@@ -15,6 +15,7 @@ public class MessageConfiguration : IEntityTypeConfiguration<Message>
         builder.Property(c => c.Content)
             .IsRequired()
             .HasMaxLength(100);
+        
         builder.HasOne(a => a.Sender)
             .WithOne()
             .HasForeignKey<Message>(a => a.SenderId);

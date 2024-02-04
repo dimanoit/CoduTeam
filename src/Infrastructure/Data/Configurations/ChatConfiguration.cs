@@ -12,15 +12,5 @@ public class ChatConfiguration : IEntityTypeConfiguration<Chat>
         builder.HasKey(i => i.Id);
         builder.Property(i => i.Id)
             .ValueGeneratedOnAdd();
-
-        builder.HasMany<Message>(a => a.Messages)
-            .WithOne(a => a.Chat)
-            .HasForeignKey(a => a.ChatId)
-            .OnDelete(DeleteBehavior.Cascade);
-
-        builder.HasMany<UserChat>(a => a.UserChats)
-            .WithOne(a => a.Chat)
-            .HasForeignKey(a => a.ChatId);
-
     }
 }
