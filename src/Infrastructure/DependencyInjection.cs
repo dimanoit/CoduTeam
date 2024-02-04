@@ -70,10 +70,11 @@ public static class DependencyInjection
         return context =>
         {
             var accessToken = context.Request.Headers["Authorization"];
+            ChatHubConstants chatHubUrl = new ChatHubConstants();
 
             PathString path = context.HttpContext.Request.Path;
             if (!string.IsNullOrEmpty(accessToken) &&
-                path.StartsWithSegments("/chat-hub")) // TODO '/chat-hub' Extract to constant 
+                path.StartsWithSegments(chatHubUrl.chatHubUrl)) // TODO '/chat-hub' Extract to constant 
             {
                 context.Token = accessToken.ToString();
             }

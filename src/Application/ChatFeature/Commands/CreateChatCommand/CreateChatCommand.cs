@@ -10,7 +10,7 @@ public record CreateChatCommand(
     ChatType ChatType) : BaseChatModifyCommand(ChatType), IRequest
 {
 }
-public class CreateChatCommandHandler(IUser user,IApplicationDbContext dbContext):IRequestHandler<CreateChatCommand>
+public class CreateChatCommandHandler(IUser user, IApplicationDbContext dbContext) : IRequestHandler<CreateChatCommand>
 {
     public async Task Handle(CreateChatCommand command, CancellationToken cancellationToken)
     {

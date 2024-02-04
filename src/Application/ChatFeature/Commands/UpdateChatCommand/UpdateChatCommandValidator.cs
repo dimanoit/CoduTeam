@@ -1,6 +1,6 @@
-﻿namespace CoduTeam.Application.ChatFeature.Commands.UpdateChatCommand;
+﻿using CoduTeam.Application.Chat.Commands.Common;
 
-public class UpdateChatCommandValidator
-{
-    
-}
+namespace CoduTeam.Application.ChatFeature.Commands.UpdateChatCommand;
+
+public class UpdateChatCommandValidator : BaseModifyChatCommandValidator<UpdateChatCommand>;
+

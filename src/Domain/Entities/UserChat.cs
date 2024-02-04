@@ -1,6 +1,6 @@
 ﻿namespace CoduTeam.Domain.Entities;
 
-public class UserChat
+public class UserChat : BaseAuditableEntity
 {
     public int ChatId { get; set; }
     public int UserId { get; set; }

@@ -45,14 +45,14 @@ public class Chat : EndpointGroupBase
     }
     public async Task DeleteChatEndpoint(ISender sender, int id)
     {
-        await sender.Send( new DeleteChatCommand(id));
+        await sender.Send(new DeleteChatCommand(id));
     }
     public async Task UpdateChatEndpoint(ISender sender, UpdateChatCommand command)
     {
         await sender.Send(command);
     }
 }
-    
+
 public class Test
 {
     public required string Message { get; set; }

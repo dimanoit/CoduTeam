@@ -2,7 +2,7 @@
 
 namespace CoduTeam.Application.ChatFeature.Models;
 
-public class ChatDTO
+public class ChatDto
 {
     public ChatType ChatType { get; set; }
 }

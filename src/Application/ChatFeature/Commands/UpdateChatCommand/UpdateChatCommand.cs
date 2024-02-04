@@ -9,7 +9,7 @@ public record UpdateChatCommand(
     int Id,
     ChatType ChatType) : BaseChatModifyCommand(ChatType), IRequest;
 
-public class UpdateChatCommandHandler( IIdentityService identityService, IApplicationDbContext dbContext):IRequestHandler<UpdateChatCommand>
+public class UpdateChatCommandHandler(IIdentityService identityService, IApplicationDbContext dbContext) : IRequestHandler<UpdateChatCommand>
 {
     public async Task Handle(UpdateChatCommand command, CancellationToken cancellationToken)
     {
