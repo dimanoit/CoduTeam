@@ -2,6 +2,7 @@ using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Application.Positions.Filters;
 using CoduTeam.Application.Positions.Mappers;
 using CoduTeam.Application.Positions.Models;
+using CoduTeam.Domain.Enums;
 
 namespace CoduTeam.Application.Positions.Queries;
 
@@ -14,7 +15,7 @@ public record PositionSearchQuery : IRequest<PositionResponse[]?>
     public string? Term { get; init; }
 }
 
-internal class SearchPositionsQueryHandler(IApplicationDbContext dbContext, IUser user)
+internal class SearchPositionsQueryHandler(IApplicationDbContext dbContext, IUser user, TimeProvider dateTime)
     : IRequestHandler<PositionSearchQuery, PositionResponse[]?>
 {
     public async Task<PositionResponse[]?> Handle(PositionSearchQuery query,
@@ -25,6 +26,8 @@ internal class SearchPositionsQueryHandler(IApplicationDbContext dbContext, IUse
         var response = await dbContext
             .Positions
             .Include(p => p.Project)
+            .Where(p => p.PositionStatus == PositionStatus.Opened)
+            .Where(p => p.Deadline >= dateTime.GetUtcNow().Date)
             .AddProjectIdFilter(query.ProjectId)
             .AddPositionIdFilter(query.PositionId)
             .AddTermFilter(query.Term)

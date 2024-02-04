@@ -14,4 +14,5 @@ public class ApplicationUser : IdentityUser<int>
     public ICollection<UserChat>? UserChats { get; set; }
     public string? ImageSrc { get; set; }
     public string[] Technologies { get; set; } = Array.Empty<string>();
+    public ICollection<PositionApply>? PositionApplies { get; set; }
 }

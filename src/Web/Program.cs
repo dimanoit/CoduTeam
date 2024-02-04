@@ -1,7 +1,5 @@
 using CoduTeam.Application;
-using CoduTeam.Infrastructure;
 using CoduTeam.Infrastructure.Data;
-using CoduTeam.Infrastructure.Hubs;
 using CoduTeam.Web;
 using DependencyInjection = CoduTeam.Web.DependencyInjection;
 
@@ -13,7 +11,6 @@ builder.Services.AddKeyVaultIfConfigured(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddWebServices();
-
 
 WebApplication app = builder.Build();
 
@@ -43,16 +40,9 @@ app.UseExceptionHandler(options => { });
 app.Map("/", () => Results.Redirect("/api"));
 
 app.MapEndpoints();
-app.MapHub<ChatHub>("chat-hub");
 app.UseCors(DependencyInjection.CorsPolicyName);
-try
-{
-    app.Run();
-}
-catch (Exception e)
-{
-    Console.WriteLine(e.Message);
-}
+
+app.Run();
 
 public partial class Program
 {

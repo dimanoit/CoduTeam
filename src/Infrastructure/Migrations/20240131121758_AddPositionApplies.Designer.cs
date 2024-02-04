@@ -4,6 +4,7 @@ using CoduTeam.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoduTeam.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240131121758_AddPositionApplies")]
+    partial class AddPositionApplies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -203,8 +206,6 @@ namespace CoduTeam.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PositionId");
-
                     b.HasIndex("UserId", "PositionId")
                         .IsUnique();
 
@@ -338,36 +339,15 @@ namespace CoduTeam.Infrastructure.Migrations
 
             modelBuilder.Entity("CoduTeam.Domain.Entities.UserProject", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset>("Created")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<int?>("CreatedBy")
-                        .HasColumnType("int");
-
-                    b.Property<DateTimeOffset>("LastModified")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<int?>("LastModifiedBy")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProjectId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId", "ProjectId");
 
                     b.HasIndex("ProjectId");
-
-                    b.HasIndex("UserId", "ProjectId")
-                        .IsUnique();
 
                     b.ToTable("UserProjects");
                 });
@@ -518,13 +498,13 @@ namespace CoduTeam.Infrastructure.Migrations
 
             modelBuilder.Entity("CoduTeam.Domain.Entities.PositionApply", b =>
                 {
-                    b.HasOne("CoduTeam.Domain.Entities.Position", "Position")
+                    b.HasOne("CoduTeam.Domain.Entities.ApplicationUser", "User")
                         .WithMany("PositionApplies")
-                        .HasForeignKey("PositionId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CoduTeam.Domain.Entities.ApplicationUser", "User")
+                    b.HasOne("CoduTeam.Domain.Entities.Position", "Position")
                         .WithMany("PositionApplies")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using CoduTeam.Application.Common.Behaviours;
+using CoduTeam.Application.PositionApplies;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CoduTeam.Application;
@@ -9,6 +10,8 @@ public static class DependencyInjection
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddScoped<IPositionAppliesResourceValidator, PositionAppliesResourceValidator>();
+
         services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         services.AddMediatR(cfg =>

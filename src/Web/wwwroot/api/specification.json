@@ -390,106 +390,18 @@
         ]
       }
     },
-    "/api/chat/broadcast": {
+    "/api/position-applies": {
       "post": {
         "tags": [
-          "chat"
+          "position-applies"
         ],
-        "operationId": "BroadcastEndpoint",
-        "requestBody": {
-          "x-name": "message",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Test"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/chat/user": {
-      "post": {
-        "tags": [
-          "chat"
-        ],
-        "operationId": "SendMessageToSpecificUser",
-        "requestBody": {
-          "x-name": "message",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Test2"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/chat": {
-      "post": {
-        "tags": [
-          "chat"
-        ],
-        "operationId": "CreateChatEndpoint",
+        "operationId": "ApplyOnPosition",
         "requestBody": {
           "x-name": "command",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/CreateChatCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      },
-      "put": {
-        "tags": [
-          "chat"
-        ],
-        "operationId": "UpdateChatEndpoint",
-        "requestBody": {
-          "x-name": "command",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateChatCommand"
+                "$ref": "#/components/schemas/ApplyOnPositionCommand"
               }
             }
           },
@@ -508,24 +420,24 @@
         ]
       }
     },
-    "/api/chat/{id}": {
-      "delete": {
+    "/api/position-applies/status": {
+      "patch": {
         "tags": [
-          "chat"
+          "position-applies"
         ],
-        "operationId": "DeleteChatEndpoint",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-position": 1
-          }
-        ],
+        "operationId": "ChangePositionApplyStatus",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangePositionApplyStatusCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
         "responses": {
           "200": {
             "description": ""
@@ -1582,75 +1494,43 @@
           }
         }
       },
-      "Test": {
+      "ApplyOnPositionCommand": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "Message": {
-            "type": "string"
+          "PositionId": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },
-      "Test2": {
+      "ChangePositionApplyStatusCommand": {
         "type": "object",
         "additionalProperties": false,
         "properties": {
-          "Message": {
-            "type": "string"
+          "Id": {
+            "type": "integer",
+            "format": "int32"
           },
-          "userId": {
-            "type": "string"
+          "Status": {
+            "$ref": "#/components/schemas/PositionApplyStatus"
           }
         }
       },
-      "CreateChatCommand": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseChatModifyCommand"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false
-          }
-        ]
-      },
-      "BaseChatModifyCommand": {
-        "type": "object",
-        "x-abstract": true,
-        "additionalProperties": false,
-        "properties": {
-          "ChatType": {
-            "$ref": "#/components/schemas/ChatType"
-          }
-        }
-      },
-      "ChatType": {
+      "PositionApplyStatus": {
         "type": "integer",
         "description": "",
         "x-enumNames": [
-          "Dialog",
-          "Group"
+          "Sent",
+          "OnReview",
+          "Rejected",
+          "Confirmed"
         ],
         "enum": [
           0,
-          1
-        ]
-      },
-      "UpdateChatCommand": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseChatModifyCommand"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "Id": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
-          }
+          1,
+          2,
+          3
         ]
       },
       "CreatePositionCommand": {
