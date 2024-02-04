@@ -10,13 +10,13 @@ public class DeleteChatCommandHandler(IIdentityService identityService, IApplica
     {
         var chat = await dbContext.Chats.Where(i => i.Id == command.Id)
             .FirstOrDefaultAsync(cancellationToken);
-        
+
         Guard.Against.NotFound(command.Id, chat);
-        
+
         identityService.ThrowIfNoAccessToResource(chat);
 
         dbContext.Chats.Remove(chat);
-        
+
         await dbContext.SaveChangesAsync(cancellationToken);
     }
 }
