@@ -11,5 +11,8 @@ public interface IApplicationDbContext
     DbSet<UserProject> UserProjects { get; }
     DbSet<Position> Positions { get; }
     DbSet<PositionApply> PositionApplies { get; }
+    DbSet<UserChat> UserChats { get; }
+    DbSet<Domain.Entities.Chat> Chats { get; }
+    DbSet<Message> Messages { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }
