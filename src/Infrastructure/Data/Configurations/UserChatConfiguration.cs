@@ -17,6 +17,7 @@ public class UserChatConfiguration : IEntityTypeConfiguration<UserChat>
         builder.HasOne(a => a.ApplicationUser)
             .WithMany(a => a.UserChats)
             .HasForeignKey(a => a.UserId);
+
         builder.HasOne(a => a.Chat)
             .WithMany(a => a.UserChats)
             .HasForeignKey(a => a.ChatId);

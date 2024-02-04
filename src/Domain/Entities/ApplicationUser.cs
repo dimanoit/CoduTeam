@@ -10,9 +10,10 @@ public class ApplicationUser : IdentityUser<int>
     public Gender? Gender { get; set; }
     public string? Title { get; set; }
     public UserStatus UserStatus { get; set; }
-    public ICollection<UserProject>? UserProjects { get; set; }
-    public ICollection<UserChat>? UserChats { get; set; }
     public string? ImageSrc { get; set; }
     public string[] Technologies { get; set; } = Array.Empty<string>();
+
     public ICollection<PositionApply>? PositionApplies { get; set; }
+    public ICollection<UserProject>? UserProjects { get; set; }
+    public ICollection<UserChat>? UserChats { get; set; }
 }

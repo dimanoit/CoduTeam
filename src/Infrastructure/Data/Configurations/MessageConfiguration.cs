@@ -15,14 +15,13 @@ public class MessageConfiguration : IEntityTypeConfiguration<Message>
         builder.Property(c => c.Content)
             .IsRequired()
             .HasMaxLength(100);
-        
-        builder.HasOne(a => a.Sender)
-            .WithOne()
-            .HasForeignKey<Message>(a => a.SenderId);
 
-        builder.HasOne(a => a.Chat)
-            .WithMany()
-            .HasForeignKey(a => a.ChatId);
+        builder.Property(m => m.SenderId)
+            .IsRequired();
 
+        builder
+            .HasOne(m => m.Chat)
+            .WithMany(c => c.Messages)
+            .HasForeignKey(m => m.ChatId);
     }
 }
