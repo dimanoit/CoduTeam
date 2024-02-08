@@ -2,7 +2,8 @@ using CoduTeam.Application.Common.Interfaces;
 
 namespace CoduTeam.Application.PositionApplies;
 
-public record PositionAppliesQuery : IRequest<PositionApplyResponse[]>;
+public record PositionAppliesQuery
+    : IRequest<PositionApplyResponse[]>;
 
 
 public class PositionAppliesQueryHandler(IUser user, IApplicationDbContext dbContext) : IRequestHandler<PositionAppliesQuery, PositionApplyResponse[]>

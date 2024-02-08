@@ -561,6 +561,15 @@
               "nullable": true
             },
             "x-position": 5
+          },
+          {
+            "name": "WithApplicationStatus",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            },
+            "x-position": 6
           }
         ],
         "responses": {
@@ -1626,6 +1635,14 @@
           },
           "ShortDescription": {
             "type": "string"
+          },
+          "CurrentUserPositionApplyStatus": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PositionApplyStatus"
+              }
+            ]
           },
           "Project": {
             "$ref": "#/components/schemas/ProjectDto"

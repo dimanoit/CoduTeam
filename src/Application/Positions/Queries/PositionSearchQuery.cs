@@ -6,14 +6,13 @@ using CoduTeam.Domain.Enums;
 
 namespace CoduTeam.Application.Positions.Queries;
 
-public record PositionSearchQuery : IRequest<PositionResponse[]?>
-{
-    public int? PositionId { get; init; }
-    public int? ProjectId { get; init; }
-    public int? Take { get; init; }
-    public int? Skip { get; init; }
-    public string? Term { get; init; }
-}
+public record PositionSearchQuery(
+    int? PositionId,
+    int? ProjectId,
+    int? Take,
+    int? Skip,
+    string? Term,
+    bool? WithApplicationStatus) : IRequest<PositionResponse[]?>;
 
 internal class SearchPositionsQueryHandler(IApplicationDbContext dbContext, IUser user, TimeProvider dateTime)
     : IRequestHandler<PositionSearchQuery, PositionResponse[]?>
@@ -26,7 +25,7 @@ internal class SearchPositionsQueryHandler(IApplicationDbContext dbContext, IUse
         var response = await dbContext
             .Positions
             .Include(p => p.Project)
-            .Where(p => p.PositionStatus == PositionStatus.Opened)
+            .Where(p => p.Status == PositionStatus.Opened)
             .Where(p => p.Deadline >= dateTime.GetUtcNow().Date)
             .AddProjectIdFilter(query.ProjectId)
             .AddPositionIdFilter(query.PositionId)
@@ -36,6 +35,31 @@ internal class SearchPositionsQueryHandler(IApplicationDbContext dbContext, IUse
             .Take(query.Take ?? 5)
             .ToArrayAsync(cancellationToken);
 
-        return response;
+        if (query.WithApplicationStatus is null or false)
+        {
+            return response;
+        }
+
+        return await AdjustWithStatuses(response, cancellationToken);
+    }
+
+    private async Task<PositionResponse[]> AdjustWithStatuses(
+        PositionResponse[] data,
+        CancellationToken cancellationToken)
+    {
+        var applicationsDictionary = await dbContext.PositionApplies
+            .Where(pa => pa.UserId == user.Id)
+            .ToDictionaryAsync(pa => pa.PositionId, pa => pa.Status, cancellationToken);
+
+        foreach (var position in data)
+        {
+            var isUserAppliedOnPosition = applicationsDictionary.ContainsKey(position.Id);
+            if (isUserAppliedOnPosition)
+            {
+                position.CurrentUserPositionApplyStatus = applicationsDictionary[position.Id];
+            }
+        }
+
+        return data;
     }
 }

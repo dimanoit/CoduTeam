@@ -15,7 +15,7 @@ public static class PositionMapper
             Title = position.Title,
             Description = position.Description,
             ShortDescription = position.ShortDescription,
-            Project = position.Project.ToProjectDto()
+            Project = position.Project.ToProjectDto(),
         };
 
         return response;
@@ -28,6 +28,6 @@ public static class PositionMapper
         entity.IsRemote = command.IsRemote ?? true;
         entity.ShortDescription = command.ShortDescription;
         entity.Deadline = command.Deadline;
-        entity.PositionStatus = command.PositionStatus;
+        entity.Status = command.PositionStatus;
     }
 }
