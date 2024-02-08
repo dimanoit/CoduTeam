@@ -32,7 +32,7 @@ public class CreatePositionCommandHandler(
             IsRemote = command.IsRemote ?? true,
             ProjectId = command.ProjectId,
             ShortDescription = command.ShortDescription,
-            PositionStatus = PositionStatus.Opened,
+            Status = PositionStatus.Opened,
             Deadline = command.DeadLine
         };
 

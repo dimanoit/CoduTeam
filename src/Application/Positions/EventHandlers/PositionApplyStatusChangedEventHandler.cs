@@ -13,7 +13,7 @@ public class PositionApplyStatusChangedEventHandler(IApplicationDbContext dbCont
     {
         if (notification.PositionApply.Status == PositionApplyStatus.Confirmed)
         {
-            notification.PositionApply.Position!.PositionStatus = PositionStatus.Closed;
+            notification.PositionApply.Position!.Status = PositionStatus.Closed;
 
             await dbContext.SaveChangesAsync(cancellationToken);
         }

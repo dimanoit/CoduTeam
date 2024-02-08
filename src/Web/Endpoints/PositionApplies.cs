@@ -20,6 +20,11 @@ public class PositionApplies : EndpointGroupBase
         await sender.Send(command);
     }
 
+    public async Task<PositionApplyResponse[]> GetPositionApplies(ISender sender, PositionAppliesQuery query, CancellationToken cancellationToken)
+    {
+        return await sender.Send(query, cancellationToken);
+    }
+
     public async Task ChangePositionApplyStatus(
         ISender sender,
         ChangePositionApplyStatusCommand command,

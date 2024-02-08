@@ -28,9 +28,9 @@ public static class ProjectFilter
 
     public static IQueryable<Project> AddCategoryFilter(
         this IQueryable<Project> dbQuery,
-        Category? category)
+        ProjectCategory? category)
     {
-        return category.HasValue && category.Value != Category.None
+        return category.HasValue && category.Value != ProjectCategory.None
             ? dbQuery.Where(p => p.Category == category.Value.ToString())
             : dbQuery;
     }
