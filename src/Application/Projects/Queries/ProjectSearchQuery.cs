@@ -13,7 +13,7 @@ public record ProjectSearchQuery : IRequest<ProjectResponse[]?>
     public int? ProjectId { get; init; }
     public int? Take { get; init; }
     public int? Skip { get; init; }
-    public Category? Category { get; init; }
+    public ProjectCategory? Category { get; init; }
     public string? Term { get; init; }
     public bool? OnlyRelatedToCurrentUser { get; init; }
 }

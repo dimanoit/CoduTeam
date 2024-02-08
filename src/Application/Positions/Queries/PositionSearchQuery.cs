@@ -9,6 +9,9 @@ namespace CoduTeam.Application.Positions.Queries;
 public record PositionSearchQuery(
     int? PositionId,
     int? ProjectId,
+    ProjectCategory? ProjectCategory,
+    PositionCategory? PositionCategory,
+    PositionApplyStatus? ApplicationStatus,
     int? Take,
     int? Skip,
     string? Term,
@@ -40,15 +43,17 @@ internal class SearchPositionsQueryHandler(IApplicationDbContext dbContext, IUse
             return response;
         }
 
-        return await AdjustWithStatuses(response, cancellationToken);
+        return await AdjustWithStatuses(query.ApplicationStatus, response, cancellationToken);
     }
 
     private async Task<PositionResponse[]> AdjustWithStatuses(
+        PositionApplyStatus? status,
         PositionResponse[] data,
         CancellationToken cancellationToken)
     {
         var applicationsDictionary = await dbContext.PositionApplies
             .Where(pa => pa.UserId == user.Id)
+            .AddPositionApplyStatusFilter(status)
             .ToDictionaryAsync(pa => pa.PositionId, pa => pa.Status, cancellationToken);
 
         foreach (var position in data)

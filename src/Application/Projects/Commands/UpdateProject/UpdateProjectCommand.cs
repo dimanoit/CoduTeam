@@ -10,7 +10,7 @@ public record UpdateProjectCommand(
     int Id,
     string Title,
     string Description,
-    Category? Category,
+    ProjectCategory? Category,
     Country? Country,
     string? ProjectImgUrl) : BaseModifyCommand(Title, Description, Category, Country, ProjectImgUrl), IRequest;
 

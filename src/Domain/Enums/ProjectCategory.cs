@@ -1,6 +1,6 @@
 namespace CoduTeam.Domain.Enums;
 
-public enum Category
+public enum ProjectCategory
 {
     None,
     WebDevelopment,
