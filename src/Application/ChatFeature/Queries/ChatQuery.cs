@@ -17,7 +17,7 @@ internal sealed class GetChatQueryHandler(IApplicationDbContext dbContext, IUser
         Guard.Against.Null(user.Id);
         var chatResponse = await dbContext.Chats
             .Where(chat => chat.Id == request.ChatId)
-            .Select(chat => new ChatResponse { Id = chat.Id, ChatType = chat.ChatType })
+            .Select(chat => new ChatResponse { Id = chat.Id, ChatType = chat.ChatType, Title = chat.Title })
             .FirstOrDefaultAsync(cancellationToken);
         Guard.Against.Null(chatResponse, "Chat with that ID not found");
         return chatResponse;

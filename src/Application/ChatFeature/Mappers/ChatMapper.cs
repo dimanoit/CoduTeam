@@ -9,7 +9,7 @@ namespace CoduTeam.Application.Chat.Mappers;
 public static class ChatMapper
 
 {
-    
+
     public static ChatResponse ToChatResponse(this Domain.Entities.Chat project)
     {
         var mapped = project.ToChatDto();
@@ -23,7 +23,7 @@ public static class ChatMapper
     }
     public static ChatResponse ToChatDto(this Domain.Entities.Chat chat)
     {
-        ChatResponse response = new() { Id= chat.Id,ChatType = chat.ChatType };
+        ChatResponse response = new() { Id = chat.Id, ChatType = chat.ChatType };
         return response;
     }
 

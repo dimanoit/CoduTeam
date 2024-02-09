@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace CoduTeam.Web.Endpoints;
 
-public class Chat : EndpointGroupBase
+public class Chats : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {
@@ -23,7 +23,6 @@ public class Chat : EndpointGroupBase
             .MapPut(UpdateChatEndpoint)
             .MapGet(GetChatEndpoint, "{Id}")
             .MapGet(GetAllChatEndpoint);
-
     }
 
     public async Task BroadcastEndpoint(Test message, IHubContext<ChatHub, IChatClient> context)

@@ -6,4 +6,5 @@ public class ChatDto
 {
     public int Id { get; set; }
     public ChatType ChatType { get; set; }
+    public string Title { get; set; } = "";
 }

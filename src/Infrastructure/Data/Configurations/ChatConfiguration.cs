@@ -12,5 +12,8 @@ public class ChatConfiguration : IEntityTypeConfiguration<Chat>
         builder.HasKey(i => i.Id);
         builder.Property(i => i.Id)
             .ValueGeneratedOnAdd();
+        builder.Property(t => t.Title)
+            .IsRequired()
+            .HasMaxLength(30);
     }
 }

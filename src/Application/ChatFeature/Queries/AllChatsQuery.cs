@@ -5,7 +5,7 @@ namespace CoduTeam.Application.ChatFeature.Queries;
 
 public class AllChatsQuery : IRequest<IEnumerable<ChatResponse>>
 {
-    
+
 }
 internal sealed class GetAllChatQueryHandler(IApplicationDbContext dbContext, IUser user)
     : IRequestHandler<AllChatsQuery, IEnumerable<ChatResponse>>
@@ -13,9 +13,9 @@ internal sealed class GetAllChatQueryHandler(IApplicationDbContext dbContext, IU
     public async Task<IEnumerable<ChatResponse>> Handle(AllChatsQuery request, CancellationToken cancellationToken)
     {
         Guard.Against.Null(user.Id);
-        
+
         var chatResponses = await dbContext.Chats
-            .Select(chat => new ChatResponse { Id = chat.Id, ChatType = chat.ChatType })
+            .Select(chat => new ChatResponse { Id = chat.Id, ChatType = chat.ChatType, Title = chat.Title })
             .ToListAsync(cancellationToken);
         return chatResponses;
     }
