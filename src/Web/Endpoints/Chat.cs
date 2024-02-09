@@ -1,6 +1,8 @@
 ﻿using CoduTeam.Application.Chat.Commands.CreateChatCommand;
 using CoduTeam.Application.ChatFeature.Commands.DeleteChatCommand;
 using CoduTeam.Application.ChatFeature.Commands.UpdateChatCommand;
+using CoduTeam.Application.ChatFeature.Models;
+using CoduTeam.Application.ChatFeature.Queries;
 using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Infrastructure.Hubs;
 using CoduTeam.Infrastructure.Hubs.ChatInterfaces;
@@ -18,7 +20,9 @@ public class Chat : EndpointGroupBase
             .MapPost(SendMessageToSpecificUser, "user")
             .MapPost(CreateChatEndpoint)
             .MapDelete(DeleteChatEndpoint, "{id}")
-            .MapPut(UpdateChatEndpoint);
+            .MapPut(UpdateChatEndpoint)
+            .MapGet(GetChatEndpoint, "{Id}")
+            .MapGet(GetAllChatEndpoint);
 
     }
 
@@ -50,6 +54,16 @@ public class Chat : EndpointGroupBase
     public async Task UpdateChatEndpoint(ISender sender, UpdateChatCommand command)
     {
         await sender.Send(command);
+    }
+    public async Task<ChatResponse?> GetChatEndpoint(ISender sender, int Id)
+    {
+        var query = new ChatQuery() { ChatId = Id };
+        var chats = await sender.Send(query);
+        return chats;
+    }
+    public async Task<IEnumerable<ChatResponse>?> GetAllChatEndpoint(ISender sender, [AsParameters] AllChatsQuery query)
+    {
+        return await sender.Send(query);
     }
 }
 

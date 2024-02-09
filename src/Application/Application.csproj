@@ -17,9 +17,4 @@
     <ProjectReference Include="..\Domain\Domain.csproj"/>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ChatFeature\Filters\" />
-    <Folder Include="ChatFeature\Queries\" />
-  </ItemGroup>
-
 </Project>
