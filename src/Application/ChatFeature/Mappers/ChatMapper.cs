@@ -9,13 +9,6 @@ namespace CoduTeam.Application.Chat.Mappers;
 public static class ChatMapper
 
 {
-
-    public static ChatResponse ToChatResponse(this Domain.Entities.Chat project)
-    {
-        var mapped = project.ToChatDto();
-
-        return mapped;
-    }
     public static Domain.Entities.Chat ToChat(this CreateChatCommand command)
     {
         Domain.Entities.Chat chat = new() { ChatType = command.ChatType };
