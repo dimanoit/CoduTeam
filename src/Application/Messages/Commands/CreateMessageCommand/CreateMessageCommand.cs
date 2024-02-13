@@ -5,7 +5,7 @@ using CoduTeam.Domain.Entities;
 
 namespace CoduTeam.Application.Messages.Commands.CreateMessageCommand;
 
-public record CreateMessageCommand(string Content,int ChatId) : BaseModifyMessageCommand(Content), IRequest
+public record CreateMessageCommand(string Content, int ChatId) : BaseModifyMessageCommand(Content), IRequest
 {
 }
 public class CreateMessageComandHandler(IUser user, IApplicationDbContext dbContext) : IRequestHandler<CreateMessageCommand>
@@ -16,7 +16,7 @@ public class CreateMessageComandHandler(IUser user, IApplicationDbContext dbCont
         Guard.Against.Default(user.Id.Value);
 
         var message = command.ToMessage(user.Id.Value);
-       // message.DomainEvents.A
+        // message.DomainEvents.A
 
         dbContext.Messages.Add(message);
 

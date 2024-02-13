@@ -5,7 +5,7 @@ using CoduTeam.Application.Common.Models;
 
 namespace CoduTeam.Application.ChatFeature.Queries;
 
-public record ChatQuery( int ChatId) : IRequest<ChatDto>
+public record ChatQuery(int ChatId) : IRequest<ChatDto>
 {
 }
 
@@ -16,7 +16,7 @@ internal sealed class GetChatQueryHandler(IApplicationDbContext dbContext, IUser
     {
         Guard.Against.Null(user.Id);
         var chatResponse = await dbContext.Chats
-            .Include(chat=>chat.UserChats)
+            .Include(chat => chat.UserChats)
             .Where(chat => chat.Id == request.ChatId)
             .Select(chat => chat.ToChatDto())
             .FirstOrDefaultAsync(cancellationToken);

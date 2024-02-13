@@ -10,12 +10,12 @@ public static class ChatMapper
 {
     public static Domain.Entities.Chat ToChat(this CreateChatCommand command)
     {
-        Domain.Entities.Chat chat = new() { ChatType = command.ChatType,Title = command.Title};
+        Domain.Entities.Chat chat = new() { ChatType = command.ChatType, Title = command.Title };
         return chat;
     }
     public static ChatDto ToChatDto(this Domain.Entities.Chat chat)
     {
-        ChatDto response = new() { Id = chat.Id, ChatType = chat.ChatType,Title = chat.Title,Participants = chat.UserChats.Select(userChats=>userChats.UserId).ToArray()};
+        ChatDto response = new() { Id = chat.Id, ChatType = chat.ChatType, Title = chat.Title, Participants = chat.UserChats.Select(userChats => userChats.UserId).ToArray() };
         return response;
     }
 

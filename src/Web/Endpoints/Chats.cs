@@ -25,7 +25,7 @@ public class Chats : EndpointGroupBase
             .MapPut(UpdateChatEndpoint)
             .MapGet(GetChatEndpoint, "{Id}")
             .MapGet(GetAllChatEndpoint)
-            .MapGet(GetMessagesFromChat,"{chatId}/messages");
+            .MapGet(GetMessagesFromChat, "{chatId}/messages");
     }
 
     public async Task<MessageDto[]> GetMessagesFromChat(ISender sender, int chatId)

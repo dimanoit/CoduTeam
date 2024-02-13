@@ -2,6 +2,6 @@
 
 namespace CoduTeam.Application.Chat.Commands.Common;
 
-public abstract record BaseChatModifyCommand(ChatType ChatType,string Title)
+public abstract record BaseChatModifyCommand(ChatType ChatType, string Title)
 {
 }
