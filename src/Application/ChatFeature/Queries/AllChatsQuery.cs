@@ -15,7 +15,8 @@ internal sealed class GetAllChatQueryHandler(IApplicationDbContext dbContext, IU
         Guard.Against.Null(user.Id);
 
         var chatResponses = await dbContext.Chats
-            .Select(chat => new ChatDto { Id = chat.Id, ChatType = chat.ChatType, Title = chat.Title,Participants = chat.UserChats.Select(userChats=>userChats.UserId).ToArray() })
+            .Include(chat=>chat.UserChats)
+            .Select(chat => chat.ToChatDto())
             .ToListAsync(cancellationToken);
         return chatResponses;
     }
