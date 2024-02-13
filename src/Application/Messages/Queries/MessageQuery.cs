@@ -1,21 +1,22 @@
 ﻿using CoduTeam.Application.Common.Interfaces;
+using CoduTeam.Application.Messages.Mappers;
 using CoduTeam.Application.Messages.Models;
 
 namespace CoduTeam.Application.Messages.Queries;
 
-public class MessageQuery : IRequest<MessageResponse>
+public class MessageQuery : IRequest<MessageDto>
 {
     public int MessageId { get; set; }
 }
-internal sealed class GetMessageQueryHandler(IApplicationDbContext DbContext, IUser user) : IRequestHandler<MessageQuery, MessageResponse>
+internal sealed class GetMessageQueryHandler(IApplicationDbContext DbContext, IUser user) : IRequestHandler<MessageQuery, MessageDto>
 {
-    public async Task<MessageResponse> Handle(MessageQuery request, CancellationToken cancellationToken)
+    public async Task<MessageDto> Handle(MessageQuery request, CancellationToken cancellationToken)
     {
         Guard.Against.Null(user.Id);
 
         var messageResponse = await DbContext.Messages
             .Where(message => message.Id == request.MessageId)
-            .Select(message => new MessageResponse { Id = message.Id, Content = message.Content })
+            .Select(message => message.ToMessageDto())
             .FirstOrDefaultAsync(cancellationToken);
         Guard.Against.Null(messageResponse, "Message with that id not found");
         return messageResponse;

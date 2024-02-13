@@ -30,13 +30,13 @@ public class Messages : EndpointGroupBase
     {
         await sender.Send(command);
     }
-    public async Task<MessageResponse> GetMessageEndpoint(ISender sender, int Id)
+    public async Task<MessageDto> GetMessageEndpoint(ISender sender, int Id)
     {
         var query = new MessageQuery() { MessageId = Id };
         var messages = await sender.Send(query);
         return messages;
     }
-    public async Task<IEnumerable<MessageResponse>> GetAllMessageEndpoint(ISender sender, [AsParameters] AllMessageQuery query)
+    public async Task<IEnumerable<MessageDto>> GetAllMessageEndpoint(ISender sender, [AsParameters] AllMessageQuery query)
     {
         return await sender.Send(query);
     }

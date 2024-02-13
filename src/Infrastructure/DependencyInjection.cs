@@ -74,7 +74,7 @@ public static class DependencyInjection
 
             PathString path = context.HttpContext.Request.Path;
             if (!string.IsNullOrEmpty(accessToken) &&
-                path.StartsWithSegments(chatHubUrl.chatHubUrl)) // TODO '/chat-hub' Extract to constant 
+                path.StartsWithSegments(chatHubUrl.ChatHubUrl)) 
             {
                 context.Token = accessToken.ToString();
             }

@@ -18,6 +18,8 @@ public class MessageConfiguration : IEntityTypeConfiguration<Message>
 
         builder.Property(m => m.SenderId)
             .IsRequired();
+        builder.Property(m => m.ChatId)
+            .IsRequired();
 
         builder
             .HasOne(m => m.Chat)

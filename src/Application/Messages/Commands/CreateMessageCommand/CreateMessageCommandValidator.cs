@@ -2,5 +2,10 @@
 
 namespace CoduTeam.Application.Messages.Commands.CreateMessageCommand;
 
-public class CreateMessageCommandValidator : BaseMessageModifyCommandValidator<CreateMessageCommand>;
+public class CreateMessageCommandValidator : BaseMessageModifyCommandValidator<CreateMessageCommand>
+{
+    public CreateMessageCommandValidator()
+    {
+    }
+}
 

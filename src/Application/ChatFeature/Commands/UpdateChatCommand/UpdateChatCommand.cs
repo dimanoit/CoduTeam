@@ -7,7 +7,8 @@ namespace CoduTeam.Application.ChatFeature.Commands.UpdateChatCommand;
 
 public record UpdateChatCommand(
     int Id,
-    ChatType ChatType) : BaseChatModifyCommand(ChatType), IRequest;
+    ChatType ChatType,
+    string Title) : BaseChatModifyCommand(ChatType,Title), IRequest;
 
 public class UpdateChatCommandHandler(IIdentityService identityService, IApplicationDbContext dbContext) : IRequestHandler<UpdateChatCommand>
 {

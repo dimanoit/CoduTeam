@@ -4,6 +4,8 @@ using CoduTeam.Application.ChatFeature.Commands.UpdateChatCommand;
 using CoduTeam.Application.ChatFeature.Models;
 using CoduTeam.Application.ChatFeature.Queries;
 using CoduTeam.Application.Common.Interfaces;
+using CoduTeam.Application.Messages.Models;
+using CoduTeam.Application.Messages.Queries;
 using CoduTeam.Infrastructure.Hubs;
 using CoduTeam.Infrastructure.Hubs.ChatInterfaces;
 using Microsoft.AspNetCore.SignalR;
@@ -22,9 +24,15 @@ public class Chats : EndpointGroupBase
             .MapDelete(DeleteChatEndpoint, "{id}")
             .MapPut(UpdateChatEndpoint)
             .MapGet(GetChatEndpoint, "{Id}")
-            .MapGet(GetAllChatEndpoint);
+            .MapGet(GetAllChatEndpoint)
+            .MapGet(GetMessagesFromChat,"{chatId}/messages");
     }
 
+    public async Task<MessageDto[]> GetMessagesFromChat(ISender sender, int chatId)
+    {
+        var messages = await sender.Send(new GetMessagesFromChatQuery(chatId));
+        return messages;
+    }
     public async Task BroadcastEndpoint(Test message, IHubContext<ChatHub, IChatClient> context)
     {
         await context.Clients.All.ReceiveMessage(message.Message);
@@ -54,13 +62,13 @@ public class Chats : EndpointGroupBase
     {
         await sender.Send(command);
     }
-    public async Task<ChatResponse?> GetChatEndpoint(ISender sender, int Id)
+    public async Task<ChatDto?> GetChatEndpoint(ISender sender, int Id)
     {
-        var query = new ChatQuery() { ChatId = Id };
+        var query = new ChatQuery(Id);
         var chats = await sender.Send(query);
         return chats;
     }
-    public async Task<IEnumerable<ChatResponse>?> GetAllChatEndpoint(ISender sender, [AsParameters] AllChatsQuery query)
+    public async Task<IEnumerable<ChatDto>?> GetAllChatEndpoint(ISender sender, [AsParameters] AllChatsQuery query)
     {
         return await sender.Send(query);
     }

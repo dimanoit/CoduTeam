@@ -7,7 +7,7 @@ using CoduTeam.Domain.Enums;
 namespace CoduTeam.Application.Chat.Commands.CreateChatCommand;
 
 public record CreateChatCommand(
-    ChatType ChatType) : BaseChatModifyCommand(ChatType), IRequest
+    ChatType ChatType,string Title,int[] Participants) : BaseChatModifyCommand(ChatType,Title), IRequest
 {
 }
 public class CreateChatCommandHandler(IUser user, IApplicationDbContext dbContext) : IRequestHandler<CreateChatCommand>
@@ -20,8 +20,10 @@ public class CreateChatCommandHandler(IUser user, IApplicationDbContext dbContex
         dbContext.Chats.Add(chat);
 
         UserChat userChat = new() { UserId = user.Id.Value, Chat = chat };
-
+        var userChats = command.Participants.Select(i => new UserChat { UserId = i, Chat = chat });
+        
         dbContext.UserChats.Add(userChat);
+        dbContext.UserChats.AddRange(userChats);
         await dbContext.SaveChangesAsync(cancellationToken);
     }
 }

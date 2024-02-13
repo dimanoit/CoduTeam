@@ -2,5 +2,5 @@
 
 public class ChatHubConstants
 {
-    public string chatHubUrl = "/chat-hub";
+    public string ChatHubUrl = "/chat-hub";
 }
