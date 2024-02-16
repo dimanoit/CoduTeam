@@ -6,5 +6,4 @@ public class Message : BaseAuditableEntity
     public required int ChatId { get; set; }
     public Chat? Chat { get; set; }
     public required string Content { get; set; } 
-    public DateTime SentTime { get; set; }
 }

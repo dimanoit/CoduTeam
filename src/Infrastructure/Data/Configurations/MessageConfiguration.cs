@@ -15,9 +15,6 @@ public class MessageConfiguration : IEntityTypeConfiguration<Message>
         builder.Property(c => c.Content)
             .IsRequired()
             .HasMaxLength(100);
-        builder.Property(m => m.SentTime)
-            .HasDefaultValueSql("GETDATE()");
-
         builder.Property(m => m.SenderId)
             .IsRequired();
         builder.Property(m => m.ChatId)

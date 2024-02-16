@@ -2020,7 +2020,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "SentTime": {
+          "Created": {
             "type": "string",
             "format": "date-time"
           }
@@ -2051,7 +2051,7 @@
           "Content": {
             "type": "string"
           },
-          "SentTime": {
+          "Created": {
             "type": "string",
             "format": "date-time"
           }
