@@ -36,7 +36,7 @@ public class Messages : EndpointGroupBase
         var messages = await sender.Send(query);
         return messages;
     }
-    public async Task<IEnumerable<MessageDto>> GetAllMessageEndpoint(ISender sender, [AsParameters] AllMessageQuery query)
+    public async Task<ICollection<MessageDto>> GetAllMessageEndpoint(ISender sender, [AsParameters] AllMessageQuery query)
     {
         return await sender.Send(query);
     }

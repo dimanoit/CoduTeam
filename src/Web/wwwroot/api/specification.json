@@ -1929,7 +1929,7 @@
             "type": "object",
             "additionalProperties": false,
             "properties": {
-              "Participants": {
+              "ParticipantsIds": {
                 "type": "array",
                 "items": {
                   "type": "integer",

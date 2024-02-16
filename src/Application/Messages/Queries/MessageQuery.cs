@@ -18,7 +18,7 @@ internal sealed class GetMessageQueryHandler(IApplicationDbContext DbContext, IU
             .Where(message => message.Id == request.MessageId)
             .Select(message => message.ToMessageDto())
             .FirstOrDefaultAsync(cancellationToken);
-        Guard.Against.Null(messageResponse, "Message with that id not found");
+        Guard.Against.Null(messageResponse, $"Message with that id:{request.MessageId} not found");
         return messageResponse;
     }
 }

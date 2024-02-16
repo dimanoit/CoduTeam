@@ -20,7 +20,7 @@ internal sealed class GetChatQueryHandler(IApplicationDbContext dbContext, IUser
             .Where(chat => chat.Id == request.ChatId)
             .Select(chat => chat.ToChatDto())
             .FirstOrDefaultAsync(cancellationToken);
-        Guard.Against.Null(chatResponse, "Chat with that ID not found");
+        Guard.Against.Null(chatResponse, $"Chat with that ID{request.ChatId} not found");
         return chatResponse;
     }
 }

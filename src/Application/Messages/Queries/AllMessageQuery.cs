@@ -9,11 +9,11 @@ using CoduTeam.Domain.Constants;
 namespace CoduTeam.Application.Messages.Queries;
 //only for test purposes
 [Authorize(Roles = Roles.Administrator)]
-public class AllMessageQuery : IRequest<IEnumerable<MessageDto>>;
+public class AllMessageQuery : IRequest<ICollection<MessageDto>>;
 internal sealed class GetAllMessageQueryHandler(IApplicationDbContext dbContext, IUser user)
-    : IRequestHandler<AllMessageQuery, IEnumerable<MessageDto>>
+    : IRequestHandler<AllMessageQuery, ICollection<MessageDto>>
 {
-    public async Task<IEnumerable<MessageDto>> Handle(AllMessageQuery request, CancellationToken cancellationToken)
+    public async Task<ICollection<MessageDto>> Handle(AllMessageQuery request, CancellationToken cancellationToken)
     {
         Guard.Against.Null(user.Id);
 

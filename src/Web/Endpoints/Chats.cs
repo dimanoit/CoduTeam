@@ -68,7 +68,7 @@ public class Chats : EndpointGroupBase
         var chats = await sender.Send(query);
         return chats;
     }
-    public async Task<IEnumerable<ChatDto>?> GetAllChatEndpoint(ISender sender, [AsParameters] AllChatsQuery query)
+    public async Task<ICollection<ChatDto>?> GetAllChatEndpoint(ISender sender, [AsParameters] AllChatsQuery query)
     {
         return await sender.Send(query);
     }
