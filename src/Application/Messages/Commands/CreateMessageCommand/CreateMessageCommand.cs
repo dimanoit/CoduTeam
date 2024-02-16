@@ -5,7 +5,7 @@ using CoduTeam.Domain.Entities;
 
 namespace CoduTeam.Application.Messages.Commands.CreateMessageCommand;
 
-public record CreateMessageCommand(string Content, int ChatId) : BaseModifyMessageCommand(Content), IRequest
+public record CreateMessageCommand(string Content, int ChatId,DateTime SentTime) : BaseModifyMessageCommand(Content,SentTime), IRequest
 {
 }
 public class CreateMessageComandHandler(IUser user, IApplicationDbContext dbContext) : IRequestHandler<CreateMessageCommand>

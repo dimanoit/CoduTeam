@@ -2019,6 +2019,10 @@
           "SenderId": {
             "type": "integer",
             "format": "int32"
+          },
+          "SentTime": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },
@@ -2046,6 +2050,10 @@
         "properties": {
           "Content": {
             "type": "string"
+          },
+          "SentTime": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       },

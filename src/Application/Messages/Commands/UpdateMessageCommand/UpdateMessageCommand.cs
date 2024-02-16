@@ -4,7 +4,7 @@ using CoduTeam.Application.Messages.Mappers;
 
 namespace CoduTeam.Application.Messages.Commands.UpdateMessageCommand;
 
-public record UpdateMessageCommand(int messageId, string Content) : BaseModifyMessageCommand(Content), IRequest;
+public record UpdateMessageCommand(int messageId, string Content,DateTime SentTime) : BaseModifyMessageCommand(Content,SentTime), IRequest;
 public class UpdateMessageCommandHandler(IIdentityService identityService, IApplicationDbContext dbContext) : IRequestHandler<UpdateMessageCommand>
 {
     public async Task Handle(UpdateMessageCommand command, CancellationToken cancellationToken)

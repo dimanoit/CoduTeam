@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel;
+using System.Text.Json.Serialization;
 using Azure.Identity;
 using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Infrastructure.Data;
@@ -56,7 +57,6 @@ public static class DependencyInjection
             {
                 options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
             });
-
         services.AddEndpointsApiExplorer();
 
         services.AddOpenApiDocument((configure, sp) =>

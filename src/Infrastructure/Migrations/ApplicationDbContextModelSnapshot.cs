@@ -181,6 +181,9 @@ namespace CoduTeam.Infrastructure.Migrations
                     b.Property<int>("SenderId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("SentTime")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ChatId");
