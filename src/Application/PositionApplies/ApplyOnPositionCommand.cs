@@ -20,7 +20,9 @@ public class ApplyOnPositionCommandHandler(IUser user, IApplicationDbContext dbC
 
         PositionApply positionApply = new()
         {
-            PositionId = request.PositionId, UserId = user.Id!.Value, Status = PositionApplyStatus.Sent
+            PositionId = request.PositionId,
+            UserId = user.Id!.Value,
+            Status = PositionApplyStatus.Sent
         };
 
         dbContext.PositionApplies.Add(positionApply);

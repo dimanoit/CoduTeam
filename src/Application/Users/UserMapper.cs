@@ -43,7 +43,9 @@ public static class UserMapper
         return new ProjectParticipant(user.UserName!, user.Id, user.FirstName!,
             user.LastName!, user.Title!)
         {
-            ImageSrc = user.ImageSrc, Technologies = user.Technologies, Gender = user.Gender
+            ImageSrc = user.ImageSrc,
+            Technologies = user.Technologies,
+            Gender = user.Gender
         };
     }
 }

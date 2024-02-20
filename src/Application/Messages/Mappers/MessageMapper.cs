@@ -11,7 +11,10 @@ public static class MessageMapper
     {
         Message message = new()
         {
-            SenderId = userId, ChatId = command.ChatId, Content = command.Content, Created = command.Created
+            SenderId = userId,
+            ChatId = command.ChatId,
+            Content = command.Content,
+            Created = command.Created
         };
         return message;
     }
@@ -20,7 +23,10 @@ public static class MessageMapper
     {
         MessageDto messageDto = new MessageDto
         {
-            Content = message.Content, SenderId = message.SenderId, Id = message.Id, Created = message.Created
+            Content = message.Content,
+            SenderId = message.SenderId,
+            Id = message.Id,
+            Created = message.Created
         };
         return messageDto;
     }
