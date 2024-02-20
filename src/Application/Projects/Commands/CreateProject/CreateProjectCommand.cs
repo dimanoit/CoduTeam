@@ -9,7 +9,7 @@ namespace CoduTeam.Application.Projects.Commands.CreateProject;
 public record CreateProjectCommand(
     string Title,
     string Description,
-    Category? Category,
+    ProjectCategory? Category,
     Country? Country,
     string? ProjectImgUrl) : BaseModifyCommand(Title, Description, Category, Country, ProjectImgUrl), IRequest
 {

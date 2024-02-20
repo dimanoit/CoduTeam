@@ -21,9 +21,9 @@ public class PositionAppliesResourceValidator(IUser user) : IPositionAppliesReso
                 "User don't have rights to edit this position apply"));
         }
 
-        if (application.Position?.PositionStatus == PositionStatus.Closed)
+        if (application.Position?.Status == PositionStatus.Closed)
         {
-            validationFailures.Add(new ValidationFailure(nameof(Position.PositionStatus), "Position already closed"));
+            validationFailures.Add(new ValidationFailure(nameof(Position.Status), "Position already closed"));
         }
 
         if (validationFailures.Count != 0)

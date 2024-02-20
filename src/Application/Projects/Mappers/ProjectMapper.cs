@@ -32,7 +32,7 @@ public static class ProjectMapper
 
         if (project.Category != null)
         {
-            response.Category = (Category)Enum.Parse(typeof(Category), project.Category);
+            response.Category = (ProjectCategory)Enum.Parse(typeof(ProjectCategory), project.Category);
         }
 
         return response;

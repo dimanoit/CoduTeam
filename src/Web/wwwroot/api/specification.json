@@ -939,6 +939,45 @@
             "x-position": 2
           },
           {
+            "name": "ProjectCategory",
+            "in": "query",
+            "schema": {
+              "nullable": true,
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/ProjectCategory"
+                }
+              ]
+            },
+            "x-position": 3
+          },
+          {
+            "name": "PositionCategory",
+            "in": "query",
+            "schema": {
+              "nullable": true,
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/PositionCategory"
+                }
+              ]
+            },
+            "x-position": 4
+          },
+          {
+            "name": "ApplicationStatus",
+            "in": "query",
+            "schema": {
+              "nullable": true,
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/PositionApplyStatus"
+                }
+              ]
+            },
+            "x-position": 5
+          },
+          {
             "name": "Take",
             "in": "query",
             "schema": {
@@ -946,7 +985,7 @@
               "format": "int32",
               "nullable": true
             },
-            "x-position": 3
+            "x-position": 6
           },
           {
             "name": "Skip",
@@ -956,7 +995,7 @@
               "format": "int32",
               "nullable": true
             },
-            "x-position": 4
+            "x-position": 7
           },
           {
             "name": "Term",
@@ -965,7 +1004,16 @@
               "type": "string",
               "nullable": true
             },
-            "x-position": 5
+            "x-position": 8
+          },
+          {
+            "name": "WithApplicationStatus",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "nullable": true
+            },
+            "x-position": 9
           }
         ],
         "responses": {
@@ -1135,7 +1183,7 @@
               "nullable": true,
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/Category"
+                  "$ref": "#/components/schemas/ProjectCategory"
                 }
               ]
             },
@@ -2190,6 +2238,14 @@
           "ShortDescription": {
             "type": "string"
           },
+          "CurrentUserPositionApplyStatus": {
+            "nullable": true,
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PositionApplyStatus"
+              }
+            ]
+          },
           "Project": {
             "$ref": "#/components/schemas/ProjectDto"
           }
@@ -2213,7 +2269,7 @@
             "nullable": true,
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/ProjectCategory"
               }
             ]
           },
@@ -2231,7 +2287,7 @@
           }
         }
       },
-      "Category": {
+      "ProjectCategory": {
         "type": "integer",
         "description": "",
         "x-enumNames": [
@@ -2657,6 +2713,122 @@
           188
         ]
       },
+      "PositionCategory": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Other",
+          "Dotnet",
+          "AiMl",
+          "Analyst",
+          "Android",
+          "Animator",
+          "Architect",
+          "Artist",
+          "BigData",
+          "Blockchain",
+          "CPlusPlus",
+          "C",
+          "Copywriter",
+          "DataEngineer",
+          "DataScience",
+          "DatabaseAdministrator",
+          "Design",
+          "DevOpsEmbedded",
+          "EngineeringManager",
+          "Erlang",
+          "Erp",
+          "Crm",
+          "Finance",
+          "Flutter",
+          "FrontEnd",
+          "Golang",
+          "Hardware",
+          "HumanResource",
+          "AppleDev",
+          "Java",
+          "Legal",
+          "Marketing",
+          "NodeJs",
+          "OfficeManager",
+          "Php",
+          "ProductManager",
+          "ProjectManager",
+          "Python",
+          "Qa",
+          "ReactNative",
+          "Ruby",
+          "Rust",
+          "Sales",
+          "Salesforce",
+          "Sap",
+          "Scala",
+          "ScrumMaster",
+          "Security",
+          "Seo",
+          "Support",
+          "SysAdmin",
+          "TechnicalWriter",
+          "Unity",
+          "UnrealEngine"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47,
+          48,
+          49,
+          50,
+          51,
+          52,
+          53
+        ]
+      },
       "CreateProjectCommand": {
         "allOf": [
           {
@@ -2683,7 +2855,7 @@
             "nullable": true,
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Category"
+                "$ref": "#/components/schemas/ProjectCategory"
               }
             ]
           },

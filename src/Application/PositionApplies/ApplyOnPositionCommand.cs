@@ -35,9 +35,9 @@ public class ApplyOnPositionCommandHandler(IUser user, IApplicationDbContext dbC
         Guard.Against.Null(user.Id);
         List<ValidationFailure> validationErrors = new List<ValidationFailure>();
 
-        if (position.PositionStatus == PositionStatus.Closed)
+        if (position.Status == PositionStatus.Closed)
         {
-            validationErrors.Add(new ValidationFailure(nameof(Position.PositionStatus), "Position already closed"));
+            validationErrors.Add(new ValidationFailure(nameof(Position.Status), "Position already closed"));
         }
 
         bool isAlreadyApplied = await dbContext.PositionApplies
