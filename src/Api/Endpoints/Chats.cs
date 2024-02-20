@@ -10,7 +10,7 @@ using CoduTeam.Infrastructure.Hubs;
 using CoduTeam.Infrastructure.Hubs.ChatInterfaces;
 using Microsoft.AspNetCore.SignalR;
 
-namespace CoduTeam.Web.Endpoints;
+namespace CoduTeam.Api.Endpoints;
 
 public class Chats : EndpointGroupBase
 {
