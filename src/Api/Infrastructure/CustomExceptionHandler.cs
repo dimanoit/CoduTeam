@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CoduTeam.Web.Infrastructure;
+namespace CoduTeam.Api.Infrastructure;
 
 public class CustomExceptionHandler : IExceptionHandler
 {

@@ -1,6 +1,8 @@
+using CoduTeam.Api.Infrastructure;
 using CoduTeam.Application.PositionApplies;
+using CoduTeam.Application.Positions.Models;
 
-namespace CoduTeam.Web.Endpoints;
+namespace CoduTeam.Api.Endpoints;
 
 public class PositionApplies : EndpointGroupBase
 {
@@ -8,6 +10,7 @@ public class PositionApplies : EndpointGroupBase
     {
         app.MapGroup(this, "position-applies")
             .RequireAuthorization()
+            .MapGet(GetPositionApplies)
             .MapPost(ApplyOnPosition)
             .MapPatch(ChangePositionApplyStatus, "status");
     }
@@ -20,9 +23,11 @@ public class PositionApplies : EndpointGroupBase
         await sender.Send(command);
     }
 
-    public async Task<PositionApplyResponse[]> GetPositionApplies(ISender sender, PositionAppliesQuery query, CancellationToken cancellationToken)
+    public async Task<PositionResponse[]> GetPositionApplies(
+        ISender sender,
+        CancellationToken cancellationToken)
     {
-        return await sender.Send(query, cancellationToken);
+        return await sender.Send(new PositionAppliesQuery(), cancellationToken);
     }
 
     public async Task ChangePositionApplyStatus(

@@ -1,6 +1,7 @@
-﻿using CoduTeam.Domain.Entities;
+﻿using CoduTeam.Api.Infrastructure;
+using CoduTeam.Domain.Entities;
 
-namespace CoduTeam.Web.Endpoints;
+namespace CoduTeam.Api.Endpoints;
 
 public class Auth : EndpointGroupBase
 {

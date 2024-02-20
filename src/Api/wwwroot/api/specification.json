@@ -391,6 +391,32 @@
       }
     },
     "/api/position-applies": {
+      "get": {
+        "tags": [
+          "position-applies"
+        ],
+        "operationId": "GetPositionApplies",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PositionResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
       "post": {
         "tags": [
           "position-applies"
@@ -1542,122 +1568,6 @@
           }
         }
       },
-      "ApplyOnPositionCommand": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "PositionId": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "ChangePositionApplyStatusCommand": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "Id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "Status": {
-            "$ref": "#/components/schemas/PositionApplyStatus"
-          }
-        }
-      },
-      "PositionApplyStatus": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "Sent",
-          "OnReview",
-          "Rejected",
-          "Confirmed"
-        ],
-        "enum": [
-          0,
-          1,
-          2,
-          3
-        ]
-      },
-      "CreatePositionCommand": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseModifyPositionCommand"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "ProjectId": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "DeadLine": {
-                "type": "string",
-                "format": "date-time"
-              }
-            }
-          }
-        ]
-      },
-      "BaseModifyPositionCommand": {
-        "type": "object",
-        "x-abstract": true,
-        "additionalProperties": false,
-        "properties": {
-          "Title": {
-            "type": "string"
-          },
-          "Description": {
-            "type": "string"
-          },
-          "ShortDescription": {
-            "type": "string"
-          },
-          "IsRemote": {
-            "type": "boolean",
-            "nullable": true
-          }
-        }
-      },
-      "UpdatePositionCommand": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseModifyPositionCommand"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "Id": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "Deadline": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "PositionStatus": {
-                "$ref": "#/components/schemas/PositionStatus"
-              }
-            }
-          }
-        ]
-      },
-      "PositionStatus": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "Opened",
-          "Closed"
-        ],
-        "enum": [
-          0,
-          1
-        ]
-      },
       "PositionResponse": {
         "type": "object",
         "additionalProperties": false,
@@ -1687,6 +1597,22 @@
             "$ref": "#/components/schemas/ProjectDto"
           }
         }
+      },
+      "PositionApplyStatus": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Sent",
+          "OnReview",
+          "Rejected",
+          "Confirmed"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ]
       },
       "ProjectDto": {
         "type": "object",
@@ -2148,6 +2074,106 @@
           186,
           187,
           188
+        ]
+      },
+      "ApplyOnPositionCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "PositionId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ChangePositionApplyStatusCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Status": {
+            "$ref": "#/components/schemas/PositionApplyStatus"
+          }
+        }
+      },
+      "CreatePositionCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseModifyPositionCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ProjectId": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "DeadLine": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        ]
+      },
+      "BaseModifyPositionCommand": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "Title": {
+            "type": "string"
+          },
+          "Description": {
+            "type": "string"
+          },
+          "ShortDescription": {
+            "type": "string"
+          },
+          "IsRemote": {
+            "type": "boolean",
+            "nullable": true
+          }
+        }
+      },
+      "UpdatePositionCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseModifyPositionCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "Id": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "Deadline": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "PositionStatus": {
+                "$ref": "#/components/schemas/PositionStatus"
+              }
+            }
+          }
+        ]
+      },
+      "PositionStatus": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Opened",
+          "Closed"
+        ],
+        "enum": [
+          0,
+          1
         ]
       },
       "PositionCategory": {

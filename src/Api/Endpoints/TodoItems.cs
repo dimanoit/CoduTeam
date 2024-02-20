@@ -1,11 +1,12 @@
-﻿using CoduTeam.Application.Common.Models;
+﻿using CoduTeam.Api.Infrastructure;
+using CoduTeam.Application.Common.Models;
 using CoduTeam.Application.TodoItems.Commands.CreateTodoItem;
 using CoduTeam.Application.TodoItems.Commands.DeleteTodoItem;
 using CoduTeam.Application.TodoItems.Commands.UpdateTodoItem;
 using CoduTeam.Application.TodoItems.Commands.UpdateTodoItemDetail;
 using CoduTeam.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 
-namespace CoduTeam.Web.Endpoints;
+namespace CoduTeam.Api.Endpoints;
 
 public class TodoItems : EndpointGroupBase
 {
