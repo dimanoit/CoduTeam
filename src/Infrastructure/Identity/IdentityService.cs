@@ -7,7 +7,6 @@ using CoduTeam.Application.Users.Command;
 using CoduTeam.Application.Users.Models;
 using CoduTeam.Domain.Common;
 using CoduTeam.Domain.Entities;
-using CoduTeam.Domain.Enums;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

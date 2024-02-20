@@ -4,12 +4,16 @@ using CoduTeam.Domain.Entities;
 using CoduTeam.Infrastructure.Data;
 using CoduTeam.Infrastructure.Data.Interceptors;
 using CoduTeam.Infrastructure.Identity;
+using Microsoft.AspNetCore.Authentication.BearerToken;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Primitives;
 
-namespace Microsoft.Extensions.DependencyInjection;
+namespace CoduTeam.Infrastructure;
 
 public static class DependencyInjection
 {
@@ -30,12 +34,16 @@ public static class DependencyInjection
             options.UseSqlServer(connectionString);
         });
 
+        services.AddSignalR();
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
 
         services.AddScoped<ApplicationDbContextInitialiser>();
 
         services.AddAuthentication()
-            .AddBearerToken(IdentityConstants.BearerScheme);
+            .AddBearerToken(IdentityConstants.BearerScheme, options =>
+            {
+                options.Events = new BearerTokenEvents { OnMessageReceived = InjectTokenToHubContext() };
+            });
 
         services.AddAuthorizationBuilder();
 
@@ -52,5 +60,23 @@ public static class DependencyInjection
             options.AddPolicy(Policies.CanPurge, policy => policy.RequireRole(Roles.Administrator)));
 
         return services;
+    }
+
+    private static Func<MessageReceivedContext, Task> InjectTokenToHubContext()
+    {
+        return context =>
+        {
+            StringValues accessToken = context.Request.Headers["Authorization"];
+            ChatHubConstants chatHubUrl = new();
+
+            PathString path = context.HttpContext.Request.Path;
+            if (!string.IsNullOrEmpty(accessToken) &&
+                path.StartsWithSegments(chatHubUrl.ChatHubUrl))
+            {
+                context.Token = accessToken.ToString();
+            }
+
+            return Task.CompletedTask;
+        };
     }
 }

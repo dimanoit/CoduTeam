@@ -14,7 +14,6 @@ public record ActivationUserCommand : IRequest
     public string[] Technologies { get; set; } = Array.Empty<string>();
 }
 
-
 public class ActivationUserCommandHandler(IIdentityService identityService)
     : IRequestHandler<ActivationUserCommand>
 {

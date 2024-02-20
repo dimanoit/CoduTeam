@@ -14,7 +14,7 @@ public class PositionAppliesResourceValidator(IUser user) : IPositionAppliesReso
 {
     public void ValidateStatusChange(PositionApply application)
     {
-        var validationFailures = new List<ValidationFailure>();
+        List<ValidationFailure> validationFailures = new List<ValidationFailure>();
         if (application.Position!.Project.CreatedBy != user.Id)
         {
             validationFailures.Add(new ValidationFailure(nameof(ApplicationUser.Id),

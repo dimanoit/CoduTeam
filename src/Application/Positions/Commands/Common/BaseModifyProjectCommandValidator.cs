@@ -1,5 +1,4 @@
 using CoduTeam.Application.Common.Interfaces;
-using CoduTeam.Application.Projects.Commands.Common;
 
 namespace CoduTeam.Application.Positions.Commands.Common;
 

@@ -37,8 +37,8 @@ public class Projects : EndpointGroupBase
 
     public async Task<ProjectResponse?> GetProject(ISender sender, int id)
     {
-        var query = new ProjectSearchQuery() { ProjectId = id };
-        var projects = await sender.Send(query);
+        ProjectSearchQuery query = new ProjectSearchQuery { ProjectId = id };
+        ProjectResponse[]? projects = await sender.Send(query);
 
         return projects?.FirstOrDefault();
     }

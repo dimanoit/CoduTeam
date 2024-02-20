@@ -12,4 +12,3 @@ public class PositionResponse
     public PositionApplyStatus? CurrentUserPositionApplyStatus { get; set; }
     public required ProjectDto Project { get; set; }
 }
-

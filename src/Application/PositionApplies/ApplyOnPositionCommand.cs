@@ -33,7 +33,7 @@ public class ApplyOnPositionCommandHandler(IUser user, IApplicationDbContext dbC
     {
         Guard.Against.Null(position);
         Guard.Against.Null(user.Id);
-        var validationErrors = new List<ValidationFailure>();
+        List<ValidationFailure> validationErrors = new List<ValidationFailure>();
 
         if (position.Status == PositionStatus.Closed)
         {

@@ -11,7 +11,7 @@ public static class ProjectMapper
 {
     public static ProjectResponse ToProjectResponse(this Project project)
     {
-        var mapped = project.ToProjectDto();
+        ProjectResponse mapped = project.ToProjectDto();
         mapped.Participants = project.UserProjects
             .Select(ap => ap.ApplicationUser!.ToParticipant())
             .ToArray();
@@ -21,13 +21,13 @@ public static class ProjectMapper
 
     public static ProjectResponse ToProjectDto(this Project project)
     {
-        var response = new ProjectResponse
+        ProjectResponse response = new ProjectResponse
         {
             Id = project.Id,
             Title = project.Title,
             Description = project.Description,
             Country = project.Country,
-            ProjectImgUrl = project.ProjectImageUrl,
+            ProjectImgUrl = project.ProjectImageUrl
         };
 
         if (project.Category != null)

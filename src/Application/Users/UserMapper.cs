@@ -40,8 +40,8 @@ public static class UserMapper
 
     public static ProjectParticipant ToParticipant(this ApplicationUser user)
     {
-        return new ProjectParticipant(userName: user.UserName!, userId: user.Id, firstName: user.FirstName!,
-            lastName: user.LastName!, projectTitle: user.Title!)
+        return new ProjectParticipant(user.UserName!, user.Id, user.FirstName!,
+            user.LastName!, user.Title!)
         {
             ImageSrc = user.ImageSrc,
             Technologies = user.Technologies,
