@@ -1,9 +1,10 @@
-﻿using CoduTeam.Application.TodoLists.Commands.CreateTodoList;
+﻿using CoduTeam.Api.Infrastructure;
+using CoduTeam.Application.TodoLists.Commands.CreateTodoList;
 using CoduTeam.Application.TodoLists.Commands.DeleteTodoList;
 using CoduTeam.Application.TodoLists.Commands.UpdateTodoList;
 using CoduTeam.Application.TodoLists.Queries.GetTodos;
 
-namespace CoduTeam.Web.Endpoints;
+namespace CoduTeam.Api.Endpoints;
 
 public class TodoLists : EndpointGroupBase
 {

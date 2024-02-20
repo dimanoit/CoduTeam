@@ -1,6 +1,7 @@
-﻿using CoduTeam.Application.WeatherForecasts.Queries.GetWeatherForecasts;
+﻿using CoduTeam.Api.Infrastructure;
+using CoduTeam.Application.WeatherForecasts.Queries.GetWeatherForecasts;
 
-namespace CoduTeam.Web.Endpoints;
+namespace CoduTeam.Api.Endpoints;
 
 public class WeatherForecasts : EndpointGroupBase
 {

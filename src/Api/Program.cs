@@ -1,8 +1,9 @@
+using CoduTeam.Api;
+using CoduTeam.Api.Infrastructure;
 using CoduTeam.Application;
 using CoduTeam.Infrastructure;
 using CoduTeam.Infrastructure.Data;
-using CoduTeam.Web;
-using DependencyInjection = CoduTeam.Web.DependencyInjection;
+using DependencyInjection = CoduTeam.Api.DependencyInjection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 

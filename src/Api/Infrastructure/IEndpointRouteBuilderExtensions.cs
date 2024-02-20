@@ -1,4 +1,4 @@
-﻿namespace CoduTeam.Web.Infrastructure;
+﻿namespace CoduTeam.Api.Infrastructure;
 
 public static class IEndpointRouteBuilderExtensions
 {

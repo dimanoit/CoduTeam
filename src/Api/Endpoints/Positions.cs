@@ -1,10 +1,11 @@
+using CoduTeam.Api.Infrastructure;
 using CoduTeam.Application.Positions.Commands.CreatePosition;
 using CoduTeam.Application.Positions.Commands.DeletePosition;
 using CoduTeam.Application.Positions.Commands.UpdatePosition;
 using CoduTeam.Application.Positions.Models;
 using CoduTeam.Application.Positions.Queries;
 
-namespace CoduTeam.Web.Endpoints;
+namespace CoduTeam.Api.Endpoints;
 
 public class Positions : EndpointGroupBase
 {

@@ -1,10 +1,11 @@
+using CoduTeam.Api.Infrastructure;
 using CoduTeam.Application.Projects.Commands.CreateProject;
 using CoduTeam.Application.Projects.Commands.DeleteProject;
 using CoduTeam.Application.Projects.Commands.UpdateProject;
 using CoduTeam.Application.Projects.Models;
 using CoduTeam.Application.Projects.Queries;
 
-namespace CoduTeam.Web.Endpoints;
+namespace CoduTeam.Api.Endpoints;
 
 public class Projects : EndpointGroupBase
 {

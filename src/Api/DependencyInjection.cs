@@ -1,14 +1,14 @@
 ﻿using System.Text.Json.Serialization;
 using Azure.Identity;
+using CoduTeam.Api.Services;
 using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Infrastructure.Data;
-using CoduTeam.Web.Services;
 using Microsoft.AspNetCore.Mvc;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using ZymLabs.NSwag.FluentValidation;
 
-namespace CoduTeam.Web;
+namespace CoduTeam.Api;
 
 public static class DependencyInjection
 {

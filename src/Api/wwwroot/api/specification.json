@@ -6,6 +6,155 @@
     "version": "1.0.0"
   },
   "paths": {
+    "/api/messages": {
+      "post": {
+        "tags": [
+          "messages"
+        ],
+        "operationId": "CreateMessageEndpoint",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMessageCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "messages"
+        ],
+        "operationId": "GetAllMessageEndpoint",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MessageDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "put": {
+        "tags": [
+          "messages"
+        ],
+        "operationId": "UpdateMessageEndpoint",
+        "requestBody": {
+          "x-name": "command",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateMessageCommand"
+              }
+            }
+          },
+          "required": true,
+          "x-position": 1
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
+    "/api/messages/{Id}": {
+      "delete": {
+        "tags": [
+          "messages"
+        ],
+        "operationId": "DeleteMessageEndpoint",
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      },
+      "get": {
+        "tags": [
+          "messages"
+        ],
+        "operationId": "GetMessageEndpoint",
+        "parameters": [
+          {
+            "name": "Id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MessageDto"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/auth/register": {
       "post": {
         "tags": [
@@ -646,40 +795,12 @@
         ]
       }
     },
-    "/api/messages": {
-      "post": {
-        "tags": [
-          "messages"
-        ],
-        "operationId": "CreateMessageEndpoint",
-        "requestBody": {
-          "x-name": "command",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateMessageCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      },
+    "/api/position-applies": {
       "get": {
         "tags": [
-          "messages"
+          "position-applies"
         ],
-        "operationId": "GetAllMessageEndpoint",
+        "operationId": "GetPositionApplies",
         "responses": {
           "200": {
             "description": "",
@@ -688,7 +809,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/MessageDto"
+                    "$ref": "#/components/schemas/PositionResponse"
                   }
                 }
               }
@@ -701,101 +822,6 @@
           }
         ]
       },
-      "put": {
-        "tags": [
-          "messages"
-        ],
-        "operationId": "UpdateMessageEndpoint",
-        "requestBody": {
-          "x-name": "command",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateMessageCommand"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/messages/{Id}": {
-      "delete": {
-        "tags": [
-          "messages"
-        ],
-        "operationId": "DeleteMessageEndpoint",
-        "parameters": [
-          {
-            "name": "Id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-position": 1
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      },
-      "get": {
-        "tags": [
-          "messages"
-        ],
-        "operationId": "GetMessageEndpoint",
-        "parameters": [
-          {
-            "name": "Id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-position": 1
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MessageDto"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/position-applies": {
       "post": {
         "tags": [
           "position-applies"
@@ -1722,6 +1748,58 @@
   },
   "components": {
     "schemas": {
+      "CreateMessageCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseModifyMessageCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ChatId": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          }
+        ]
+      },
+      "BaseModifyMessageCommand": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "Content": {
+            "type": "string"
+          },
+          "Created": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "MessageDto": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Content": {
+            "type": "string"
+          },
+          "SenderId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Created": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
       "HttpValidationProblemDetails": {
         "allOf": [
           {
@@ -2053,174 +2131,6 @@
           }
         }
       },
-      "MessageDto": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "Id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "Content": {
-            "type": "string"
-          },
-          "SenderId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "Created": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "CreateMessageCommand": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseModifyMessageCommand"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "ChatId": {
-                "type": "integer",
-                "format": "int32"
-              }
-            }
-          }
-        ]
-      },
-      "BaseModifyMessageCommand": {
-        "type": "object",
-        "x-abstract": true,
-        "additionalProperties": false,
-        "properties": {
-          "Content": {
-            "type": "string"
-          },
-          "Created": {
-            "type": "string",
-            "format": "date-time"
-          }
-        }
-      },
-      "ApplyOnPositionCommand": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "PositionId": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "ChangePositionApplyStatusCommand": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "Id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "Status": {
-            "$ref": "#/components/schemas/PositionApplyStatus"
-          }
-        }
-      },
-      "PositionApplyStatus": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "Sent",
-          "OnReview",
-          "Rejected",
-          "Confirmed"
-        ],
-        "enum": [
-          0,
-          1,
-          2,
-          3
-        ]
-      },
-      "CreatePositionCommand": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseModifyPositionCommand"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "ProjectId": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "DeadLine": {
-                "type": "string",
-                "format": "date-time"
-              }
-            }
-          }
-        ]
-      },
-      "BaseModifyPositionCommand": {
-        "type": "object",
-        "x-abstract": true,
-        "additionalProperties": false,
-        "properties": {
-          "Title": {
-            "type": "string"
-          },
-          "Description": {
-            "type": "string"
-          },
-          "ShortDescription": {
-            "type": "string"
-          },
-          "IsRemote": {
-            "type": "boolean",
-            "nullable": true
-          }
-        }
-      },
-      "UpdatePositionCommand": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseModifyPositionCommand"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "Id": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "Deadline": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "PositionStatus": {
-                "$ref": "#/components/schemas/PositionStatus"
-              }
-            }
-          }
-        ]
-      },
-      "PositionStatus": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "Opened",
-          "Closed"
-        ],
-        "enum": [
-          0,
-          1
-        ]
-      },
       "PositionResponse": {
         "type": "object",
         "additionalProperties": false,
@@ -2250,6 +2160,22 @@
             "$ref": "#/components/schemas/ProjectDto"
           }
         }
+      },
+      "PositionApplyStatus": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Sent",
+          "OnReview",
+          "Rejected",
+          "Confirmed"
+        ],
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ]
       },
       "ProjectDto": {
         "type": "object",
@@ -2711,6 +2637,106 @@
           186,
           187,
           188
+        ]
+      },
+      "ApplyOnPositionCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "PositionId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "ChangePositionApplyStatusCommand": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "Id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Status": {
+            "$ref": "#/components/schemas/PositionApplyStatus"
+          }
+        }
+      },
+      "CreatePositionCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseModifyPositionCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "ProjectId": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "DeadLine": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        ]
+      },
+      "BaseModifyPositionCommand": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "Title": {
+            "type": "string"
+          },
+          "Description": {
+            "type": "string"
+          },
+          "ShortDescription": {
+            "type": "string"
+          },
+          "IsRemote": {
+            "type": "boolean",
+            "nullable": true
+          }
+        }
+      },
+      "UpdatePositionCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseModifyPositionCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "Id": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "Deadline": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "PositionStatus": {
+                "$ref": "#/components/schemas/PositionStatus"
+              }
+            }
+          }
+        ]
+      },
+      "PositionStatus": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Opened",
+          "Closed"
+        ],
+        "enum": [
+          0,
+          1
         ]
       },
       "PositionCategory": {

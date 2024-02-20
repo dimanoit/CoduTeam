@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using CoduTeam.Application.Common.Interfaces;
 
-namespace CoduTeam.Web.Services;
+namespace CoduTeam.Api.Services;
 
 public class CurrentUser : IUser
 {

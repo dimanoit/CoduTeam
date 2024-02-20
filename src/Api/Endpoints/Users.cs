@@ -1,9 +1,10 @@
+using CoduTeam.Api.Infrastructure;
 using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Application.Users.Command;
 using CoduTeam.Application.Users.Models;
 using CoduTeam.Application.Users.Queries;
 
-namespace CoduTeam.Web.Endpoints;
+namespace CoduTeam.Api.Endpoints;
 
 public class Users : EndpointGroupBase
 {
