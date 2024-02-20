@@ -42,10 +42,7 @@ public static class DependencyInjection
         services.AddAuthentication()
             .AddBearerToken(IdentityConstants.BearerScheme, options =>
             {
-                options.Events = new BearerTokenEvents
-                {
-                    OnMessageReceived = InjectTokenToHubContext()
-                };
+                options.Events = new BearerTokenEvents { OnMessageReceived = InjectTokenToHubContext() };
             });
 
         services.AddAuthorizationBuilder();
@@ -69,8 +66,8 @@ public static class DependencyInjection
     {
         return context =>
         {
-            var accessToken = context.Request.Headers["Authorization"];
-            ChatHubConstants chatHubUrl = new ChatHubConstants();
+            StringValues accessToken = context.Request.Headers["Authorization"];
+            ChatHubConstants chatHubUrl = new();
 
             PathString path = context.HttpContext.Request.Path;
             if (!string.IsNullOrEmpty(accessToken) &&

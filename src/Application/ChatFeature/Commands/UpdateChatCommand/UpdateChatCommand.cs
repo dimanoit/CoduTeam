@@ -1,5 +1,5 @@
-﻿using CoduTeam.Application.Chat.Commands.Common;
-using CoduTeam.Application.Chat.Mappers;
+﻿using CoduTeam.Application.Chat.Mappers;
+using CoduTeam.Application.ChatFeature.Commands.Common;
 using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Domain.Enums;
 
@@ -10,11 +10,12 @@ public record UpdateChatCommand(
     ChatType ChatType,
     string Title) : BaseChatModifyCommand(ChatType, Title), IRequest;
 
-public class UpdateChatCommandHandler(IIdentityService identityService, IApplicationDbContext dbContext) : IRequestHandler<UpdateChatCommand>
+public class UpdateChatCommandHandler(IIdentityService identityService, IApplicationDbContext dbContext)
+    : IRequestHandler<UpdateChatCommand>
 {
     public async Task Handle(UpdateChatCommand command, CancellationToken cancellationToken)
     {
-        var chat = await dbContext.Chats.FindAsync(command.Id, cancellationToken);
+        Domain.Entities.Chat? chat = await dbContext.Chats.FindAsync(command.Id, cancellationToken);
 
         Guard.Against.NotFound(command.Id, chat);
         identityService.ThrowIfNoAccessToResource(chat);
@@ -24,4 +25,3 @@ public class UpdateChatCommandHandler(IIdentityService identityService, IApplica
         await dbContext.SaveChangesAsync(cancellationToken);
     }
 }
-

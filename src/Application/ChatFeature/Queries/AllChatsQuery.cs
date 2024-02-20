@@ -8,6 +8,7 @@ namespace CoduTeam.Application.ChatFeature.Queries;
 
 [Authorize(Roles = Roles.Administrator)]
 public record AllChatsQuery : IRequest<ICollection<ChatDto>>;
+
 internal sealed class GetAllChatQueryHandler(IApplicationDbContext dbContext, IUser user)
     : IRequestHandler<AllChatsQuery, ICollection<ChatDto>>
 {
@@ -15,7 +16,7 @@ internal sealed class GetAllChatQueryHandler(IApplicationDbContext dbContext, IU
     {
         Guard.Against.Null(user.Id);
 
-        var chatResponses = await dbContext.Chats
+        ChatDto[] chatResponses = await dbContext.Chats
             .Include(chat => chat.UserChats)
             .Select(chat => chat.ToChatDto())
             .ToArrayAsync(cancellationToken);

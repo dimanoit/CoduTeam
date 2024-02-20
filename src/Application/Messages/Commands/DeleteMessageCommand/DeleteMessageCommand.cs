@@ -1,16 +1,18 @@
 ﻿using CoduTeam.Application.Common.Interfaces;
-using CoduTeam.Application.Messages.Commands.Common;
+using CoduTeam.Domain.Entities;
 
 namespace CoduTeam.Application.Messages.Commands.DeleteMessageCommand;
 
 public record DeleteMessageCommand(int messageId) : IRequest
 {
 }
-public class DeleteMessageCommandHandler(IIdentityService identityService, IApplicationDbContext dbContext) : IRequestHandler<DeleteMessageCommand>
+
+public class DeleteMessageCommandHandler(IIdentityService identityService, IApplicationDbContext dbContext)
+    : IRequestHandler<DeleteMessageCommand>
 {
     public async Task Handle(DeleteMessageCommand command, CancellationToken cancellationToken)
     {
-        var message = await dbContext.Messages
+        Message? message = await dbContext.Messages
             .Where(i => i.Id == command.messageId)
             .FirstOrDefaultAsync(cancellationToken);
 

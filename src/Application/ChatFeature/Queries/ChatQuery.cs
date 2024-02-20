@@ -1,7 +1,6 @@
 ﻿using CoduTeam.Application.Chat.Mappers;
 using CoduTeam.Application.ChatFeature.Models;
 using CoduTeam.Application.Common.Interfaces;
-using CoduTeam.Application.Common.Models;
 
 namespace CoduTeam.Application.ChatFeature.Queries;
 
@@ -15,7 +14,7 @@ internal sealed class GetChatQueryHandler(IApplicationDbContext dbContext, IUser
     public async Task<ChatDto> Handle(ChatQuery request, CancellationToken cancellationToken)
     {
         Guard.Against.Null(user.Id);
-        var chatResponse = await dbContext.Chats
+        ChatDto? chatResponse = await dbContext.Chats
             .Include(chat => chat.UserChats)
             .Where(chat => chat.Id == request.ChatId)
             .Select(chat => chat.ToChatDto())
@@ -24,4 +23,3 @@ internal sealed class GetChatQueryHandler(IApplicationDbContext dbContext, IUser
         return chatResponse;
     }
 }
-

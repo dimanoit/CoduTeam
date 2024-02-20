@@ -22,21 +22,26 @@ public class Messages : EndpointGroupBase
     {
         await sender.Send(command);
     }
+
     public async Task DeleteMessageEndpoint(ISender sender, int Id)
     {
         await sender.Send(new DeleteMessageCommand(Id));
     }
+
     public async Task UpdateMessageEndpoint(ISender sender, CreateMessageCommand command)
     {
         await sender.Send(command);
     }
+
     public async Task<MessageDto> GetMessageEndpoint(ISender sender, int Id)
     {
-        var query = new MessageQuery() { MessageId = Id };
-        var messages = await sender.Send(query);
+        MessageQuery query = new MessageQuery { MessageId = Id };
+        MessageDto messages = await sender.Send(query);
         return messages;
     }
-    public async Task<ICollection<MessageDto>> GetAllMessageEndpoint(ISender sender, [AsParameters] AllMessageQuery query)
+
+    public async Task<ICollection<MessageDto>> GetAllMessageEndpoint(ISender sender,
+        [AsParameters] AllMessageQuery query)
     {
         return await sender.Send(query);
     }

@@ -1,4 +1,4 @@
-﻿using CoduTeam.Application.Chat.Commands.CreateChatCommand;
+﻿using CoduTeam.Application.ChatFeature.Commands.CreateChatCommand;
 using CoduTeam.Application.ChatFeature.Commands.DeleteChatCommand;
 using CoduTeam.Application.ChatFeature.Commands.UpdateChatCommand;
 using CoduTeam.Application.ChatFeature.Models;
@@ -30,9 +30,10 @@ public class Chats : EndpointGroupBase
 
     public async Task<MessageDto[]> GetMessagesFromChat(ISender sender, int chatId)
     {
-        var messages = await sender.Send(new GetMessagesFromChatQuery(chatId));
+        MessageDto[] messages = await sender.Send(new GetMessagesFromChatQuery(chatId));
         return messages;
     }
+
     public async Task BroadcastEndpoint(Test message, IHubContext<ChatHub, IChatClient> context)
     {
         await context.Clients.All.ReceiveMessage(message.Message);
@@ -54,20 +55,24 @@ public class Chats : EndpointGroupBase
     {
         await sender.Send(command);
     }
+
     public async Task DeleteChatEndpoint(ISender sender, int id)
     {
         await sender.Send(new DeleteChatCommand(id));
     }
+
     public async Task UpdateChatEndpoint(ISender sender, UpdateChatCommand command)
     {
         await sender.Send(command);
     }
+
     public async Task<ChatDto?> GetChatEndpoint(ISender sender, int Id)
     {
-        var query = new ChatQuery(Id);
-        var chats = await sender.Send(query);
+        ChatQuery query = new ChatQuery(Id);
+        ChatDto chats = await sender.Send(query);
         return chats;
     }
+
     public async Task<ICollection<ChatDto>?> GetAllChatEndpoint(ISender sender, [AsParameters] AllChatsQuery query)
     {
         return await sender.Send(query);
@@ -78,6 +83,7 @@ public class Test
 {
     public required string Message { get; set; }
 }
+
 public class Test2
 {
     public required string Message { get; set; }

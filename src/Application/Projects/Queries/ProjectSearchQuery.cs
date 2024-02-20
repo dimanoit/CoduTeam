@@ -6,7 +6,6 @@ using CoduTeam.Domain.Enums;
 
 namespace CoduTeam.Application.Projects.Queries;
 
-
 public record ProjectSearchQuery : IRequest<ProjectResponse[]?>
 {
     public int? OwnerId { get; init; }
@@ -17,7 +16,6 @@ public record ProjectSearchQuery : IRequest<ProjectResponse[]?>
     public string? Term { get; init; }
     public bool? OnlyRelatedToCurrentUser { get; init; }
 }
-
 
 internal class SearchProjectsQueryHandler(IApplicationDbContext dbContext, IUser user)
     : IRequestHandler<ProjectSearchQuery, ProjectResponse[]?>

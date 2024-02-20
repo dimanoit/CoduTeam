@@ -1,6 +1,5 @@
 ﻿using CoduTeam.Infrastructure.Hubs.ChatInterfaces;
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 namespace CoduTeam.Infrastructure.Hubs;
 

@@ -7,11 +7,12 @@ namespace CoduTeam.Application.Messages.Queries;
 
 public record GetMessagesFromChatQuery(int ChatId) : IRequest<MessageDto[]>;
 
-public class GetMessagesFromChatQueryHandler(IApplicationDbContext dbContext) : IRequestHandler<GetMessagesFromChatQuery, MessageDto[]>
+public class GetMessagesFromChatQueryHandler(IApplicationDbContext dbContext)
+    : IRequestHandler<GetMessagesFromChatQuery, MessageDto[]>
 {
     public async Task<MessageDto[]> Handle(GetMessagesFromChatQuery request, CancellationToken cancellationToken)
     {
-        var messages = await dbContext.Chats
+        MessageDto[] messages = await dbContext.Chats
             .Include(ch => ch.Messages)
             .AddChatIdFilter(request.ChatId)
             .SelectMany(ch => ch.Messages.Select(m => m.ToMessageDto()))
@@ -19,4 +20,3 @@ public class GetMessagesFromChatQueryHandler(IApplicationDbContext dbContext) : 
         return messages;
     }
 }
-

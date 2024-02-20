@@ -23,7 +23,7 @@ internal class SearchPositionsQueryHandler(IApplicationDbContext dbContext, IUse
     {
         Guard.Against.Null(user.Id);
 
-        var response = await dbContext
+        PositionResponse[] response = await dbContext
             .Positions
             .Include(p => p.Project)
             .Where(p => p.PositionStatus == PositionStatus.Opened)

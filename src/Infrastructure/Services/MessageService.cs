@@ -1,8 +1,4 @@
-﻿using CoduTeam.Application.Interfaces;
-using CoduTeam.Domain.Entities;
-using CoduTeam.Infrastructure.Data;
-
-namespace CoduTeam.Infrastructure.Services;
+﻿namespace CoduTeam.Infrastructure.Services;
 
 // public class MessageService(ApplicationDbContext _dbContext) : IMessageService
 // {

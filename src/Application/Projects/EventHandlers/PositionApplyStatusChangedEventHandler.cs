@@ -16,8 +16,7 @@ public class PositionApplyStatusChangedEventHandler(IApplicationDbContext dbCont
         {
             UserProject accountProject = new()
             {
-                UserId = notification.PositionApply!.UserId,
-                Project = notification.PositionApply.Position!.Project
+                UserId = notification.PositionApply!.UserId, Project = notification.PositionApply.Position!.Project
             };
 
             dbContext.UserProjects.Add(accountProject);

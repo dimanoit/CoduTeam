@@ -32,12 +32,12 @@ public class ValidationExceptionTests
     {
         List<ValidationFailure> failures = new()
         {
-            new("Age", "must be 18 or older"),
-            new("Age", "must be 25 or younger"),
-            new("Password", "must contain at least 8 characters"),
-            new("Password", "must contain a digit"),
-            new("Password", "must contain upper case letter"),
-            new("Password", "must contain lower case letter")
+            new ValidationFailure("Age", "must be 18 or older"),
+            new ValidationFailure("Age", "must be 25 or younger"),
+            new ValidationFailure("Password", "must contain at least 8 characters"),
+            new ValidationFailure("Password", "must contain a digit"),
+            new ValidationFailure("Password", "must contain upper case letter"),
+            new ValidationFailure("Password", "must contain lower case letter")
         };
 
         IDictionary<string, string[]> actual = new ValidationException(failures).Errors;

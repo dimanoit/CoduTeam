@@ -8,13 +8,15 @@ public class MessageQuery : IRequest<MessageDto>
 {
     public int MessageId { get; set; }
 }
-internal sealed class GetMessageQueryHandler(IApplicationDbContext DbContext, IUser user) : IRequestHandler<MessageQuery, MessageDto>
+
+internal sealed class GetMessageQueryHandler(IApplicationDbContext DbContext, IUser user)
+    : IRequestHandler<MessageQuery, MessageDto>
 {
     public async Task<MessageDto> Handle(MessageQuery request, CancellationToken cancellationToken)
     {
         Guard.Against.Null(user.Id);
 
-        var messageResponse = await DbContext.Messages
+        MessageDto? messageResponse = await DbContext.Messages
             .Where(message => message.Id == request.MessageId)
             .Select(message => message.ToMessageDto())
             .FirstOrDefaultAsync(cancellationToken);

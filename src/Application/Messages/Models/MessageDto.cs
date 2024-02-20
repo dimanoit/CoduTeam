@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices.JavaScript;
-
-namespace CoduTeam.Application.Messages.Models;
+﻿namespace CoduTeam.Application.Messages.Models;
 
 public class MessageDto
 {

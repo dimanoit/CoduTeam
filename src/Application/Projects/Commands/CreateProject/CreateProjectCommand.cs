@@ -24,7 +24,7 @@ public class CreateProjectCommandHandler(
     {
         Guard.Against.Null(user.Id);
 
-        var project = command.ToProject();
+        Project project = command.ToProject();
         dbContext.Projects.Add(project);
 
         UserProject accountProject = new() { UserId = user.Id.Value, Project = project };
