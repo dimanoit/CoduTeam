@@ -18,7 +18,7 @@ public abstract class BaseModifyProjectCommandValidator<T> : AbstractValidator<T
 
         RuleFor(d => d.Description)
             .NotEmpty()
-            .MaximumLength(500);
+            .MaximumLength(1000);
 
         RuleFor(c => c.Category)
             .IsInEnum()
