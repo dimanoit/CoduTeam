@@ -8,7 +8,10 @@ public static class PositionApplyMapper
     {
         return new PositionApplyResponse
         {
-            Id = entity.Id, PositionId = entity.PositionId, UserId = entity.UserId, Status = entity.Status
+            Id = entity.Id,
+            PositionId = entity.PositionId,
+            UserId = entity.UserId,
+            Status = entity.Status
         };
     }
 }
