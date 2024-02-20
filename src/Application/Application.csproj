@@ -16,8 +16,4 @@
     <ProjectReference Include="..\Domain\Domain.csproj"/>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Messages\Filters\"/>
-  </ItemGroup>
-
 </Project>
