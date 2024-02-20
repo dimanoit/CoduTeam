@@ -7,7 +7,7 @@ public record PositionAppliesQuery
     : IRequest<PositionResponse[]>;
 
 
-public class PositionAppliesQueryHandler(IUser user, IApplicationDbContext dbContext) 
+public class PositionAppliesQueryHandler(IUser user, IApplicationDbContext dbContext)
     : IRequestHandler<PositionAppliesQuery, PositionResponse[]>
 {
     public async Task<PositionResponse[]> Handle(
