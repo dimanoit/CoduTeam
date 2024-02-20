@@ -11,4 +11,3 @@ public class ProjectDto
     public Country? Country { get; set; }
     public string? ProjectImgUrl { get; set; }
 }
-

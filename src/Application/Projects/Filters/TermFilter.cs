@@ -9,7 +9,7 @@ public static class TermFilter
         this IQueryable<Project> dbQuery,
         string? term)
     {
-        var sanitizedTerm = GetSanitizedTerm(term ?? "");
+        string sanitizedTerm = GetSanitizedTerm(term ?? "");
 
         return string.IsNullOrEmpty(term)
             ? dbQuery

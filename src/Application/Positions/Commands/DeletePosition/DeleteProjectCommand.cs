@@ -1,5 +1,5 @@
 ﻿using CoduTeam.Application.Common.Interfaces;
-using CoduTeam.Application.Projects.Commands.DeleteProject;
+using CoduTeam.Domain.Entities;
 
 namespace CoduTeam.Application.Positions.Commands.DeletePosition;
 
@@ -10,7 +10,7 @@ public class DeletePositionCommandHandler(IIdentityService identityService, IApp
 {
     public async Task Handle(DeletePositionCommand request, CancellationToken cancellationToken)
     {
-        var entity = await dbContext.Positions.Where(i => i.Id == request.Id)
+        Position? entity = await dbContext.Positions.Where(i => i.Id == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
 
         Guard.Against.NotFound(request.Id, entity);

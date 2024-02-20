@@ -1,5 +1,4 @@
-﻿using CoduTeam.Application.Common.Exceptions;
-using CoduTeam.Application.Common.Interfaces;
+﻿using CoduTeam.Application.Common.Interfaces;
 using CoduTeam.Domain.Entities;
 
 namespace CoduTeam.Application.Projects.Commands.DeleteProject;
@@ -11,7 +10,7 @@ public class DeleteProjectCommandHandler(IIdentityService identityService, IAppl
 {
     public async Task Handle(DeleteProjectCommand request, CancellationToken cancellationToken)
     {
-        var entity = await dbContext.Projects.Where(i => i.Id == request.Id)
+        Project? entity = await dbContext.Projects.Where(i => i.Id == request.Id)
             .FirstOrDefaultAsync(cancellationToken);
 
         Guard.Against.NotFound(request.Id, entity);
@@ -19,9 +18,9 @@ public class DeleteProjectCommandHandler(IIdentityService identityService, IAppl
 
         dbContext.Projects.Remove(entity);
 
-        var entitiesToDelete = await dbContext.UserProjects
+        List<UserProject> entitiesToDelete = await dbContext.UserProjects
             .Where(i => i.ProjectId == entity.Id)
-            .ToListAsync(cancellationToken: cancellationToken);
+            .ToListAsync(cancellationToken);
 
         dbContext.UserProjects.RemoveRange(entitiesToDelete);
 
