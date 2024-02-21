@@ -12,7 +12,7 @@ public record CreateMessageCommand(string Content, int ChatId, DateTimeOffset Cr
 {
 }
 
-public class CreateMessageComandHandler(IUser user, IApplicationDbContext dbContext,IMediator mediator)
+public class CreateMessageComandHandler(IUser user, IApplicationDbContext dbContext, IMediator mediator)
     : IRequestHandler<CreateMessageCommand>
 {
     public async Task Handle(CreateMessageCommand command, CancellationToken cancellationToken)
@@ -23,7 +23,5 @@ public class CreateMessageComandHandler(IUser user, IApplicationDbContext dbCont
         Message message = command.ToMessage(user.Id.Value);
         dbContext.Messages.Add(message);
         await mediator.Publish(new MessageCreatedEvent(message), cancellationToken);
-        
-        await dbContext.SaveChangesAsync(cancellationToken);
     }
 }

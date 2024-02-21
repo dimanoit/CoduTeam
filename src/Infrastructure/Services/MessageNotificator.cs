@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace CoduTeam.Infrastructure.Services;
 
-public class SignalRService(IHubContext<ChatHub> hubContext) : ISignalRService
+public class MessageNotificator(IHubContext<ChatHub> hubContext) : IMessageNotificator
 {
     public async Task SendMessageToClientAsync(int userId, Message message)
     {
@@ -16,7 +16,7 @@ public class SignalRService(IHubContext<ChatHub> hubContext) : ISignalRService
         }
         catch (Exception ex)
         {
-            throw new Exception("Error sending message",ex);
+            throw new Exception("Error sending message", ex);
         }
     }
 }

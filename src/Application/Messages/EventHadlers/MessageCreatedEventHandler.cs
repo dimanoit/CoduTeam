@@ -5,15 +5,15 @@ using CoduTeam.Domain.Events.MessageEvents;
 
 namespace CoduTeam.Application.Messages.EventHadlers;
 
-public class MessageCreatedEventHandler(IUser user,IApplicationDbContext dbContext,ISignalRService signalRService):INotificationHandler<MessageCreatedEvent>
+public class MessageCreatedEventHandler(IUser user, IApplicationDbContext dbContext, IMessageNotificator messageNotificator) : INotificationHandler<MessageCreatedEvent>
 {
-    public async  Task Handle(MessageCreatedEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(MessageCreatedEvent notification, CancellationToken cancellationToken)
     {
         var message = notification.Message;
         Guard.Against.Null(user.Id);
-        
-        await signalRService.SendMessageToClientAsync(user.Id.Value, message);
-        
+
+        await messageNotificator.SendMessageToClientAsync(user.Id.Value, message);
+
         await dbContext.SaveChangesAsync(cancellationToken);
     }
 }

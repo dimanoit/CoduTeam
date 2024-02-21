@@ -2,5 +2,5 @@
 
 public class MessageCreatedEvent(Message message) : BaseEvent
 {
-    public Message Message  => message;
+    public Message Message => message;
 }

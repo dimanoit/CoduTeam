@@ -1,7 +1,5 @@
 using CoduTeam.Api;
-using CoduTeam.Api.Infrastructure;
 using CoduTeam.Application;
-using CoduTeam.Domain.Entities;
 using CoduTeam.Infrastructure;
 using CoduTeam.Infrastructure.Data;
 using CoduTeam.Infrastructure.Hubs;

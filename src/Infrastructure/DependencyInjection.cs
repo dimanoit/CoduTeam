@@ -28,7 +28,7 @@ public static class DependencyInjection
 
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
-        services.AddScoped<ISignalRService, SignalRService>();
+        services.AddScoped<IMessageNotificator, MessageNotificator>();
 
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {

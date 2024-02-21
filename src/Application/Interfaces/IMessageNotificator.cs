@@ -4,7 +4,7 @@ using CoduTeam.Domain.Entities;
 
 namespace CoduTeam.Application.Interfaces;
 
-public interface ISignalRService
+public interface IMessageNotificator
 {
-   Task SendMessageToClientAsync(int userId, Message message);
+    Task SendMessageToClientAsync(int userId, Message message);
 }
