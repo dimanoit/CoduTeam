@@ -11,6 +11,7 @@ public record CreatePositionCommand(
     string Description,
     string ShortDescription,
     DateTime DeadLine,
+    PositionCategory Category,
     bool? IsRemote
 ) : BaseModifyPositionCommand(Title, Description, ShortDescription, IsRemote), IRequest
 {
@@ -33,7 +34,8 @@ public class CreatePositionCommandHandler(
             ProjectId = command.ProjectId,
             ShortDescription = command.ShortDescription,
             Status = PositionStatus.Opened,
-            Deadline = command.DeadLine
+            Deadline = command.DeadLine,
+            Category = command.Category,
         };
 
         dbContext.Positions.Add(position);

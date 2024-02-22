@@ -2191,6 +2191,10 @@
           "Description": {
             "type": "string"
           },
+          "OwnerId": {
+            "type": "integer",
+            "format": "int32"
+          },
           "Category": {
             "nullable": true,
             "oneOf": [
@@ -2678,65 +2682,12 @@
               "DeadLine": {
                 "type": "string",
                 "format": "date-time"
+              },
+              "Category": {
+                "$ref": "#/components/schemas/PositionCategory"
               }
             }
           }
-        ]
-      },
-      "BaseModifyPositionCommand": {
-        "type": "object",
-        "x-abstract": true,
-        "additionalProperties": false,
-        "properties": {
-          "Title": {
-            "type": "string"
-          },
-          "Description": {
-            "type": "string"
-          },
-          "ShortDescription": {
-            "type": "string"
-          },
-          "IsRemote": {
-            "type": "boolean",
-            "nullable": true
-          }
-        }
-      },
-      "UpdatePositionCommand": {
-        "allOf": [
-          {
-            "$ref": "#/components/schemas/BaseModifyPositionCommand"
-          },
-          {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-              "Id": {
-                "type": "integer",
-                "format": "int32"
-              },
-              "Deadline": {
-                "type": "string",
-                "format": "date-time"
-              },
-              "PositionStatus": {
-                "$ref": "#/components/schemas/PositionStatus"
-              }
-            }
-          }
-        ]
-      },
-      "PositionStatus": {
-        "type": "integer",
-        "description": "",
-        "x-enumNames": [
-          "Opened",
-          "Closed"
-        ],
-        "enum": [
-          0,
-          1
         ]
       },
       "PositionCategory": {
@@ -2853,6 +2804,62 @@
           51,
           52,
           53
+        ]
+      },
+      "BaseModifyPositionCommand": {
+        "type": "object",
+        "x-abstract": true,
+        "additionalProperties": false,
+        "properties": {
+          "Title": {
+            "type": "string"
+          },
+          "Description": {
+            "type": "string"
+          },
+          "ShortDescription": {
+            "type": "string"
+          },
+          "IsRemote": {
+            "type": "boolean",
+            "nullable": true
+          }
+        }
+      },
+      "UpdatePositionCommand": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseModifyPositionCommand"
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "Id": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "Deadline": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "PositionStatus": {
+                "$ref": "#/components/schemas/PositionStatus"
+              }
+            }
+          }
+        ]
+      },
+      "PositionStatus": {
+        "type": "integer",
+        "description": "",
+        "x-enumNames": [
+          "Opened",
+          "Closed"
+        ],
+        "enum": [
+          0,
+          1
         ]
       },
       "CreateProjectCommand": {
