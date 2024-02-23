@@ -2222,21 +2222,20 @@
         "description": "",
         "x-enumNames": [
           "None",
-          "WebDevelopment",
-          "MobileApp",
-          "DataScience",
-          "GameDevelopment",
-          "MachineLearning",
-          "InternetOfThings",
-          "Cybersecurity",
-          "Blockchain",
-          "AugmentedReality",
-          "VirtualReality",
-          "ArtificialIntelligence",
-          "CloudComputing",
-          "DevOps",
-          "UIUXDesign",
-          "HardwareDevelopment"
+          "FoodAndBeverages",
+          "Pharmaceuticals",
+          "Marketing",
+          "Gaming",
+          "Finance",
+          "Biotech",
+          "Defence",
+          "RealEstate",
+          "Logistics",
+          "Government",
+          "Media",
+          "Healthcare",
+          "Education",
+          "Fashion"
         ],
         "enum": [
           0,
@@ -2253,8 +2252,7 @@
           11,
           12,
           13,
-          14,
-          15
+          14
         ]
       },
       "Country": {
