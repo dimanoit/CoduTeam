@@ -27,7 +27,7 @@ public class Chats : EndpointGroupBase
             .MapGet(GetChatEndpoint, "{Id}")
             .MapGet(GetAllChatEndpoint)
             .MapGet(GetMessagesFromChat, "{chatId}/messages")
-            .MapPost(JoinChat,"{chatId}/join-chat/{userId}");
+            .MapPost(JoinChat, "{chatId}/join-chat/{userId}");
     }
 
     public async Task<MessageDto[]> GetMessagesFromChat(ISender sender, int chatId)
@@ -80,9 +80,9 @@ public class Chats : EndpointGroupBase
         return await sender.Send(query);
     }
 
-    public async Task JoinChat(IHubContext<ChatHub> hubContext,int userId, int chatId)
+    public async Task JoinChat(IHubContext<ChatHub> hubContext, int userId, int chatId)
     {
-        await hubContext.Groups.AddToGroupAsync( "chuj",chatId.ToString());
+        await hubContext.Groups.AddToGroupAsync("chuj", chatId.ToString());
     }
 }
 

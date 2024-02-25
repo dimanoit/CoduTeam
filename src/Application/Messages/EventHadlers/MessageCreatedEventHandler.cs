@@ -12,7 +12,7 @@ public class MessageCreatedEventHandler(IUser user, IApplicationDbContext dbCont
         var message = notification.Message;
         var chatId = message.ChatId;
         Guard.Against.Null(user.Id);
-        
+
         await messageNotificator.SendMessageToChatAsync(chatId, message);
 
         await dbContext.SaveChangesAsync(cancellationToken);

@@ -9,7 +9,7 @@ namespace CoduTeam.Infrastructure.Services;
 
 public class MessageNotificator(IHubContext<ChatHub> hubContext) : IMessageNotificator
 {
-    public async Task SendMessageToChatAsync(int chatId , Message message)
+    public async Task SendMessageToChatAsync(int chatId, Message message)
     {
         try
         {

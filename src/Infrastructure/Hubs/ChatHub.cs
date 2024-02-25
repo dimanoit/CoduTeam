@@ -16,18 +16,18 @@ public sealed class ChatHub(IApplicationDbContext dbContext) : Hub
         {
             var chatIds = await dbContext.UserChats
                 .Include(userChat => userChat.Chat)
-                .Where(userChat => userChat.UserId == userId) 
+                .Where(userChat => userChat.UserId == userId)
                 .Select(userChat => userChat.ChatId)
                 .ToListAsync();
-                foreach (var chatId in chatIds)
-                {
-                    await Groups.AddToGroupAsync(Context.ConnectionId, chatId.ToString());
-                    await Clients.Group(chatId.ToString()).SendAsync( $"{userId} has joined the group {chatId}.");
+            foreach (var chatId in chatIds)
+            {
+                await Groups.AddToGroupAsync(Context.ConnectionId, chatId.ToString());
+                await Clients.Group(chatId.ToString()).SendAsync($"{userId} has joined the group {chatId}.");
 
-                }
+            }
         }
 
-        
+
     }
-    
+
 }
