@@ -1,9 +1,11 @@
 ﻿using CoduTeam.Application.Common.Interfaces;
+using CoduTeam.Application.Interfaces;
 using CoduTeam.Domain.Constants;
 using CoduTeam.Domain.Entities;
 using CoduTeam.Infrastructure.Data;
 using CoduTeam.Infrastructure.Data.Interceptors;
 using CoduTeam.Infrastructure.Identity;
+using CoduTeam.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.BearerToken;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +28,7 @@ public static class DependencyInjection
 
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
         services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
+        services.AddScoped<IMessageNotificator, MessageNotificator>();
 
         services.AddDbContext<ApplicationDbContext>((sp, options) =>
         {

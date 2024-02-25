@@ -1,8 +1,8 @@
 using CoduTeam.Api;
-using CoduTeam.Api.Infrastructure;
 using CoduTeam.Application;
 using CoduTeam.Infrastructure;
 using CoduTeam.Infrastructure.Data;
+using CoduTeam.Infrastructure.Hubs;
 using DependencyInjection = CoduTeam.Api.DependencyInjection;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
@@ -40,6 +40,7 @@ app.UseSwaggerUi(settings =>
 app.UseExceptionHandler(options => { });
 
 app.Map("/", () => Results.Redirect("/api"));
+app.MapHub<ChatHub>("/chat-hub");
 
 app.MapEndpoints();
 app.UseCors(DependencyInjection.CorsPolicyName);
