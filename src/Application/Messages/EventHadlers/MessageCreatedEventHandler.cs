@@ -10,9 +10,10 @@ public class MessageCreatedEventHandler(IUser user, IApplicationDbContext dbCont
     public async Task Handle(MessageCreatedEvent notification, CancellationToken cancellationToken)
     {
         var message = notification.Message;
+        var chatId = message.ChatId;
         Guard.Against.Null(user.Id);
-
-        await messageNotificator.SendMessageToClientAsync(user.Id.Value, message);
+        
+        await messageNotificator.SendMessageToChatAsync(chatId, message);
 
         await dbContext.SaveChangesAsync(cancellationToken);
     }

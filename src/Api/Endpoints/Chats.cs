@@ -8,6 +8,7 @@ using CoduTeam.Application.Messages.Models;
 using CoduTeam.Application.Messages.Queries;
 using CoduTeam.Infrastructure.Hubs;
 using CoduTeam.Infrastructure.Hubs.ChatInterfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
 namespace CoduTeam.Api.Endpoints;
@@ -25,7 +26,8 @@ public class Chats : EndpointGroupBase
             .MapPut(UpdateChatEndpoint)
             .MapGet(GetChatEndpoint, "{Id}")
             .MapGet(GetAllChatEndpoint)
-            .MapGet(GetMessagesFromChat, "{chatId}/messages");
+            .MapGet(GetMessagesFromChat, "{chatId}/messages")
+            .MapPost(JoinChat,"{chatId}/join-chat/{userId}");
     }
 
     public async Task<MessageDto[]> GetMessagesFromChat(ISender sender, int chatId)
@@ -34,12 +36,12 @@ public class Chats : EndpointGroupBase
         return messages;
     }
 
-    public async Task BroadcastEndpoint(Test message, IHubContext<ChatHub, IChatClient> context)
+    public async Task BroadcastEndpoint(Test message, IHubContext<ChatHub> context)
     {
-        await context.Clients.All.ReceiveMessage(message.Message);
+        await context.Clients.All.SendAsync(message.Message);
     }
 
-    public async Task SendMessageToSpecificUser(Test2 message, IHubContext<ChatHub, IChatClient> context, IUser user)
+    public async Task SendMessageToSpecificUser(Test2 message, IHubContext<ChatHub> context, IUser user)
     {
         // TODO
         // 0.1 Create Message Entity (Sender, Recipient, Id, Content(string))    
@@ -48,7 +50,7 @@ public class Chats : EndpointGroupBase
         // 2. Method Send Message -> Create Message object -> Save to DB -> Send via SignalR
         // 3. Method Get Chat Messages (1-1 Chat) -> Get all messages via db -> REST endpoint 
 
-        await context.Clients.User(user?.Id.ToString() ?? "").ReceiveMessage("KEK");
+        await context.Clients.User(user?.Id.ToString() ?? "").SendAsync("KEK");
     }
 
     public async Task CreateChatEndpoint(ISender sender, CreateChatCommand command)
@@ -76,6 +78,11 @@ public class Chats : EndpointGroupBase
     public async Task<ICollection<ChatDto>?> GetAllChatEndpoint(ISender sender, [AsParameters] AllChatsQuery query)
     {
         return await sender.Send(query);
+    }
+
+    public async Task JoinChat(IHubContext<ChatHub> hubContext,int userId, int chatId)
+    {
+        await hubContext.Groups.AddToGroupAsync( "chuj",chatId.ToString());
     }
 }
 

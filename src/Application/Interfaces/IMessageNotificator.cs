@@ -6,5 +6,5 @@ namespace CoduTeam.Application.Interfaces;
 
 public interface IMessageNotificator
 {
-    Task SendMessageToClientAsync(int userId, Message message);
+    Task SendMessageToChatAsync(int chatId, Message message);
 }
