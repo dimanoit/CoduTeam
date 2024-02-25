@@ -19,15 +19,12 @@ public class Chats : EndpointGroupBase
     {
         app.MapGroup(this)
             .RequireAuthorization()
-            .MapPost(BroadcastEndpoint, "broadcast")
-            .MapPost(SendMessageToSpecificUser, "user")
             .MapPost(CreateChatEndpoint)
             .MapDelete(DeleteChatEndpoint, "{id}")
             .MapPut(UpdateChatEndpoint)
             .MapGet(GetChatEndpoint, "{Id}")
             .MapGet(GetAllChatEndpoint)
-            .MapGet(GetMessagesFromChat, "{chatId}/messages")
-            .MapPost(JoinChat, "{chatId}/join-chat/{userId}");
+            .MapGet(GetMessagesFromChat, "{chatId}/messages");
     }
 
     public async Task<MessageDto[]> GetMessagesFromChat(ISender sender, int chatId)
@@ -35,24 +32,6 @@ public class Chats : EndpointGroupBase
         MessageDto[] messages = await sender.Send(new GetMessagesFromChatQuery(chatId));
         return messages;
     }
-
-    public async Task BroadcastEndpoint(Test message, IHubContext<ChatHub> context)
-    {
-        await context.Clients.All.SendAsync(message.Message);
-    }
-
-    public async Task SendMessageToSpecificUser(Test2 message, IHubContext<ChatHub> context, IUser user)
-    {
-        // TODO
-        // 0.1 Create Message Entity (Sender, Recipient, Id, Content(string))    
-        // 1. Create interface of service IMessageService 
-        // 3. Implement MessageService 
-        // 2. Method Send Message -> Create Message object -> Save to DB -> Send via SignalR
-        // 3. Method Get Chat Messages (1-1 Chat) -> Get all messages via db -> REST endpoint 
-
-        await context.Clients.User(user?.Id.ToString() ?? "").SendAsync("KEK");
-    }
-
     public async Task CreateChatEndpoint(ISender sender, CreateChatCommand command)
     {
         await sender.Send(command);
@@ -79,20 +58,4 @@ public class Chats : EndpointGroupBase
     {
         return await sender.Send(query);
     }
-
-    public async Task JoinChat(IHubContext<ChatHub> hubContext, int userId, int chatId)
-    {
-        await hubContext.Groups.AddToGroupAsync("chuj", chatId.ToString());
-    }
-}
-
-public class Test
-{
-    public required string Message { get; set; }
-}
-
-public class Test2
-{
-    public required string Message { get; set; }
-    public required string userId { get; set; }
 }
