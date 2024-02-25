@@ -27,7 +27,8 @@ public static class ProjectMapper
             Title = project.Title,
             Description = project.Description,
             Country = project.Country,
-            ProjectImgUrl = project.ProjectImageUrl
+            ProjectImgUrl = project.ProjectImageUrl,
+            OwnerId = project.CreatedBy!.Value
         };
 
         if (project.Category != null)

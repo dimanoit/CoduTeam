@@ -8,7 +8,6 @@ public class Position : BaseAuditableEntity
     public required PositionStatus Status { get; set; }
     public PositionCategory Category { get; set; }
     public DateTime Deadline { get; set; }
-
     public bool IsRemote { get; set; } = true;
     public required int ProjectId { get; init; }
     public Project Project { get; init; } = null!;

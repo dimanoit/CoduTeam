@@ -3,7 +3,7 @@ using CoduTeam.Application.WeatherForecasts.Queries.GetWeatherForecasts;
 
 namespace CoduTeam.Api.Endpoints;
 
-public class WeatherForecasts : EndpointGroupBase
+public class WeatherForecastsEndpoint : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {

@@ -7,7 +7,7 @@ using CoduTeam.Application.Projects.Queries;
 
 namespace CoduTeam.Api.Endpoints;
 
-public class Projects : EndpointGroupBase
+public class ProjectsEndpoint : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {

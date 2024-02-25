@@ -4,7 +4,7 @@ using CoduTeam.Application.Positions.Models;
 
 namespace CoduTeam.Api.Endpoints;
 
-public class PositionApplies : EndpointGroupBase
+public class PositionAppliesEndpoint : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {

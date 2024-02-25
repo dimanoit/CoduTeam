@@ -6,7 +6,7 @@ using CoduTeam.Application.Users.Queries;
 
 namespace CoduTeam.Api.Endpoints;
 
-public class Users : EndpointGroupBase
+public class UsersEndpoint : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {
