@@ -8,7 +8,7 @@ using CoduTeam.Application.TodoItems.Queries.GetTodoItemsWithPagination;
 
 namespace CoduTeam.Api.Endpoints;
 
-public class TodoItems : EndpointGroupBase
+public class TodoItemsEndpoint : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {

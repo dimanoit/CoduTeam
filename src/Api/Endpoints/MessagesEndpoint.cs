@@ -5,7 +5,7 @@ using CoduTeam.Application.Messages.Queries;
 
 namespace CoduTeam.Web.Endpoints;
 
-public class Messages : EndpointGroupBase
+public class MessagesEndpoint : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {

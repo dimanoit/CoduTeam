@@ -3,7 +3,7 @@ using CoduTeam.Domain.Entities;
 
 namespace CoduTeam.Api.Endpoints;
 
-public class Auth : EndpointGroupBase
+public class AuthEndpoint : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {

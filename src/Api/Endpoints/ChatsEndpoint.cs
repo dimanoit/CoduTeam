@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.SignalR;
 
 namespace CoduTeam.Api.Endpoints;
 
-public class Chats : EndpointGroupBase
+public class ChatsEndpoint : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {

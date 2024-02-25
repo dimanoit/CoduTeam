@@ -6,7 +6,7 @@ using CoduTeam.Application.TodoLists.Queries.GetTodos;
 
 namespace CoduTeam.Api.Endpoints;
 
-public class TodoLists : EndpointGroupBase
+public class TodoListsEndpoint : EndpointGroupBase
 {
     public override void Map(WebApplication app)
     {
