@@ -16,7 +16,8 @@ public class PositionsEndpoint : EndpointGroupBase
             .MapPost(CreatePosition)
             .MapDelete(DeletePosition, "{id}")
             .MapPut(UpdatePosition)
-            .MapGet(SearchPositions);
+            .MapGet(SearchPositions)
+            .MapGet(GetPosition, "{id}");
     }
 
     public async Task CreatePosition(ISender sender, CreatePositionCommand command)
@@ -32,6 +33,14 @@ public class PositionsEndpoint : EndpointGroupBase
     public async Task UpdatePosition(ISender sender, UpdatePositionCommand command)
     {
         await sender.Send(command);
+    }
+    
+    public async Task<PositionResponse?> GetPosition(ISender sender, int id)
+    {
+        PositionSearchQuery query = new() { PositionId = id, WithApplicants = true};
+        PositionResponse[] positions = await sender.Send(query);
+
+        return positions?.FirstOrDefault();
     }
 
     public async Task<PositionResponse[]?> SearchPositions(ISender sender, [AsParameters] PositionSearchQuery query)

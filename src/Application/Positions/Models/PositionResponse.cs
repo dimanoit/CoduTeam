@@ -10,5 +10,6 @@ public class PositionResponse
     public required string Description { get; set; }
     public required string ShortDescription { get; set; }
     public PositionApplyStatus? CurrentUserPositionApplyStatus { get; set; }
+    public ICollection<PositionApplicant>? Applicants { get; set; }
     public required ProjectDto Project { get; set; }
 }

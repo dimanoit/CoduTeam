@@ -21,22 +21,16 @@ public static class ProjectMapper
 
     public static ProjectResponse ToProjectDto(this Project project)
     {
-        ProjectResponse response = new ProjectResponse
+        return new ProjectResponse
         {
             Id = project.Id,
             Title = project.Title,
             Description = project.Description,
             Country = project.Country,
             ProjectImgUrl = project.ProjectImageUrl,
-            OwnerId = project.CreatedBy!.Value
+            OwnerId = project.CreatedBy!.Value,
+            Category = project.Category == null ? ProjectCategory.None : (ProjectCategory)Enum.Parse(typeof(ProjectCategory), project.Category)
         };
-
-        if (project.Category != null)
-        {
-            response.Category = (ProjectCategory)Enum.Parse(typeof(ProjectCategory), project.Category);
-        }
-
-        return response;
     }
 
 

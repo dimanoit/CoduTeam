@@ -9,7 +9,7 @@ public static class PositionMapper
 {
     public static PositionResponse ToPositionResponse(this Position position)
     {
-        PositionResponse response = new()
+        return new PositionResponse()
         {
             Id = position.Id,
             Title = position.Title,
@@ -17,10 +17,19 @@ public static class PositionMapper
             ShortDescription = position.ShortDescription,
             Project = position.Project.ToProjectDto(),
         };
-
-        return response;
     }
 
+    public static PositionApplicant ToPositionApplicant(this ApplicationUser user)
+    {
+        return new PositionApplicant()
+        {
+            FirstName = user.FirstName,
+            LastName = user.FirstName,
+            ImageSrc = user.ImageSrc,
+            Title = user.Title
+        };
+    }
+    
     public static void MapUpdatePosition(this Position entity, UpdatePositionCommand command)
     {
         entity.Title = command.Title;

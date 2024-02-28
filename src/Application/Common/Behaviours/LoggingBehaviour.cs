@@ -17,17 +17,13 @@ public class LoggingBehaviour<TRequest> : IRequestPreProcessor<TRequest> where T
         _identityService = identityService;
     }
 
-    public async Task Process(TRequest request, CancellationToken cancellationToken)
+    public Task Process(TRequest request, CancellationToken cancellationToken)
     {
         string requestName = typeof(TRequest).Name;
-        string? userName = string.Empty;
 
-        if (_user.Id.HasValue)
-        {
-            userName = await _identityService.GetUserNameAsync(_user.Id.Value);
-        }
+        _logger.LogInformation("CoduTeam Request: {Name} {@UserId} {@Request}",
+            requestName, _user.Id, request);
 
-        _logger.LogInformation("CoduTeam Request: {Name} {@UserId} {@UserName} {@Request}",
-            requestName, _user.Id, userName, request);
+        return Task.CompletedTask;
     }
 }

@@ -37,16 +37,10 @@ public class PerformanceBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequ
         if (elapsedMilliseconds > 500)
         {
             string requestName = typeof(TRequest).Name;
-            string? userName = string.Empty;
-
-            if (_user.Id.HasValue)
-            {
-                userName = await _identityService.GetUserNameAsync(_user.Id.Value);
-            }
 
             _logger.LogWarning(
-                "CoduTeam Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@UserName} {@Request}",
-                requestName, elapsedMilliseconds, _user.Id, userName, request);
+                "CoduTeam Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@Request}",
+                requestName, elapsedMilliseconds, _user.Id, request);
         }
 
         return response;
