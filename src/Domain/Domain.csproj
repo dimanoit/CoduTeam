@@ -10,8 +10,4 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Stores"/>
   </ItemGroup>
 
-  <ItemGroup>
-
-  </ItemGroup>
-
 </Project>

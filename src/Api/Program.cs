@@ -2,8 +2,9 @@ using CoduTeam.Api;
 using CoduTeam.Application;
 using CoduTeam.Infrastructure;
 using CoduTeam.Infrastructure.Data;
-using Serilog;
+using CoduTeam.Infrastructure.Hubs;
 using DependencyInjection = CoduTeam.Api.DependencyInjection;
+using Serilog;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
@@ -47,6 +48,7 @@ app.UseSwaggerUi(settings =>
 app.UseExceptionHandler(options => { });
 
 app.Map("/", () => Results.Redirect("/api"));
+app.MapHub<ChatHub>("/chat-hub");
 
 app.MapEndpoints();
 app.UseCors(DependencyInjection.CorsPolicyName);

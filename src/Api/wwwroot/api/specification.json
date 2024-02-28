@@ -795,6 +795,46 @@
         ]
       }
     },
+    "/api/chats/{chatId}/join-chat/{userId}": {
+      "post": {
+        "tags": [
+          "chats"
+        ],
+        "operationId": "JoinChat",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "chatId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/position-applies": {
       "get": {
         "tags": [
