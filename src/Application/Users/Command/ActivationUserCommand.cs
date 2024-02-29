@@ -14,13 +14,29 @@ public record ActivationUserCommand : IRequest
     public string[] Technologies { get; set; } = Array.Empty<string>();
 }
 
-public class ActivationUserCommandHandler(IIdentityService identityService)
+public class ActivationUserCommandHandler(
+    IIdentityService identityService)
     : IRequestHandler<ActivationUserCommand>
 {
     public async Task Handle(
         ActivationUserCommand request,
         CancellationToken cancellationToken)
     {
+        SetUserPhotoIfNull(request);
         await identityService.ActivateUserAsync(request);
+    }
+
+    private void SetUserPhotoIfNull(ActivationUserCommand request)
+    {
+        if (!string.IsNullOrEmpty(request.ProfileImg))
+        {
+            return;
+        }
+
+        var profileImg = "https://randomuser.me/api/portraits";
+        profileImg += request.Gender == Gender.Male ? "/men" : "/women";
+        profileImg += "/" + Random.Shared.Next(1, 99) + ".jpg";
+
+        request.ProfileImg = profileImg;
     }
 }

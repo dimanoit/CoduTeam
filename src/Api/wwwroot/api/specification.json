@@ -539,66 +539,6 @@
         ]
       }
     },
-    "/api/chats/broadcast": {
-      "post": {
-        "tags": [
-          "chats"
-        ],
-        "operationId": "BroadcastEndpoint",
-        "requestBody": {
-          "x-name": "message",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Test"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/chats/user": {
-      "post": {
-        "tags": [
-          "chats"
-        ],
-        "operationId": "SendMessageToSpecificUser",
-        "requestBody": {
-          "x-name": "message",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Test2"
-              }
-            }
-          },
-          "required": true,
-          "x-position": 1
-        },
-        "responses": {
-          "200": {
-            "description": ""
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
     "/api/chats": {
       "post": {
         "tags": [
@@ -786,46 +726,6 @@
                 }
               }
             }
-          }
-        },
-        "security": [
-          {
-            "JWT": []
-          }
-        ]
-      }
-    },
-    "/api/chats/{chatId}/join-chat/{userId}": {
-      "post": {
-        "tags": [
-          "chats"
-        ],
-        "operationId": "JoinChat",
-        "parameters": [
-          {
-            "name": "userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-position": 1
-          },
-          {
-            "name": "chatId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-position": 2
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": ""
           }
         },
         "security": [
@@ -1742,27 +1642,6 @@
           "OldPassword": {
             "type": "string",
             "nullable": true
-          }
-        }
-      },
-      "Test": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "Message": {
-            "type": "string"
-          }
-        }
-      },
-      "Test2": {
-        "type": "object",
-        "additionalProperties": false,
-        "properties": {
-          "Message": {
-            "type": "string"
-          },
-          "userId": {
-            "type": "string"
           }
         }
       },
