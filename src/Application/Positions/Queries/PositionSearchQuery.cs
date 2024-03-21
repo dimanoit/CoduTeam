@@ -33,7 +33,7 @@ internal class SearchPositionsQueryHandler(IApplicationDbContext dbContext, IUse
         PositionResponse[] response = await dbContext
             .Positions.Include(p => p.Project)
             .Where(p => p.Status == PositionStatus.Opened)
-            .Where(p => p.Deadline >= dateTime.GetUtcNow().Date)
+            .Where(p => p.Deadline == null || p.Deadline >= dateTime.GetUtcNow().Date)
             .AddProjectIdFilter(query.ProjectId)
             .AddPositionIdFilter(query.PositionId)
             .AddTermFilter(query.Term)

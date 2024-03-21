@@ -3,5 +3,5 @@ using CoduTeam.Application.Positions.Commands.Common;
 
 namespace CoduTeam.Application.Positions.Commands.CreatePosition;
 
-public class CreatePostionCommandValidator(IApplicationDbContext context)
-    : BaseModifyPositionCommandValidator<CreatePositionCommand>(context);
+public class CreatePositionCommandValidator()
+    : BaseModifyPositionCommandValidator<CreatePositionCommand>();

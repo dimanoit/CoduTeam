@@ -10,10 +10,9 @@ public record UpdatePositionCommand(
     int Id,
     string Title,
     string Description,
-    string ShortDescription,
-    DateTime Deadline,
     PositionStatus PositionStatus,
-    bool? IsRemote) : BaseModifyPositionCommand(Title, Description, ShortDescription, IsRemote), IRequest
+    DateTime? Deadline,
+    bool? IsRemote) : BaseModifyPositionCommand(Title, Description, IsRemote), IRequest
 {
 }
 
