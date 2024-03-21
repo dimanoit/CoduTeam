@@ -5,7 +5,7 @@ using CoduTeam.Domain.Events;
 
 namespace CoduTeam.Application.PositionApplies;
 
-public record ChangePositionApplyStatusCommand(int Id, PositionApplyStatus Status) : IRequest;
+public record ChangePositionApplyStatusCommand(int PositionApplyId, PositionApplyStatus Status) : IRequest;
 
 public class ChangePositionApplyStatusCommandHandler(
     IApplicationDbContext dbContext,
@@ -17,10 +17,10 @@ public class ChangePositionApplyStatusCommandHandler(
         PositionApply? application = await dbContext.PositionApplies
             .Include(pa => pa.Position)
             .ThenInclude(p => p!.Project)
-            .FirstOrDefaultAsync(p => p.Id == request.Id,
+            .FirstOrDefaultAsync(p => p.Id == request.PositionApplyId,
                 cancellationToken);
 
-        Guard.Against.NotFound(request.Id, application);
+        Guard.Against.NotFound(request.PositionApplyId, application);
 
         validator.ValidateStatusChange(application);
 

@@ -9,11 +9,10 @@ public record CreatePositionCommand(
     int ProjectId,
     string Title,
     string Description,
-    string ShortDescription,
-    DateTime DeadLine,
     PositionCategory Category,
+    DateTime? DeadLine,
     bool? IsRemote
-) : BaseModifyPositionCommand(Title, Description, ShortDescription, IsRemote), IRequest
+) : BaseModifyPositionCommand(Title, Description, IsRemote), IRequest
 {
 }
 
@@ -32,7 +31,6 @@ public class CreatePositionCommandHandler(
             Description = command.Description,
             IsRemote = command.IsRemote ?? true,
             ProjectId = command.ProjectId,
-            ShortDescription = command.ShortDescription,
             Status = PositionStatus.Opened,
             Deadline = command.DeadLine,
             Category = command.Category,

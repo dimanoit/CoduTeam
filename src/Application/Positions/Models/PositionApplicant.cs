@@ -10,5 +10,6 @@ public record PositionApplicant
     public string? ImageSrc { get; set; }
     public PositionApplyStatus Status { get; set; }
     public int PositionId { get; set; }
+    public int PositionApplyId { get; set; }
 }
  

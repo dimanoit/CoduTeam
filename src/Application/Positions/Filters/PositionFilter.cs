@@ -31,7 +31,6 @@ public static class PositionFilter
             : dbQuery.Where(x =>
                 x.Description.Contains(term) ||
                 x.Title.Contains(term) ||
-                x.ShortDescription.Contains(term) ||
                 x.Project.Title.Contains(term));
     }
 }

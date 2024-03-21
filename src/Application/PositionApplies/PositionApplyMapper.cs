@@ -31,6 +31,7 @@ public static class PositionApplyMapper
                 LastName = entity.User!.LastName,
                 ImageSrc = entity.User!.ImageSrc,
                 Title = entity.User!.Title,
+                PositionApplyId = entity.Id,
                 Status = entity.Status
             };
 

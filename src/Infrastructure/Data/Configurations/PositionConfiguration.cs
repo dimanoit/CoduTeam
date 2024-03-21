@@ -16,13 +16,9 @@ public class PositionConfiguration : IEntityTypeConfiguration<Position>
             .IsRequired()
             .HasMaxLength(100);
 
-        builder.Property(d => d.ShortDescription)
-            .IsRequired()
-            .HasMaxLength(500);
-
         builder.Property(d => d.Description)
             .IsRequired()
-            .HasMaxLength(3000);
+            .HasMaxLength(30_000);
 
         builder.HasOne(a => a.Project)
             .WithMany(a => a.Positions)
