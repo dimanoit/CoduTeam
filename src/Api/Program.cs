@@ -10,6 +10,7 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Debug()
+    .WriteTo.Console()
     .CreateLogger();
 
 var host = builder.Host;
