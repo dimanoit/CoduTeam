@@ -36,6 +36,8 @@ internal class SearchPositionsQueryHandler(IApplicationDbContext dbContext, IUse
             .Where(p => p.Deadline == null || p.Deadline >= dateTime.GetUtcNow().Date)
             .AddProjectIdFilter(query.ProjectId)
             .AddPositionIdFilter(query.PositionId)
+            .AddProjectCategoryFilter(query.ProjectCategory)
+            .AddPositionCategoryFilter(query.PositionCategory)
             .AddTermFilter(query.Term)
             .Select(position => position.ToPositionResponse())
             .Skip(query.Skip ?? 0)
