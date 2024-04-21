@@ -1083,6 +1083,54 @@
         ]
       }
     },
+    "/api/positions/similar": {
+      "get": {
+        "tags": [
+          "positions"
+        ],
+        "operationId": "GetSimilarPositions",
+        "parameters": [
+          {
+            "name": "ProjectCategory",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/ProjectCategory"
+            },
+            "x-position": 1
+          },
+          {
+            "name": "PositionCategory",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/PositionCategory"
+            },
+            "x-position": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PositionResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "JWT": []
+          }
+        ]
+      }
+    },
     "/api/projects": {
       "post": {
         "tags": [
@@ -1743,6 +1791,10 @@
           },
           "Description": {
             "type": "string"
+          },
+          "CreationDate": {
+            "type": "string",
+            "format": "date-time"
           },
           "PositionCategory": {
             "$ref": "#/components/schemas/PositionCategory"

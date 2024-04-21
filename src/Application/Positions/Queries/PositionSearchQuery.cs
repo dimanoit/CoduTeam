@@ -41,7 +41,7 @@ internal class SearchPositionsQueryHandler(IApplicationDbContext dbContext, IUse
             .AddTermFilter(query.Term)
             .Select(position => position.ToPositionResponse())
             .Skip(query.Skip ?? 0)
-            .Take(query.Take ?? 5)
+            .Take(query.Take ?? 10)
             .ToArrayAsync(cancellationToken);
 
         if (query.WithApplicationStatus is true)

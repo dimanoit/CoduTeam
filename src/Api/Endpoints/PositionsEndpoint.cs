@@ -17,6 +17,7 @@ public class PositionsEndpoint : EndpointGroupBase
             .MapDelete(DeletePosition, "{id}")
             .MapPut(UpdatePosition)
             .MapGet(SearchPositions)
+            .MapGet(GetSimilarPositions, "similar")
             .MapGet(GetPosition, "{id}");
     }
 
@@ -41,6 +42,11 @@ public class PositionsEndpoint : EndpointGroupBase
         PositionResponse[] positions = await sender.Send(query);
 
         return positions?.FirstOrDefault();
+    }
+
+    public async Task<PositionResponse[]> GetSimilarPositions(ISender sender, [AsParameters] GetSimilarPositionQuery query)
+    {
+        return await sender.Send(query);
     }
 
     public async Task<PositionResponse[]?> SearchPositions(ISender sender, [AsParameters] PositionSearchQuery query)

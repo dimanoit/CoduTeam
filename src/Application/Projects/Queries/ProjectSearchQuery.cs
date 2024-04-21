@@ -34,7 +34,7 @@ internal class SearchProjectsQueryHandler(IApplicationDbContext dbContext, IUser
             .AddTermFilter(query.Term)
             .AddCategoryFilter(query.Category)
             .Skip(query.Skip ?? 0)
-            .Take(query.Take ?? 5)
+            .Take(query.Take ?? 10)
             .Select(project => project.ToProjectResponse())
             .ToArrayAsync(cancellationToken);
 

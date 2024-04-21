@@ -15,6 +15,7 @@ public static class PositionMapper
             Title = position.Title,
             PositionCategory = position.Category,
             Description = position.Description,
+            CreationDate = position.Created.Date,
             Project = position.Project.ToProjectDto(),
         };
     }
